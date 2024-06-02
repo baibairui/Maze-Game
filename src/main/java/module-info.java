@@ -6,4 +6,7 @@ module com.edu.xmum.cst206 {
 
     opens com.edu.xmum.cst206 to javafx.fxml;
     exports com.edu.xmum.cst206;
+    opens com.edu.xmum.cst206.Inteferce to javafx.fxml;
+    exports com.edu.xmum.cst206.Interferce;
+    opens com.edu.xmum.cst206.Interferce to javafx.fxml;
 }

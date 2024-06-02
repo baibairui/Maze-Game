@@ -1,2 +1,5 @@
-package com.edu.xmum.cst206.Model;public class GameModel {
+package com.edu.xmum.cst206.Model;
+
+public class GameModel {
+
 }
