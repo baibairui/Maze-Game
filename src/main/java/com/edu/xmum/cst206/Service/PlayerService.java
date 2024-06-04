@@ -6,6 +6,11 @@ public class PlayerService {
     private Player player;
     private MazeService mazeService;
 
+    public PlayerService(Player player, MazeService mazeService) {
+        this.player = player;
+        this.mazeService = mazeService;
+    }
+
     //检查移动是否有效
     public void movePlayer(double dx, double dy) {
         if (mazeService.isValidMove(player, dx, dy)) {

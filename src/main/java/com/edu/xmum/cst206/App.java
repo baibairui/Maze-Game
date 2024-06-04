@@ -2,23 +2,29 @@ package com.edu.xmum.cst206;
 
 
 import com.edu.xmum.cst206.Controller.GameController;
+import com.edu.xmum.cst206.Model.Maze;
+import com.edu.xmum.cst206.Model.Player;
 import com.edu.xmum.cst206.View.GameView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
 public class App extends Application {
+    private GameController gameController;
+    private GameView gameView;
+
     @Override
     public void start(Stage primaryStage) {
-        GameView gameView = new GameView();
-        Scene scene = new Scene(gameView, 800, 600);
-        GameController gameController = new GameController(gameView,scene);
+        // 初始化迷宫和玩家
+        Maze maze = new Maze(0, 0, 800, 600, Color.BLACK, 21, 21);
+        Player player = new Player(1, 1, 20, Color.BLUE);
 
+        // 初始化控制器和视图
+        gameController = new GameController(player, maze);
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Tank Battle Game");
-        primaryStage.show();
     }
 
     public static void main(String[] args) {

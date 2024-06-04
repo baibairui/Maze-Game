@@ -21,4 +21,34 @@ public class GameController {
     private MazeService mazeService;
     private Maze maze;
     private Player player;
+    public GameController(Player player,Maze maze){
+        this.maze=maze;
+        this.player=player;
+        this.mazeService=new MazeService(maze);
+        this.playerService=new PlayerService(this.player,mazeService);
+    }
+    // 处理用户的移动输入
+    public void handleKeyPress(KeyCode code) {
+        switch (code) {
+            case UP:
+                playerService.movePlayer(0, -1);
+                break;
+            case DOWN:
+                playerService.movePlayer(0, 1);
+                break;
+            case LEFT:
+                playerService.movePlayer(-1, 0);
+                break;
+            case RIGHT:
+                playerService.movePlayer(1, 0);
+                break;
+            default:
+                break;
+        }
+    }
+
+    // 检查是否到达终点
+    public boolean checkGoal() {
+        return playerService.checkGoal();
+    }
 }
