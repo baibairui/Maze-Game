@@ -10,13 +10,16 @@ import javafx.scene.shape.Rectangle;
 
 import static com.edu.xmum.cst206.Model.ConstantConfig.CELL_SIZE;
 
-public class Player extends GameObject implements Moveable, Drawable {
+/*
+玩家对象
+由于设计了View层，因此对象类中不需要考虑绘制的方法
+ */
+public class Player extends GameObject implements Moveable{
     private double radius;
 
-    public Player(double x, double y, double radius, Color color) {
-        super(x, y, radius * 2, radius * 2, color); // 宽度和高度为直径
+    public Player(double x, double y, double radius) {
+        super(x, y, radius * 2, radius * 2); // 宽度和高度为直径
         this.radius = radius;
-        this.node = draw();
     }
 
     public double getRadius() {
@@ -26,25 +29,14 @@ public class Player extends GameObject implements Moveable, Drawable {
         this.radius=radius;
     }
 
-    // 绘制玩家的方法
-    @Override
-    public Node draw() {
-        Circle circle = new Circle(x, y, radius, color);
-        return circle;
-    }
-
-    // 玩家类的移动方法
+    /*玩家类的移动方法
+    模型层只需要专注模型类的属性
+    更新视图的方法由View层负责
+     */
     @Override
     public void move(double dx, double dy) {
         x += dx;
         y += dy;
-        updateNodePosition();
-    }
-
-    @Override
-    public void updateNodePosition() {
-        node.setTranslateX(x);
-        node.setTranslateY(y);
     }
 }
 

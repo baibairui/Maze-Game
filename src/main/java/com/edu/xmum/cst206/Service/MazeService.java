@@ -39,5 +39,13 @@ public class MazeService {
     public boolean hasReachedGoal(Player player) {
         return player.getX() == maze.getRows() - 2 && player.getY() == maze.getCols() - 1;
     }
+
+    public Maze getMaze() {
+        return maze;
+    }
+
+    public void setMaze(Maze maze) {
+        this.maze = maze;
+    }
 }
 

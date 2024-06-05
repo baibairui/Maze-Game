@@ -12,18 +12,22 @@ import java.util.Random;
 
 import static com.edu.xmum.cst206.Model.ConstantConfig.CELL_SIZE;
 
-public class Maze extends GameObject implements Drawable {
+/*
+迷宫对象类
+由于设计了View层，因此不需要实现Drawable接口
+只需要专注模型层的相关功能
+ */
+public class Maze extends GameObject {
     private final int rows;//迷宫的行数
     private final int cols;//迷宫的列数
     private final int[][] maze;//用于表示迷宫，0表示通路，1表示墙
 
-    public Maze(int x,int y,int width,int hight,Color color,int rows, int cols) {
-        super(x,y,width,hight,color);
+    public Maze(int x,int y,int width,int hight,int rows, int cols) {
+        super(x,y,width,hight);
         this.rows = rows;
         this.cols = cols;
         this.maze = new int[rows][cols];
         generateMazePrim();
-        this.node=draw();
     }
 
     public int[][] getMaze() {
@@ -35,24 +39,6 @@ public class Maze extends GameObject implements Drawable {
 
     public int getCols() {
         return cols;
-    }
-    /*这里我们用方形来绘制迷宫地图，二维矩阵中
-    1是墙壁——>用白色方块来表示
-    0是通路——>用黑色方块来表示
-     */
-    @Override
-    public Node draw() {
-        Pane pane = new Pane();
-        int cellSize = CELL_SIZE;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                Rectangle rect = new Rectangle(j * cellSize, i * cellSize, cellSize, cellSize);
-                rect.setFill(maze[i][j] == 1 ? Color.BLACK : Color.WHITE);//1是墙壁，0是通路
-                rect.setStroke(Color.GRAY);
-                pane.getChildren().add(rect);
-            }
-        }
-        return pane;
     }
 
 

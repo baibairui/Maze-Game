@@ -10,7 +10,9 @@ public class PlayerService {
         this.player = player;
         this.mazeService = mazeService;
     }
-
+    public Player getPlayer(){
+        return player;
+    }
     //检查移动是否有效
     public void movePlayer(double dx, double dy) {
         if (mazeService.isValidMove(player, dx, dy)) {
