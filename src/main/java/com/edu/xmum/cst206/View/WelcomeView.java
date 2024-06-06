@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 游戏的进入页面
  */
 public class WelcomeView extends VBox {
-    private Button startButton;
+    private final Button startButton=new Button("开始游戏");
 
     public WelcomeView() {
         setAlignment(Pos.CENTER);//居中显示
@@ -17,9 +17,6 @@ public class WelcomeView extends VBox {
 
         Label titleLabel = new Label("欢迎来到迷宫游戏");
         titleLabel.setFont(new Font(24));
-
-        startButton = new Button("开始游戏!");
-
         getChildren().addAll(titleLabel, startButton);
     }
 

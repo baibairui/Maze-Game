@@ -7,31 +7,47 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import static com.edu.xmum.cst206.Model.ConstantConfig.CELL_SIZE;
+
 /*
 玩家视图类
 用于负责玩家的显示和更新
  */
-public class PlayerView implements Drawable {
-    public Player player;
-    public Node circle;
+public class PlayerView extends Pane {
+    private Player player;
+    private Circle circle;
+    private double cellSize;
+
     public PlayerView(Player player) {
         this.player = player;
-        this.circle = draw();
+        this.cellSize = CELL_SIZE;
+        circle = new Circle(player.getRadius(), Color.DARKGRAY);
+        updatePlayerPosition();
+        getChildren().add(circle);
     }
-    //返回节点
-    public Node getNode(){
-        return circle;
+
+    public void updatePlayerPosition() {
+        circle.setCenterX(player.getX() * cellSize + cellSize / 2);
+        circle.setCenterY(player.getY() * cellSize + cellSize / 2);
     }
-    // 获取绘制的节点
-    @Override
-    public Node draw() {
-        Circle circle = new Circle(player.getX(), player.getY(), player.getRadius(), Color.BLUE);
+
+    public Circle getCircle() {
         return circle;
     }
 
-    // 更新玩家在视图中的位置
-    public void updatePlayerPosition() {
-        circle.setTranslateX(player.getX());
-        circle.setTranslateY(player.getY());
+    public double getCellSize() {
+        return cellSize;
     }
+
+    public void setCellSize(double cellSize) {
+        this.cellSize = cellSize;
+        player.setRadius(cellSize / 2);
+        updatePlayerPosition();
+    }
+    public void redraw(){
+        player.setX(0);
+        player.setY(1);
+        updatePlayerPosition();
+    }
+
 }

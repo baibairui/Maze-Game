@@ -7,8 +7,7 @@ import com.edu.xmum.cst206.Service.MazeService;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 /*
 游戏进行的主要页面
@@ -19,25 +18,15 @@ import javafx.scene.layout.VBox;
 4.重置按钮
 5.难度显示
  */
-public class RunView extends VBox {
-    //玩家和迷宫视图
+public class RunView extends BorderPane {
     private PlayerView playerView;
     private MazeView mazeView;
-    //难度显示和计时器
     private Label currentDifficulty;
     private Label currentTime;
-    //重置游戏和提示按钮
     private Button resetButton;
     private Button hintButton;
 
     public RunView(GameController gameController) {
-        setSpacing(20);
-        setAlignment(Pos.CENTER);
-        /*游戏页面分割为三部分，自上而下的布局
-                1.HBox:添加计时器和难度显示->平行布局
-                2.Maze视图和Player视图
-                3.HBox:添加重置游戏和提示交互按钮->平行布局
-         */
         currentDifficulty = new Label("当前难度:");
         currentTime = new Label("当前用时:");
 
@@ -47,16 +36,39 @@ public class RunView extends VBox {
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
-        //HBox->infoBox:计时器和难度显示
-        HBox infoBox = new HBox(20, currentTime, currentDifficulty);
-        infoBox.setAlignment(Pos.CENTER);
-        //HBox->controlBox:重置游戏和提示交互按钮
-        HBox controlBox = new HBox(20, resetButton, hintButton);
+        HBox infoBox = new HBox(10, currentTime, currentDifficulty);
+        infoBox.setAlignment(Pos.CENTER_LEFT);
+
+        HBox controlBox = new HBox(10, resetButton, hintButton);
         controlBox.setAlignment(Pos.CENTER);
 
-        getChildren().addAll(infoBox, mazeView, playerView.getNode(), controlBox);
+        StackPane gamePane = new StackPane();
+        gamePane.setAlignment(Pos.CENTER);
+        gamePane.getChildren().addAll(mazeView, playerView);
+        gamePane.setStyle("-fx-background-color: white;"); // 设置背景颜色
+
+        setTop(infoBox);
+        setCenter(gamePane);
+        setBottom(controlBox);
+
+        // 设置拉伸策略
+        VBox.setVgrow(gamePane, Priority.ALWAYS);
+        HBox.setHgrow(infoBox, Priority.ALWAYS);
+        HBox.setHgrow(controlBox, Priority.ALWAYS);
+
+        // 确保游戏面板可以获得焦点
+        gamePane.setFocusTraversable(true);
+        setOnMouseClicked(event -> requestFocus());
     }
-    //相关的get和set方法
+
+
+    //重新开始游戏
+    public void resetView() {
+        // 重新设置迷宫和玩家视图
+        mazeView.redraw();
+        playerView.redraw();
+    }
+    // 相关的 get 和 set 方法
     public PlayerView getPlayerView() {
         return playerView;
     }
@@ -103,5 +115,9 @@ public class RunView extends VBox {
 
     public void setHintButton(Button hintButton) {
         this.hintButton = hintButton;
+    }
+
+    public void updatePlayer() {
+        playerView.redraw();
     }
 }

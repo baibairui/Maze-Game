@@ -61,7 +61,7 @@ public class Maze extends GameObject {
     5.在候选边列表中随机选择通路
     6.循环选择通路直至列表为空
      */
-    private void generateMazePrim() {
+    public void generateMazePrim() {
         Random random = new Random();//用于随机选择一条候选边
         //将用于表示迷宫的二维数组全部初始化为1
         for (int i = 0; i < maze.length; i++) {
@@ -100,12 +100,24 @@ public class Maze extends GameObject {
     }
     //用于添加候选边的方法
     private void addEdges(int x, int y, List<Edge> edges) {
-        //限制边际
-        if (x > 1) edges.add(new Edge(x - 1, y, x - 2, y));
-        if (y > 1) edges.add(new Edge(x, y - 1, x, y - 2));
-        if (x < rows - 2) edges.add(new Edge(x + 1, y, x + 2, y));
-        if (y < cols - 2) edges.add(new Edge(x, y + 1, x, y + 2));
+        // 限制边际，确保添加的候选边不会越界
+        if (x > 1 && maze[x - 2][y] == 1) edges.add(new Edge(x - 1, y, x - 2, y));
+        if (y > 1 && maze[x][y - 2] == 1) edges.add(new Edge(x, y - 1, x, y - 2));
+        if (x < rows - 2 && maze[x + 2][y] == 1) edges.add(new Edge(x + 1, y, x + 2, y));
+        if (y < cols - 2 && maze[x][y + 2] == 1) edges.add(new Edge(x, y + 1, x, y + 2));
+    }
+    //相关的get和set方法
+
+
+    public void setRows(int rows) {
+        this.rows = rows;
     }
 
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
 
+    public void setMaze(int[][] maze) {
+        this.maze = maze;
+    }
 }

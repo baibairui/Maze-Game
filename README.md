@@ -553,6 +553,8 @@ public class ViewSwitchEvent extends Event {
 
 2024/06/06
 
+README里面的代码有改动，基本的游戏移动判断逻辑已经完成，就差页面排版和难度选择的一些小功能
+
 **Model层**职责分离完成
 
 ---

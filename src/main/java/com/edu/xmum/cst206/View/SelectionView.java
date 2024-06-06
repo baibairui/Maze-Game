@@ -9,9 +9,9 @@ import javafx.scene.text.Font;
 import java.nio.Buffer;
 
 public class SelectionView extends VBox {
-    private final Button easyButton=new Button("Easy");
-    private final Button mediumButton=new Button("Medium");
-    private final Button hardButton=new Button("Hard");
+    private  Button easyButton=new Button("Easy");
+    private  Button mediumButton=new Button("Medium");
+    private  Button hardButton=new Button("Hard");
     public SelectionView(){
         setAlignment(Pos.CENTER);
         setSpacing(15);
@@ -22,5 +22,17 @@ public class SelectionView extends VBox {
         getChildren().addAll(difficultyLabel,easyButton,mediumButton,hardButton);
 
     }
+    //相关的get和set
 
+    public Button getEasyButton() {
+        return easyButton;
+    }
+
+    public Button getMediumButton() {
+        return mediumButton;
+    }
+
+    public Button getHardButton() {
+        return hardButton;
+    }
 }

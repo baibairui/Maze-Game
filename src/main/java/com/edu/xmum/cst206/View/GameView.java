@@ -1,6 +1,7 @@
 package com.edu.xmum.cst206.View;
 
 import com.edu.xmum.cst206.Controller.GameController;
+import com.edu.xmum.cst206.Model.GameModel;
 import com.edu.xmum.cst206.Model.GameObject;
 import com.edu.xmum.cst206.Model.Maze;
 import com.edu.xmum.cst206.Service.GameService;
@@ -34,14 +35,13 @@ public class GameView extends BorderPane {
     private PrepareView prepareView;
     private RunView runView;
     private VictoryView victoryView;
-    public GameView( GameController gameController) {
+    public GameView(GameController gameController) {
         this.gameController=gameController;
         welcomeView = new WelcomeView();
         selectionView = new SelectionView();
         prepareView = new PrepareView();
         runView = new RunView(gameController);
         victoryView = new VictoryView();
-        setTop(new Label("迷宫游戏")); // 设置一个简单的页眉
 
         //设置初始视图
         showWelcomeView();
@@ -60,11 +60,11 @@ public class GameView extends BorderPane {
         （1）匿名内部类的方法来实现
         （2）lamda表达式可以用来实现只有一个方法的接口
          */
-        addEventHandler(ViewSwitchEvent.SWITCH_TO_WELCOME,event->{showWelcomeView();});
-        addEventHandler(ViewSwitchEvent.SWITCH_TO_PREPARE,event->{showPrepareView();});
-        addEventHandler(ViewSwitchEvent.SWITCH_TO_SELECTION, event->{showSelectionView();});
-        addEventHandler(ViewSwitchEvent.SWITCH_TO_RUN,event->{showRunView();});
-        addEventHandler(ViewSwitchEvent.SWITCH_TO_VICTIORY,event->{showVictoryView();});
+        addEventHandler(ViewSwitchEvent.SWITCH_TO_WELCOME,event-> showWelcomeView());
+        addEventHandler(ViewSwitchEvent.SWITCH_TO_PREPARE,event-> showPrepareView());
+        addEventHandler(ViewSwitchEvent.SWITCH_TO_SELECTION, event-> showSelectionView());
+        addEventHandler(ViewSwitchEvent.SWITCH_TO_RUN,event-> showRunView());
+        addEventHandler(ViewSwitchEvent.SWITCH_TO_VICTIORY,event-> showVictoryView());
     }
 
     //用于事件绑定的函数
@@ -82,5 +82,54 @@ public class GameView extends BorderPane {
     }
     public void showVictoryView(){
         setCenter(victoryView);
+    }
+
+    //相关的get和set方法
+    public GameController getGameController() {
+        return gameController;
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
+    public WelcomeView getWelcomeView() {
+        return welcomeView;
+    }
+
+    public void setWelcomeView(WelcomeView welcomeView) {
+        this.welcomeView = welcomeView;
+    }
+
+    public SelectionView getSelectionView() {
+        return selectionView;
+    }
+
+    public void setSelectionView(SelectionView selectionView) {
+        this.selectionView = selectionView;
+    }
+
+    public PrepareView getPrepareView() {
+        return prepareView;
+    }
+
+    public void setPrepareView(PrepareView prepareView) {
+        this.prepareView = prepareView;
+    }
+
+    public RunView getRunView() {
+        return runView;
+    }
+
+    public void setRunView(RunView runView) {
+        this.runView = runView;
+    }
+
+    public VictoryView getVictoryView() {
+        return victoryView;
+    }
+
+    public void setVictoryView(VictoryView victoryView) {
+        this.victoryView = victoryView;
     }
 }
