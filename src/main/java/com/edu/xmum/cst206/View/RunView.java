@@ -29,28 +29,33 @@ public class RunView extends VBox {
     //重置游戏和提示按钮
     private Button resetButton;
     private Button hintButton;
+
     public RunView(GameController gameController) {
         setSpacing(20);
         setAlignment(Pos.CENTER);
-
+        /*游戏页面分割为三部分，自上而下的布局
+                1.HBox:添加计时器和难度显示->平行布局
+                2.Maze视图和Player视图
+                3.HBox:添加重置游戏和提示交互按钮->平行布局
+         */
         currentDifficulty = new Label("当前难度:");
         currentTime = new Label("当前用时:");
 
-        mazeView = new MazeView(gameController.getGameService().mazeService.getMaze());
-        playerView = new PlayerView(gameController.getGameService().playerService.getPlayer());
+        mazeView = new MazeView(gameController.getGameService().getGameModel().getMaze());
+        playerView = new PlayerView(gameController.getGameService().getGameModel().getPlayer());
 
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
+        //HBox->infoBox:计时器和难度显示
         HBox infoBox = new HBox(20, currentTime, currentDifficulty);
         infoBox.setAlignment(Pos.CENTER);
-
+        //HBox->controlBox:重置游戏和提示交互按钮
         HBox controlBox = new HBox(20, resetButton, hintButton);
         controlBox.setAlignment(Pos.CENTER);
 
         getChildren().addAll(infoBox, mazeView, playerView.getNode(), controlBox);
     }
-
     //相关的get和set方法
     public PlayerView getPlayerView() {
         return playerView;

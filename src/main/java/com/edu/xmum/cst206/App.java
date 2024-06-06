@@ -2,6 +2,7 @@ package com.edu.xmum.cst206;
 
 
 import com.edu.xmum.cst206.Controller.GameController;
+import com.edu.xmum.cst206.Model.GameModel;
 import com.edu.xmum.cst206.Model.Maze;
 import com.edu.xmum.cst206.Model.Player;
 import com.edu.xmum.cst206.Service.GameService;
@@ -25,7 +26,9 @@ public class App extends Application {
         Player player = new Player(1, 1, 20);
 
         // 初始化控制器和视图
-
+        GameModel gameModel=new GameModel(maze,player);
+        GameController gameController=new GameController()
+        GameView gameView=new GameView()
 
     }
 

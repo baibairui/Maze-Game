@@ -28,37 +28,25 @@ Service层的主类gameService
 public class GameController {
     private GameView gameView;
     private GameService gameService;
-    public GameController(GameService gameService, GameView gameView){
-        this.gameService=gameService;
-        this.gameView=gameView;
-        //初始化地图
 
-    }
-    // 处理用户的移动输入
-    public void handleKeyPress(KeyCode code) {
-        switch (code) {
-            case UP:
-                playerService.movePlayer(0, -1);
-                break;
-            case DOWN:
-                playerService.movePlayer(0, 1);
-                break;
-            case LEFT:
-                playerService.movePlayer(-1, 0);
-                break;
-            case RIGHT:
-                playerService.movePlayer(1, 0);
-                break;
-            default:
-                break;
-        }
+    public GameController(GameView gameView, GameService gameService) {
+        this.gameView = gameView;
+        this.gameService = gameService;
     }
 
-    // 检查玩家是否到达终点
-    public boolean checkGoal() {
-        return gameService.playerService.checkGoal();
+    public GameView getGameView() {
+        return gameView;
     }
-    public GameService getGameService(){
+
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
+    }
+
+    public GameService getGameService() {
         return gameService;
+    }
+
+    public void setGameService(GameService gameService) {
+        this.gameService = gameService;
     }
 }

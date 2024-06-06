@@ -18,9 +18,9 @@ import static com.edu.xmum.cst206.Model.ConstantConfig.CELL_SIZE;
 只需要专注模型层的相关功能
  */
 public class Maze extends GameObject {
-    private final int rows;//迷宫的行数
-    private final int cols;//迷宫的列数
-    private final int[][] maze;//用于表示迷宫，0表示通路，1表示墙
+    private int rows;//迷宫的行数
+    private int cols;//迷宫的列数
+    private int[][] maze;//用于表示迷宫，0表示通路，1表示墙
 
     public Maze(int x,int y,int width,int hight,int rows, int cols) {
         super(x,y,width,hight);
