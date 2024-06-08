@@ -1,138 +1,164 @@
 package com.edu.xmum.cst206.Controller;
 
+import com.edu.xmum.cst206.Config;
+import com.edu.xmum.cst206.Model.Difficulty;
+import com.edu.xmum.cst206.Model.Direction;
+import com.edu.xmum.cst206.Service.Interface.IGameService;
+import com.edu.xmum.cst206.View.Interface.IGameView;
 
-import com.edu.xmum.cst206.Service.GameService;
-import com.edu.xmum.cst206.View.GameView;
-import com.edu.xmum.cst206.View.ViewSwitchEvent;
 
-import java.util.Map;
+public class GameController implements IGameController {
+    private IGameService gameService;
+    private IGameView gameView;
 
-
-/*
-Control层用于接收View层的请求并与通过Service层处理相关逻辑
-
-GameController是Control层的主类
-包含：
-View层的主类gameView
-Service层的主类gameService
-
-用于处理前端交互的请求并将后端的响应返回
- */
-public class GameController {
-    private GameService gameService;
-    private GameView gameView;
-
-    public GameController(GameService gameService) {
+    public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
-
-    private void initialize() {
-        setupEventHandlers();
-    }
+    //通过setter注入view
 
     private void setupEventHandlers() {
+        if (gameView == null) {
+            throw new NullPointerException("gameView is null in setupEventHandlers");
+        }
         gameView.getWelcomeView().getStartButton().setOnAction(event -> showSelectionView());
-        gameView.getSelectionView().getEasyButton().setOnAction(event -> startGame("Easy"));
-        gameView.getSelectionView().getMediumButton().setOnAction(event -> startGame("Medium"));
-        gameView.getSelectionView().getHardButton().setOnAction(event -> startGame("Hard"));
-        gameView.getPrepareView().getStartGameButton().setOnAction(event -> startMazeGame());
+        gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
+        gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
+        gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
+        gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
         gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
         gameView.getRunView().getHintButton().setOnAction(event -> showHint());
 
-        gameView.getRunView().setOnKeyPressed(event -> {
-            boolean hasWon=false;
+        gameView.getRunView().getNode().setOnKeyPressed(event -> {
+            boolean hasWon = false;
             switch (event.getCode()) {
-                case W -> hasWon=movePlayerUp();
-                case A -> hasWon=movePlayerLeft();
-                case S -> hasWon=movePlayerDown();
-                case D -> hasWon=movePlayerRight();
+                case W -> hasWon = movePlayer(Direction.UP);
+                case A -> hasWon = movePlayer(Direction.LEFT);
+                case S -> hasWon = movePlayer(Direction.DOWN);
+                case D -> hasWon = movePlayer(Direction.RIGHT);
             }
             gameView.getRunView().getPlayerView().draw();
-            if(hasWon){
+            if (hasWon) {
                 handleVictory();
             }
         });
-
-        gameView.getRunView().setFocusTraversable(true);
     }
 
-    private void checkVictory(){
-        if (gameService.getPlayerService().checkGoal()) {
-            handleVictory();
+    private void handleVictory() {
+        System.out.println("Victory!");
+        gameView.showVictoryView();
+    }
+
+    @Override
+    public void startGame() {
+        gameService.resetGame();
+        showRunView();
+    }
+
+    @Override
+    public void resetGame() {
+        gameService.resetGame();
+        showRunView();
+    }
+
+    @Override
+    public void setDifficulty(String difficulty) {
+        Difficulty diff;
+        switch (difficulty.toUpperCase()) {
+            case "EASY":
+                diff = Difficulty.EASY;
+                break;
+            case "MEDIUM":
+                diff = Difficulty.MEDIUM;
+                break;
+            case "HARD":
+                diff = Difficulty.HARD;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown difficulty: " + difficulty);
+        }
+        //设置难度
+        gameService.setDifficulty(diff);
+        //根据难度设计cellSize
+        adjustCellSize();
+        //重绘页面
+        gameView.getRunView().reSetView();
+        showPrepareView();
+    }
+    //根据难度调整方块大小
+    private void adjustCellSize(){
+        double cellWidth= Config.SCENE_WIDTH/gameService.getMazeService().getMaze().getCols();
+        double cellLength= Config.SCENE_LENGTH/gameService.getMazeService().getMaze().getRows();
+        int cellSize=(int)Math.min(cellLength,cellWidth);
+        gameView.getRunView().getPlayerView().setCellSize(cellSize);
+        gameView.getRunView().getMazeView().setCellSize(cellSize);
+    }
+    @Override
+    public void handleKeyPress(String key) {
+        Direction direction;
+        switch (key.toUpperCase()) {
+            case "W":
+                direction = Direction.UP;
+                break;
+            case "A":
+                direction = Direction.LEFT;
+                break;
+            case "S":
+                direction = Direction.DOWN;
+                break;
+            case "D":
+                direction = Direction.RIGHT;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown key: " + key);
+        }
+        boolean reachedGoal = gameService.movePlayer(direction);
+        if (reachedGoal) {
+            showVictoryView();
         }
     }
-    private boolean movePlayerUp() {
-        return gameService.getPlayerService().movePlayer(0, -1);
+
+    private boolean movePlayer(Direction direction) {
+        boolean hasWon = gameService.movePlayer(direction);
+        gameView.getRunView().getPlayerView().draw();
+        return hasWon;
     }
 
-    private boolean movePlayerDown() {
-       return gameService.getPlayerService().movePlayer(0, 1);
+    @Override
+    public void showSelectionView() {
+        gameView.showSelectionView();
     }
 
-    private boolean movePlayerRight() {
-       return gameService.getPlayerService().movePlayer(1, 0);
+    @Override
+    public void showPrepareView() {
+        gameView.showPrepareView();
     }
 
-    private boolean movePlayerLeft() {
-        return gameService.getPlayerService().movePlayer(-1, 0);
-    }
-
-    private void showSelectionView() {
-        gameView.fireEvent(new ViewSwitchEvent(ViewSwitchEvent.SWITCH_TO_SELECTION));
-    }
-
-    private void startGame(String difficulty) {
-        Map<String,Integer>newParm= gameService.setDifficulty(difficulty);
-        /*
-        //重新计算格子的大小
-        double cellWidth=getGameView().getRunView().getWidth()/newParm.get("NEWCOLS");
-        double cellHeight=getGameView().getRunView().getHeight()/newParm.get("NEWROWS");
-        double cellSize=Math.min(cellWidth,cellHeight);
-        
-         */
-        //重新设定格子大小
-        gameView.getRunView().getMazeView().setCellSize(cellSize);
-        gameView.getRunView().getPlayerView().setCellSize(cellSize);
-        gameView.getRunView().getMazeView().redraw();
-        gameView.getRunView().getPlayerView().redraw();
-
-
-        gameView.fireEvent(new ViewSwitchEvent(ViewSwitchEvent.SWITCH_TO_PREPARE));
-    }
-
-    private void startMazeGame() {
-        gameView.fireEvent(new ViewSwitchEvent(ViewSwitchEvent.SWITCH_TO_RUN));
-    }
-
-    private void resetGame() {
-        gameService.resetGame();
-        gameView.getRunView().resetView();
+    @Override
+    public void showRunView() {
         gameView.showRunView();
     }
 
-    private void showHint() {
-        gameService.provideHint();
+    @Override
+    public void showVictoryView() {
+        gameView.showVictoryView();
     }
 
-    public GameService getGameService() {
+    @Override
+    public void showHint() {
+
+    }
+
+    @Override
+    public void setGameView(IGameView gameView) {
+        this.gameView=gameView;
+        setupEventHandlers();
+    }
+
+    public IGameService getGameService() {
         return gameService;
     }
 
-    public GameView getGameView() {
+    public IGameView getGameView() {
         return gameView;
-    }
-
-    public void setGameService(GameService gameService) {
-        this.gameService = gameService;
-    }
-
-    public void setGameView(GameView gameView) {
-        this.gameView = gameView;
-        initialize();
-    }
-    // 胜利处理方法
-    public void handleVictory() {
-        System.out.println("Victory!");
-        gameView.showVictoryView();
     }
 }

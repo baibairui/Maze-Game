@@ -1,19 +1,17 @@
-package com.edu.xmum.cst206.View;
+package com.edu.xmum.cst206.View.Entity;
 
+import com.edu.xmum.cst206.View.Interface.IPrepareView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-
-/*
-游戏的准备进入页面
- */
-public class PrepareView extends VBox{
+public class PrepareView extends VBox implements IPrepareView {
     private final Button startGameButton = new Button("开始游戏");
 
     public PrepareView() {
+        super();
         setAlignment(Pos.CENTER);
         setSpacing(15);
 
@@ -23,8 +21,13 @@ public class PrepareView extends VBox{
 
         getChildren().addAll(prepareLabel, startGameButton);
     }
-
+    @Override
     public Button getStartGameButton() {
         return startGameButton;
+    }
+
+    @Override
+    public VBox getNode() {
+        return this;
     }
 }

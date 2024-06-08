@@ -1,90 +1,58 @@
 package com.edu.xmum.cst206.Service;
 
-import com.edu.xmum.cst206.Controller.GameController;
-import com.edu.xmum.cst206.Model.GameModel;
+import com.edu.xmum.cst206.Controller.IGameController;
+import com.edu.xmum.cst206.Model.Difficulty;
+import com.edu.xmum.cst206.Model.Direction;
+import com.edu.xmum.cst206.Model.Interface.IGameModel;
+import com.edu.xmum.cst206.Service.Interface.IGameService;
+import com.edu.xmum.cst206.Service.Interface.IMazeService;
+import com.edu.xmum.cst206.Service.Interface.IPlayerService;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.edu.xmum.cst206.Model.ConstantConfig.*;
-
-public class GameService {
-    private GameController gameController;
-    private GameModel gameModel;
-    private MazeService mazeService;
-    private PlayerService playerService;
-
-    public GameService(GameModel gameModel) {
+public class GameService implements IGameService {
+    IGameModel gameModel;
+    IMazeService mazeService;
+    IPlayerService playerService;
+    IGameController gameController;
+    public GameService(IGameModel gameModel){
         this.gameModel=gameModel;
-        this.mazeService=new MazeService(gameModel.getMaze());
-        this.playerService=new PlayerService(gameModel.getPlayer(),this.mazeService);
+        mazeService=new MazeService(gameModel.getMazeModel());
+        playerService=new PlayerService(mazeService,gameModel.getPlayModel());
+    }
+    @Override
+    public void setDifficulty(Difficulty difficulty) {
+        gameModel.getMazeModel().setRows(difficulty.getMazeSize());
+        gameModel.getMazeModel().setCols(difficulty.getMazeSize());
+        gameModel.getMazeModel().generateMaze();
     }
 
-    public GameController getGameController() {
-        return gameController;
+    @Override
+    public void resetGame() {
+        playerService.reset();
+        mazeService.reset();
     }
 
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
+    @Override
+    public boolean checkGoal() {
+        return playerService.checkGoal();
     }
 
-    public GameModel getGameModel() {
-        return gameModel;
+    @Override
+    public boolean movePlayer(Direction direction) {
+       return playerService.movePlayer(direction.getDirectionX(),direction.getDirectionY());
     }
 
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-    }
-
-    public MazeService getMazeService() {
+    @Override
+    public IMazeService getMazeService() {
         return mazeService;
     }
 
-    public void setMazeService(MazeService mazeService) {
-        this.mazeService = mazeService;
+    @Override
+    public void setGameController(IGameController gameController) {
+        this.gameController=gameController;
     }
 
-    public PlayerService getPlayerService() {
+    @Override
+    public IPlayerService getPlayerService() {
         return playerService;
-    }
-
-    public void setPlayerService(PlayerService playerService) {
-        this.playerService = playerService;
-    }
-
-    public Map<String,Integer> setDifficulty(String difficulty) {
-        int newRows=0,newCols = 0;
-        Map<String,Integer>newParm=new HashMap<>();
-        if(difficulty.equals("Hard")){
-            newRows=HARD;
-            newCols=HARD;
-        }else if(difficulty.equals("Medium")){
-            newRows=MEDIUM;
-            newCols=MEDIUM;
-        }else if(difficulty.equals("Easy")){
-            newRows=EASY;
-            newCols=EASY;
-        }
-        resetMaze(newRows,newCols);
-        newParm.put("NEWROWS",newRows);
-        newParm.put("NEWCOLS",newCols);
-        newParm.put("CELLSIZE",getMazeService().getMaze().getWidth());
-        return newParm;
-    }
-    public void resetMaze(int newRows,int newCols){
-        this.getGameModel().getMaze().setCols(newCols);
-        this.getGameModel().getMaze().setRows(newRows);
-        this.getGameModel().getMaze().setMaze(new int[newRows][newCols]);
-        this.getGameModel().getMaze().generateMazePrim();
-
-    }
-    //重新开始游戏的逻辑
-    public void resetGame() {
-        this.getGameModel().getMaze().generateMazePrim();
-    }
-
-
-    //提供游戏提示的逻辑
-    public void provideHint() {
     }
 }
