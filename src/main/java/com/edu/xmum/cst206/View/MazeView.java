@@ -13,7 +13,7 @@ import static com.edu.xmum.cst206.Model.ConstantConfig.CELL_SIZE;
 迷宫视图类
 负责迷宫的显示
  */
-public class MazeView extends Pane implements Drawable {
+public class MazeView extends Pane {
     private Maze maze;
     private double cellSize;
 
@@ -32,7 +32,7 @@ public class MazeView extends Pane implements Drawable {
         return maze;
     }
 
-    public Node draw() {
+    public void draw() {
         Pane pane = new Pane();
         for (int i = 0; i < maze.getRows(); i++) {
             for (int j = 0; j < maze.getCols(); j++) {
@@ -43,7 +43,6 @@ public class MazeView extends Pane implements Drawable {
             }
         }
         getChildren().setAll(pane);
-        return pane;
     }
 
     public void redraw() {

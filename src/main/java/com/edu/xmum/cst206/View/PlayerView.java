@@ -1,8 +1,6 @@
 package com.edu.xmum.cst206.View;
 
-import com.edu.xmum.cst206.Interferce.Drawable;
 import com.edu.xmum.cst206.Model.Player;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -22,11 +20,12 @@ public class PlayerView extends Pane {
         this.player = player;
         this.cellSize = CELL_SIZE;
         circle = new Circle(player.getRadius(), Color.DARKGRAY);
-        updatePlayerPosition();
+        draw();
         getChildren().add(circle);
     }
 
-    public void updatePlayerPosition() {
+    public void draw() {
+        this.circle=new Circle(player.getRadius(),Color.DARKGRAY);
         circle.setCenterX(player.getX() * cellSize + cellSize / 2);
         circle.setCenterY(player.getY() * cellSize + cellSize / 2);
     }
@@ -42,12 +41,12 @@ public class PlayerView extends Pane {
     public void setCellSize(double cellSize) {
         this.cellSize = cellSize;
         player.setRadius(cellSize / 2);
-        updatePlayerPosition();
+        draw();
     }
     public void redraw(){
         player.setX(0);
         player.setY(1);
-        updatePlayerPosition();
+        draw();
     }
 
 }

@@ -2,9 +2,9 @@ package com.edu.xmum.cst206.Service;
 
 import com.edu.xmum.cst206.Controller.GameController;
 import com.edu.xmum.cst206.Model.GameModel;
-import com.edu.xmum.cst206.Model.GameObject;
-import com.edu.xmum.cst206.Model.Maze;
-import com.edu.xmum.cst206.Model.Player;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.edu.xmum.cst206.Model.ConstantConfig.*;
 
@@ -52,18 +52,31 @@ public class GameService {
         this.playerService = playerService;
     }
 
-    public void setDifficulty(String difficulty) {
+    public Map<String,Integer> setDifficulty(String difficulty) {
+        int newRows=0,newCols = 0;
+        Map<String,Integer>newParm=new HashMap<>();
         if(difficulty.equals("Hard")){
-            this.getGameModel().getMaze().setCols(HARD);
-            this.getGameModel().getMaze().setRows(HARD);
-
+            newRows=HARD;
+            newCols=HARD;
         }else if(difficulty.equals("Medium")){
-            this.getGameModel().getMaze().setRows(MEDIUM);
-            this.getGameModel().getMaze().setCols(MEDIUM);
+            newRows=MEDIUM;
+            newCols=MEDIUM;
         }else if(difficulty.equals("Easy")){
-            this.getGameModel().getMaze().setCols(EASY);
-            this.getGameModel().getMaze().setRows(EASY);
+            newRows=EASY;
+            newCols=EASY;
         }
+        resetMaze(newRows,newCols);
+        newParm.put("NEWROWS",newRows);
+        newParm.put("NEWCOLS",newCols);
+        newParm.put("CELLSIZE",getMazeService().getMaze().getWidth());
+        return newParm;
+    }
+    public void resetMaze(int newRows,int newCols){
+        this.getGameModel().getMaze().setCols(newCols);
+        this.getGameModel().getMaze().setRows(newRows);
+        this.getGameModel().getMaze().setMaze(new int[newRows][newCols]);
+        this.getGameModel().getMaze().generateMazePrim();
+
     }
     //重新开始游戏的逻辑
     public void resetGame() {

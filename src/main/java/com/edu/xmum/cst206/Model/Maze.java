@@ -1,16 +1,8 @@
 package com.edu.xmum.cst206.Model;
 
-import com.edu.xmum.cst206.Interferce.Drawable;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import com.edu.xmum.cst206.Model.ConstantConfig.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static com.edu.xmum.cst206.Model.ConstantConfig.CELL_SIZE;
 
 /*
 迷宫对象类

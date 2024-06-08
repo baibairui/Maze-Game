@@ -6,8 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.nio.Buffer;
-
 public class SelectionView extends VBox {
     private  Button easyButton=new Button("Easy");
     private  Button mediumButton=new Button("Medium");

@@ -4,7 +4,8 @@ package com.edu.xmum.cst206.Controller;
 import com.edu.xmum.cst206.Service.GameService;
 import com.edu.xmum.cst206.View.GameView;
 import com.edu.xmum.cst206.View.ViewSwitchEvent;
-import javafx.scene.input.KeyEvent;
+
+import java.util.Map;
 
 
 /*
@@ -46,7 +47,7 @@ public class GameController {
                 case S -> hasWon=movePlayerDown();
                 case D -> hasWon=movePlayerRight();
             }
-            gameView.getRunView().getPlayerView().updatePlayerPosition();
+            gameView.getRunView().getPlayerView().draw();
             if(hasWon){
                 handleVictory();
             }
@@ -81,7 +82,21 @@ public class GameController {
     }
 
     private void startGame(String difficulty) {
-        gameService.setDifficulty(difficulty);
+        Map<String,Integer>newParm= gameService.setDifficulty(difficulty);
+        /*
+        //重新计算格子的大小
+        double cellWidth=getGameView().getRunView().getWidth()/newParm.get("NEWCOLS");
+        double cellHeight=getGameView().getRunView().getHeight()/newParm.get("NEWROWS");
+        double cellSize=Math.min(cellWidth,cellHeight);
+        
+         */
+        //重新设定格子大小
+        gameView.getRunView().getMazeView().setCellSize(cellSize);
+        gameView.getRunView().getPlayerView().setCellSize(cellSize);
+        gameView.getRunView().getMazeView().redraw();
+        gameView.getRunView().getPlayerView().redraw();
+
+
         gameView.fireEvent(new ViewSwitchEvent(ViewSwitchEvent.SWITCH_TO_PREPARE));
     }
 

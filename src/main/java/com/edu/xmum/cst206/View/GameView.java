@@ -1,18 +1,7 @@
 package com.edu.xmum.cst206.View;
 
 import com.edu.xmum.cst206.Controller.GameController;
-import com.edu.xmum.cst206.Model.GameModel;
-import com.edu.xmum.cst206.Model.GameObject;
-import com.edu.xmum.cst206.Model.Maze;
-import com.edu.xmum.cst206.Service.GameService;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-
-import javafx.scene.layout.Pane;
 
 /*
 Controller层与View层进行交互
@@ -83,6 +72,7 @@ public class GameView extends BorderPane {
     public void showVictoryView(){
         setCenter(victoryView);
     }
+
 
     //相关的get和set方法
     public GameController getGameController() {
