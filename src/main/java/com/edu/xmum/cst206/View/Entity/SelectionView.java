@@ -8,20 +8,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class SelectionView extends VBox implements ISelectionView {
-    private  Button easyButton=new Button("Easy");
-    private  Button mediumButton=new Button("Medium");
-    private  Button hardButton=new Button("Hard");
-    public SelectionView(){
+    private Button easyButton = new Button("Easy");
+    private Button mediumButton = new Button("Medium");
+    private Button hardButton = new Button("Hard");
+
+    public SelectionView() {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(15);
-
         Label difficultyLabel = new Label("选择难度");
         difficultyLabel.setFont(new Font(18));
-
-        getChildren().addAll(difficultyLabel,easyButton,mediumButton,hardButton);
-
+        getChildren().addAll(difficultyLabel, easyButton, mediumButton, hardButton);
     }
+
     @Override
     public Button getEasyButton() {
         return easyButton;

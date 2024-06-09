@@ -47,7 +47,6 @@ public class App extends Application {
         // 依赖注入
         gameService.setGameController(gameController);
         gameController.setGameView(gameView);
-
     }
 
 }

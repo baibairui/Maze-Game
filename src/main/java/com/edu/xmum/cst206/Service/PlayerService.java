@@ -44,3 +44,4 @@ public class PlayerService implements IPlayerService {
         return mazeService.getMaze();
     }
 }
+

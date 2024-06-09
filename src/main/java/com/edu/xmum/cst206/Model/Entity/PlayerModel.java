@@ -7,11 +7,11 @@ import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 public class PlayerModel extends GameObject implements IPlayerModel {
     private int startX;
     private int startY;
-    //存在依赖关系的单例类，设计依赖注入
-    PlayerModel(IMazeModel mazeModel){
+
+    public PlayerModel(IMazeModel mazeModel) {
         super(mazeModel.getStartX(), mazeModel.getStartY());
-        this.startX= mazeModel.getStartY();
-        this.startY=mazeModel.getStartX();
+        this.startX = mazeModel.getStartX();
+        this.startY = mazeModel.getStartY();
     }
 
     @Override
@@ -26,13 +26,13 @@ public class PlayerModel extends GameObject implements IPlayerModel {
 
     @Override
     public void move(int dx, int dy) {
-        x+=dx;
-        y+=dy;
+        x += dx;
+        y += dy;
     }
+
     @Override
-    public void setPosition(int x,int y){
+    public void setPosition(int x, int y) {
         setX(x);
         setY(y);
     }
-
 }

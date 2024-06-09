@@ -9,15 +9,16 @@ import javafx.scene.shape.Rectangle;
 public class MazeView extends Pane implements IMazeView {
     private int cellSize;
     private IMazeModel maze;
-    public MazeView(IMazeModel maze){
+
+    public MazeView(IMazeModel maze) {
         super();
-        this.maze=maze;
-        this.cellSize=20;//默认初始化为20
-        draw();
+        this.maze = maze;
+        this.cellSize = 20; // 默认初始化为20
     }
+
     @Override
     public void setCellSize(int cellSize) {
-        this.cellSize=cellSize;
+        this.cellSize = cellSize;
     }
 
     @Override
@@ -27,11 +28,10 @@ public class MazeView extends Pane implements IMazeView {
 
     @Override
     public void draw() {
-        getChildren().clear();
-        for (int row = 0; row < maze.getRows(); row++) {
-            for (int col = 0; col < maze.getCols(); col++) {
-                Rectangle rect = new Rectangle(col * cellSize, row * cellSize, cellSize, cellSize);
-                rect.setFill(maze.getMaze()[row][col] == 1 ? Color.BLACK : Color.WHITE);
+        for (int y = 0; y < maze.getRows(); y++) {
+            for (int x = 0; x < maze.getCols(); x++) {
+                Rectangle rect = new Rectangle(x * cellSize, y * cellSize, cellSize, cellSize);
+                rect.setFill(maze.getMaze()[y][x] == 1 ? Color.BLACK : Color.WHITE);
                 rect.setStroke(Color.GRAY);
                 getChildren().add(rect);
             }
@@ -40,6 +40,7 @@ public class MazeView extends Pane implements IMazeView {
 
     @Override
     public void reDraw() {
+        getChildren().clear();
         draw();
     }
 }

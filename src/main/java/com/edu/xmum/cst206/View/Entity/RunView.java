@@ -20,22 +20,18 @@ public class RunView extends BorderPane implements IRunView {
     private IGameController gameController;
 
     public RunView(IGameController gameController) {
-        this.gameController=gameController;
+        this.gameController = gameController;
         currentDifficulty = new Label("当前难度:");
         currentTime = new Label("当前用时:");
-
         mazeView = new MazeView(gameController.getGameService().getMazeService().getMaze());
         playerView = new PlayerView(gameController.getGameService().getPlayerService().getPlayer());
-
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
         HBox infoBox = new HBox(10, currentTime, currentDifficulty);
         infoBox.setAlignment(Pos.CENTER_LEFT);
-
         HBox controlBox = new HBox(10, resetButton, hintButton);
         controlBox.setAlignment(Pos.CENTER);
-
         StackPane gamePane = new StackPane();
         gamePane.setAlignment(Pos.CENTER);
         gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
@@ -62,7 +58,7 @@ public class RunView extends BorderPane implements IRunView {
 
     @Override
     public Button getHintButton() {
-        return resetButton;
+        return hintButton;
     }
 
     @Override

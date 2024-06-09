@@ -14,7 +14,6 @@ public class GameController implements IGameController {
     public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
-    //通过setter注入view
 
     private void setupEventHandlers() {
         if (gameView == null) {
@@ -29,17 +28,7 @@ public class GameController implements IGameController {
         gameView.getRunView().getHintButton().setOnAction(event -> showHint());
 
         gameView.getRunView().getNode().setOnKeyPressed(event -> {
-            boolean hasWon = false;
-            switch (event.getCode()) {
-                case W -> hasWon = movePlayer(Direction.UP);
-                case A -> hasWon = movePlayer(Direction.LEFT);
-                case S -> hasWon = movePlayer(Direction.DOWN);
-                case D -> hasWon = movePlayer(Direction.RIGHT);
-            }
-            gameView.getRunView().getPlayerView().draw();
-            if (hasWon) {
-                handleVictory();
-            }
+            handleKeyPress(event.getText());
         });
     }
 
@@ -51,12 +40,14 @@ public class GameController implements IGameController {
     @Override
     public void startGame() {
         gameService.resetGame();
+        gameView.getRunView().reSetView();
         showRunView();
     }
 
     @Override
     public void resetGame() {
         gameService.resetGame();
+        gameView.getRunView().reSetView();
         showRunView();
     }
 
@@ -76,22 +67,20 @@ public class GameController implements IGameController {
             default:
                 throw new IllegalArgumentException("Unknown difficulty: " + difficulty);
         }
-        //设置难度
+        //调整尺寸，设计定难度
         gameService.setDifficulty(diff);
-        //根据难度设计cellSize
         adjustCellSize();
-        //重绘页面
-        gameView.getRunView().reSetView();
         showPrepareView();
     }
-    //根据难度调整方块大小
-    private void adjustCellSize(){
-        double cellWidth= Config.SCENE_WIDTH/gameService.getMazeService().getMaze().getCols();
-        double cellLength= Config.SCENE_LENGTH/gameService.getMazeService().getMaze().getRows();
-        int cellSize=(int)Math.min(cellLength,cellWidth);
+
+    private void adjustCellSize() {
+        double cellWidth = Config.SCENE_WIDTH / gameService.getMazeService().getMaze().getCols();
+        double cellLength = Config.SCENE_LENGTH / gameService.getMazeService().getMaze().getRows();
+        int cellSize = (int) Math.min(cellLength, cellWidth);
         gameView.getRunView().getPlayerView().setCellSize(cellSize);
         gameView.getRunView().getMazeView().setCellSize(cellSize);
     }
+
     @Override
     public void handleKeyPress(String key) {
         Direction direction;
@@ -111,7 +100,7 @@ public class GameController implements IGameController {
             default:
                 throw new IllegalArgumentException("Unknown key: " + key);
         }
-        boolean reachedGoal = gameService.movePlayer(direction);
+        boolean reachedGoal = movePlayer(direction);
         if (reachedGoal) {
             showVictoryView();
         }
@@ -150,7 +139,7 @@ public class GameController implements IGameController {
 
     @Override
     public void setGameView(IGameView gameView) {
-        this.gameView=gameView;
+        this.gameView = gameView;
         setupEventHandlers();
     }
 

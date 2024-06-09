@@ -11,21 +11,22 @@ public class GameView extends BorderPane implements IGameView {
     IRunView runView;
     IVictoryView victoryView;
     IGameController gameController;
-    public GameView(IGameController gameController){
-        this.gameController=gameController;
-        welcomeView=new WelComeView();
-        selectionView=new SelectionView();
-        prepareView=new PrepareView();
-        runView=new RunView(gameController);
-        victoryView=new VictoryView();
+
+    public GameView(IGameController gameController) {
+        this.gameController = gameController;
+        welcomeView = new WelComeView();
+        selectionView = new SelectionView();
+        prepareView = new PrepareView();
+        runView = new RunView(gameController);
+        victoryView = new VictoryView();
         setCenter(welcomeView.getNode());
     }
+
     @Override
     public void setGameController(IGameController gameController) {
-        this.gameController=gameController;
+        this.gameController = gameController;
     }
 
-    //接口的方法
     @Override
     public IWelcomeView getWelcomeView() {
         return welcomeView;
@@ -43,7 +44,7 @@ public class GameView extends BorderPane implements IGameView {
 
     @Override
     public IRunView getRunView() {
-        return runView ;
+        return runView;
     }
 
     @Override

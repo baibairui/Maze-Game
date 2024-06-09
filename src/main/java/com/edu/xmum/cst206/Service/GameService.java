@@ -13,16 +13,17 @@ public class GameService implements IGameService {
     IMazeService mazeService;
     IPlayerService playerService;
     IGameController gameController;
-    public GameService(IGameModel gameModel){
-        this.gameModel=gameModel;
-        mazeService=new MazeService(gameModel.getMazeModel());
-        playerService=new PlayerService(mazeService,gameModel.getPlayModel());
+
+    public GameService(IGameModel gameModel) {
+        this.gameModel = gameModel;
+        mazeService = new MazeService(gameModel.getMazeModel());
+        playerService = new PlayerService(mazeService, gameModel.getPlayModel());
     }
+
     @Override
     public void setDifficulty(Difficulty difficulty) {
         gameModel.getMazeModel().setRows(difficulty.getMazeSize());
         gameModel.getMazeModel().setCols(difficulty.getMazeSize());
-        gameModel.getMazeModel().generateMaze();
     }
 
     @Override
@@ -38,7 +39,7 @@ public class GameService implements IGameService {
 
     @Override
     public boolean movePlayer(Direction direction) {
-       return playerService.movePlayer(direction.getDirectionX(),direction.getDirectionY());
+        return playerService.movePlayer(direction.getDirectionX(), direction.getDirectionY());
     }
 
     @Override
@@ -48,7 +49,7 @@ public class GameService implements IGameService {
 
     @Override
     public void setGameController(IGameController gameController) {
-        this.gameController=gameController;
+        this.gameController = gameController;
     }
 
     @Override

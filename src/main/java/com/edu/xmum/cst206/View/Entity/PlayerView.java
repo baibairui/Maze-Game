@@ -24,7 +24,7 @@ public class PlayerView extends Pane implements IPlayerView {
 
     @Override
     public void reDraw() {
-        draw();;
+        draw();
     }
 
     @Override

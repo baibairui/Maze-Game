@@ -14,13 +14,11 @@ public class PrepareView extends VBox implements IPrepareView {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(15);
-
         Label prepareLabel = new Label("准备好开始游戏!");
         prepareLabel.setFont(new Font(18));
-
-
         getChildren().addAll(prepareLabel, startGameButton);
     }
+
     @Override
     public Button getStartGameButton() {
         return startGameButton;
