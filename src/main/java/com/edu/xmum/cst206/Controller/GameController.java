@@ -46,9 +46,10 @@ public class GameController implements IGameController {
 
     @Override
     public void resetGame() {
+        // 重置玩家和迷宫的状态
         gameService.resetGame();
-        gameView.getRunView().reSetView();
-        showRunView();
+        //调整尺寸并重新绘图
+        gameView.getRunView().adjustLayout();
     }
 
     @Override
@@ -75,7 +76,7 @@ public class GameController implements IGameController {
 
     private void adjustCellSize() {
         double cellWidth = Config.SCENE_WIDTH / gameService.getMazeService().getMaze().getCols();
-        double cellLength = Config.SCENE_LENGTH / gameService.getMazeService().getMaze().getRows();
+        double cellLength = Config.SCENE_HEIGHT / gameService.getMazeService().getMaze().getRows();
         int cellSize = (int) Math.min(cellLength, cellWidth);
         gameView.getRunView().getPlayerView().setCellSize(cellSize);
         gameView.getRunView().getMazeView().setCellSize(cellSize);
@@ -134,7 +135,7 @@ public class GameController implements IGameController {
 
     @Override
     public void showHint() {
-
+        // 提示功能可以在这里实现
     }
 
     @Override

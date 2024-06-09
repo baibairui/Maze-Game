@@ -14,5 +14,5 @@ public interface IRunView {
     IMazeView getMazeView();
 
     void reSetView();
-
+    public void adjustLayout();
 }
