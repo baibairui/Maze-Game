@@ -25,5 +25,6 @@ public interface IGameController {
     void showVictoryView();
     void showHint();
     void setGameView(IGameView gameView);
+    String getDiffculty();
     IGameService getGameService();
 }

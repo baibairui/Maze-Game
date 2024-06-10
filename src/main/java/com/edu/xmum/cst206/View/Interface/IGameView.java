@@ -24,5 +24,14 @@ public interface IGameView {
     void showPrepareView();
 
     void showRunView();
+    public void setWelcomeView(IWelcomeView welcomeView) ;
+
+    public void setSelectionView(ISelectionView selectionView);
+
+    public void setPrepareView(IPrepareView prepareView);
+
+    public void setRunView(IRunView runView);
+
+    public void setVictoryView(IVictoryView victoryView);
 
 }

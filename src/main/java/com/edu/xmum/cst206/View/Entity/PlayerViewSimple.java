@@ -6,10 +6,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class PlayerView extends Pane implements IPlayerView {
+public class PlayerViewSimple extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
-    public PlayerView(IPlayerModel playerModel){
+    public PlayerViewSimple(IPlayerModel playerModel){
         this.player=playerModel;
     }
 

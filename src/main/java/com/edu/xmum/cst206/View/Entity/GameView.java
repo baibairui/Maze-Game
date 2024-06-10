@@ -15,10 +15,12 @@ public class GameView extends BorderPane implements IGameView {
     public GameView(IGameController gameController) {
         this.gameController = gameController;
         welcomeView = new WelComeView();
+        /*
         selectionView = new SelectionView();
         prepareView = new PrepareView();
         runView = new RunView(gameController);
         victoryView = new VictoryView();
+         */
         setCenter(welcomeView.getNode());
     }
 
@@ -70,5 +72,26 @@ public class GameView extends BorderPane implements IGameView {
     @Override
     public void showRunView() {
         setCenter(runView.getNode());
+    }
+    //set注入
+
+    public void setWelcomeView(IWelcomeView welcomeView) {
+        this.welcomeView = welcomeView;
+    }
+
+    public void setSelectionView(ISelectionView selectionView) {
+        this.selectionView = selectionView;
+    }
+
+    public void setPrepareView(IPrepareView prepareView) {
+        this.prepareView = prepareView;
+    }
+
+    public void setRunView(IRunView runView) {
+        this.runView = runView;
+    }
+
+    public void setVictoryView(IVictoryView victoryView) {
+        this.victoryView = victoryView;
     }
 }

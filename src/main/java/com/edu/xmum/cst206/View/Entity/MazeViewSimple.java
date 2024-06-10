@@ -6,11 +6,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class MazeView extends Pane implements IMazeView {
+public class MazeViewSimple extends Pane implements IMazeView {
     private int cellSize;
     private IMazeModel maze;
 
-    public MazeView(IMazeModel maze) {
+    public MazeViewSimple(IMazeModel maze) {
         super();
         this.maze = maze;
         this.cellSize = 20; // 默认初始化为20
@@ -37,10 +37,14 @@ public class MazeView extends Pane implements IMazeView {
             }
         }
     }
+    public int getCellSize(){
+        return this.cellSize;
+    }
 
     @Override
     public void reDraw() {
         getChildren().clear();
         draw();
     }
+
 }
