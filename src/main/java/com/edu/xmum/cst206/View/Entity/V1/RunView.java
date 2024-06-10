@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.View.Entity;
+package com.edu.xmum.cst206.View.Entity.V1;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.View.Interface.IMazeView;

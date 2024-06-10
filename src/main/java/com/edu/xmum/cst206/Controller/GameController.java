@@ -4,10 +4,13 @@ import com.edu.xmum.cst206.Config;
 import com.edu.xmum.cst206.Model.Difficulty;
 import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
-import com.edu.xmum.cst206.View.Entity.PrepareView;
-import com.edu.xmum.cst206.View.Entity.RunView;
-import com.edu.xmum.cst206.View.Entity.SelectionView;
-import com.edu.xmum.cst206.View.Entity.VictoryView;
+import com.edu.xmum.cst206.View.Entity.V1.PrepareView;
+import com.edu.xmum.cst206.View.Entity.V1.RunView;
+import com.edu.xmum.cst206.View.Entity.V1.SelectionView;
+import com.edu.xmum.cst206.View.Entity.V1.VictoryView;
+import com.edu.xmum.cst206.View.Entity.V2.PrepareViewNew;
+import com.edu.xmum.cst206.View.Entity.V2.SelectionViewNew;
+import com.edu.xmum.cst206.View.Entity.V2.VictoryViewNew;
 import com.edu.xmum.cst206.View.Interface.IGameView;
 
 import static com.edu.xmum.cst206.Model.Difficulty.MEDIUM;
@@ -133,7 +136,7 @@ public class GameController implements IGameController {
 
     @Override
     public void showSelectionView() {
-        gameView.setSelectionView(new SelectionView());
+        gameView.setSelectionView(new SelectionViewNew());
         gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
         gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
         gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
@@ -142,7 +145,7 @@ public class GameController implements IGameController {
 
     @Override
     public void showPrepareView() {
-        gameView.setPrepareView(new PrepareView());
+        gameView.setPrepareView(new PrepareViewNew());
         gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
         gameView.showPrepareView();
     }
@@ -162,7 +165,7 @@ public class GameController implements IGameController {
 
     @Override
     public void showVictoryView() {
-        gameView.setVictoryView(new VictoryView());
+        gameView.setVictoryView(new VictoryViewNew());
         gameView.showVictoryView();
     }
 

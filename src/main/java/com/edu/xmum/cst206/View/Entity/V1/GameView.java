@@ -1,6 +1,7 @@
-package com.edu.xmum.cst206.View.Entity;
+package com.edu.xmum.cst206.View.Entity.V1;
 
 import com.edu.xmum.cst206.Controller.IGameController;
+import com.edu.xmum.cst206.View.Entity.V2.WelcomeViewNew;
 import com.edu.xmum.cst206.View.Interface.*;
 import javafx.scene.layout.BorderPane;
 
@@ -14,7 +15,7 @@ public class GameView extends BorderPane implements IGameView {
 
     public GameView(IGameController gameController) {
         this.gameController = gameController;
-        welcomeView = new WelComeView();
+        welcomeView = new WelcomeViewNew();
         /*
         selectionView = new SelectionView();
         prepareView = new PrepareView();

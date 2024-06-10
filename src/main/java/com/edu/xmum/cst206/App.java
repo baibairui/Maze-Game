@@ -6,7 +6,7 @@ import com.edu.xmum.cst206.Model.Entity.GameModel;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Service.GameService;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
-import com.edu.xmum.cst206.View.Entity.GameView;
+import com.edu.xmum.cst206.View.Entity.V1.GameView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
 import javafx.application.Application;
 import javafx.scene.Scene;
