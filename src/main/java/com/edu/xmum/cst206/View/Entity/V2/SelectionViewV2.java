@@ -13,12 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class SelectionViewNew extends VBox implements ISelectionView {
+public class SelectionViewV2 extends VBox implements ISelectionView {
     private Button easyButton = new Button("Easy");
     private Button mediumButton = new Button("Medium");
     private Button hardButton = new Button("Hard");
 
-    public SelectionViewNew() {
+    public SelectionViewV2() {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(20);

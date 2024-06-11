@@ -27,4 +27,6 @@ public interface IGameController {
     void setGameView(IGameView gameView);
     String getDiffculty();
     IGameService getGameService();
+    String getSkinVision();
+    void setSkinVision(String str);
 }

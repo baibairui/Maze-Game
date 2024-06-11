@@ -1,16 +1,15 @@
 package com.edu.xmum.cst206.Controller;
 
 import com.edu.xmum.cst206.Config;
+import com.edu.xmum.cst206.Factory.AbstractFactory;
+import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Difficulty;
 import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
-import com.edu.xmum.cst206.View.Entity.V1.PrepareView;
-import com.edu.xmum.cst206.View.Entity.V1.RunView;
-import com.edu.xmum.cst206.View.Entity.V1.SelectionView;
-import com.edu.xmum.cst206.View.Entity.V1.VictoryView;
-import com.edu.xmum.cst206.View.Entity.V2.PrepareViewNew;
-import com.edu.xmum.cst206.View.Entity.V2.SelectionViewNew;
-import com.edu.xmum.cst206.View.Entity.V2.VictoryViewNew;
+import com.edu.xmum.cst206.View.Entity.V1.RunViewV1;
+import com.edu.xmum.cst206.View.Entity.V2.PrepareViewV2;
+import com.edu.xmum.cst206.View.Entity.V2.SelectionViewV2;
+import com.edu.xmum.cst206.View.Entity.V2.VictoryViewV2;
 import com.edu.xmum.cst206.View.Interface.IGameView;
 
 import static com.edu.xmum.cst206.Model.Difficulty.MEDIUM;
@@ -20,6 +19,16 @@ public class GameController implements IGameController {
     private IGameService gameService;
     private IGameView gameView;
     private Difficulty diff;
+    private String SkinVision;
+
+    public String getSkinVision() {
+        return SkinVision;
+    }
+
+    public void setSkinVision(String skinVision) {
+        SkinVision = skinVision;
+    }
+
     public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
@@ -136,7 +145,7 @@ public class GameController implements IGameController {
 
     @Override
     public void showSelectionView() {
-        gameView.setSelectionView(new SelectionViewNew());
+        gameView.setSelectionView(FactoryProducer.getFactory("Select").getSelectionView(SkinVision));
         gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
         gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
         gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
@@ -145,14 +154,14 @@ public class GameController implements IGameController {
 
     @Override
     public void showPrepareView() {
-        gameView.setPrepareView(new PrepareViewNew());
+        gameView.setPrepareView(FactoryProducer.getFactory("Prepare").getPrepareView(SkinVision));
         gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
         gameView.showPrepareView();
     }
 
     @Override
     public void showRunView() {
-        gameView.setRunView(new RunView(this));
+        gameView.setRunView(FactoryProducer.getFactory("Run").getRunView(SkinVision,this));
         adjustCellSize();
         gameView.getRunView().reSetView();
         gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
@@ -165,7 +174,8 @@ public class GameController implements IGameController {
 
     @Override
     public void showVictoryView() {
-        gameView.setVictoryView(new VictoryViewNew());
+        gameView.setVictoryView(FactoryProducer.getFactory("Victory").getVictoryView(SkinVision));
+        gameView.getVictoryView().getBackButton().setOnAction(e->{showSelectionView();});
         gameView.showVictoryView();
     }
 

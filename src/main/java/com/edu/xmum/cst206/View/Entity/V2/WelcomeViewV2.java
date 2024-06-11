@@ -8,23 +8,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
 
-public class WelcomeViewNew extends VBox implements IWelcomeView {
+public class WelcomeViewV2 extends VBox implements IWelcomeView {
     private final Button startButton = new Button("开始游戏");
 
-    public WelcomeViewNew() {
+    public WelcomeViewV2() {
         // 设置对齐方式和间距
         setAlignment(Pos.CENTER);
         setSpacing(20);

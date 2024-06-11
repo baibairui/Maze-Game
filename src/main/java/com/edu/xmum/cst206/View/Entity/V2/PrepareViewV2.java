@@ -13,10 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class PrepareViewNew extends VBox implements IPrepareView {
+public class PrepareViewV2 extends VBox implements IPrepareView {
     private final Button startGameButton = new Button("开始游戏");
 
-    public PrepareViewNew() {
+    public PrepareViewV2() {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(20);

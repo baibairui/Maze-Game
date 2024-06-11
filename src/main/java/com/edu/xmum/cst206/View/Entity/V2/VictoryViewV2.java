@@ -13,11 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class VictoryViewNew extends VBox implements IVictoryView {
+public class VictoryViewV2 extends VBox implements IVictoryView {
     private final Label victoryLabel = new Label("恭喜通关!");
     private final Button backButton = new Button("返回主菜单");
 
-    public VictoryViewNew() {
+    public VictoryViewV2() {
         setAlignment(Pos.CENTER);
         setSpacing(30);
         setPadding(new Insets(40));
@@ -46,8 +46,9 @@ public class VictoryViewNew extends VBox implements IVictoryView {
         return this;
     }
 
+    @Override
     public Button getBackButton() {
-       //可以设计返回
+        //可以设计返回
         return backButton;
     }
 }

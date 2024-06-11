@@ -1,9 +1,11 @@
-package com.edu.xmum.cst206.View.Entity.V1;
+package com.edu.xmum.cst206.View.Entity.V2;
 
 import com.edu.xmum.cst206.Controller.IGameController;
+import com.edu.xmum.cst206.View.Entity.V1.MazeViewV1;
+import com.edu.xmum.cst206.View.Entity.V1.PlayerViewV1;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
-import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
+import com.edu.xmum.cst206.View.Interface.IRunView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -11,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -20,7 +21,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RunView extends BorderPane implements IRunView {
+public class RunViewV2 extends BorderPane implements IRunView {
     private IPlayerView playerView;
     private IMazeView mazeView;
     private Label currentDifficulty;
@@ -28,12 +29,12 @@ public class RunView extends BorderPane implements IRunView {
     private Button hintButton;
     private IGameController gameController;
 
-    public RunView(IGameController gameController) {
+    public RunViewV2(IGameController gameController) {
         // 初始化组件
         this.gameController = gameController;
         currentDifficulty = new Label("难度:"+gameController.getDiffculty());
-        mazeView = new MazeViewSimple(gameController.getGameService().getMazeService().getMaze());
-        playerView = new PlayerViewSimple(gameController.getGameService().getPlayerService().getPlayer());
+        mazeView = new MazeViewV1(gameController.getGameService().getMazeService().getMaze());
+        playerView = new PlayerViewV1(gameController.getGameService().getPlayerService().getPlayer());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 

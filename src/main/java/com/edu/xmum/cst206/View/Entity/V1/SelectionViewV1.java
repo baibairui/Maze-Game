@@ -7,12 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class SelectionView extends VBox implements ISelectionView {
+public class SelectionViewV1 extends VBox implements ISelectionView {
     private Button easyButton = new Button("Easy");
     private Button mediumButton = new Button("Medium");
     private Button hardButton = new Button("Hard");
 
-    public SelectionView() {
+    public SelectionViewV1() {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(15);

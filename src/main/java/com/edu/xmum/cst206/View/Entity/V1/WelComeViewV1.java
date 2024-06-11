@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class WelComeView extends VBox implements IWelcomeView {
+public class WelComeViewV1 extends VBox implements IWelcomeView {
     private final Button startButton = new Button("开始游戏");
 
-    public WelComeView() {
+    public WelComeViewV1() {
         super();
         setAlignment(Pos.CENTER); // 居中显示
         setSpacing(20);

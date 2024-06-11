@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.View.Entity.V1;
+package com.edu.xmum.cst206.View.Entity.V2;
 
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
@@ -6,10 +6,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class PlayerViewSimple extends Pane implements IPlayerView {
+public class PlayerViewV2 extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
-    public PlayerViewSimple(IPlayerModel playerModel){
+    public PlayerViewV2(IPlayerModel playerModel){
         this.player=playerModel;
     }
 

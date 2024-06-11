@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class PrepareView extends VBox implements IPrepareView {
+public class PrepareViewV1 extends VBox implements IPrepareView {
     private final Button startGameButton = new Button("开始游戏");
 
-    public PrepareView() {
+    public PrepareViewV1() {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(15);

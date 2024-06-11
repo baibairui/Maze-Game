@@ -1,9 +1,14 @@
-package com.edu.xmum.cst206.View.Entity.V1;
+package com.edu.xmum.cst206.View.Entity;
 
 import com.edu.xmum.cst206.Controller.IGameController;
-import com.edu.xmum.cst206.View.Entity.V2.WelcomeViewNew;
+import com.edu.xmum.cst206.View.Entity.V2.WelcomeViewV2;
 import com.edu.xmum.cst206.View.Interface.*;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class GameView extends BorderPane implements IGameView {
     IWelcomeView welcomeView;
@@ -12,17 +17,29 @@ public class GameView extends BorderPane implements IGameView {
     IRunView runView;
     IVictoryView victoryView;
     IGameController gameController;
-
+    private VBox SkinSelectionView;
+    private void initSkin(){
+        SkinSelectionView=new VBox();
+        SkinSelectionView.setAlignment(Pos.CENTER);
+        SkinSelectionView.setSpacing(20);
+        Label label=new Label("选择你想用的皮肤");
+        Button v1=new Button("V1");
+        Button v2=new Button("V2");
+        v1.setOnAction(e->{gameController.setSkinVision("V1");setCenter(welcomeView.getNode());});
+        v2.setOnAction(e->{gameController.setSkinVision("V2");setCenter(welcomeView.getNode());});
+        SkinSelectionView.getChildren().addAll(label,v1,v2);
+    }
     public GameView(IGameController gameController) {
         this.gameController = gameController;
-        welcomeView = new WelcomeViewNew();
+        initSkin();
+        welcomeView = new WelcomeViewV2();
         /*
         selectionView = new SelectionView();
         prepareView = new PrepareView();
         runView = new RunView(gameController);
         victoryView = new VictoryView();
          */
-        setCenter(welcomeView.getNode());
+        setCenter(SkinSelectionView);
     }
 
     @Override
@@ -48,6 +65,11 @@ public class GameView extends BorderPane implements IGameView {
     @Override
     public IRunView getRunView() {
         return runView;
+    }
+
+    @Override
+    public IVictoryView getVictoryView() {
+        return victoryView;
     }
 
     @Override

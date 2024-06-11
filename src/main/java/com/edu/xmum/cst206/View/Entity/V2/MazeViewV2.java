@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.View.Entity.V1;
+package com.edu.xmum.cst206.View.Entity.V2;
 
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
@@ -6,11 +6,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class MazeViewSimple extends Pane implements IMazeView {
+public class MazeViewV2 extends Pane implements IMazeView {
     private int cellSize;
     private IMazeModel maze;
 
-    public MazeViewSimple(IMazeModel maze) {
+    public MazeViewV2(IMazeModel maze) {
         super();
         this.maze = maze;
         this.cellSize = 20; // 默认初始化为20

@@ -14,8 +14,9 @@ public interface IGameView {
     IPrepareView getPrepareView();
 
     IRunView getRunView();
-
+    IVictoryView getVictoryView();
     BorderPane getView();
+
 
     void showVictoryView();
 
