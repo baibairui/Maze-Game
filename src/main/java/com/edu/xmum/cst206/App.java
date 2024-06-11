@@ -12,6 +12,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.edu.xmum.cst206.Config.SCENE_HEIGHT;
+import static com.edu.xmum.cst206.Config.SCENE_WIDTH;
+
 public class App extends Application {
     private IGameController gameController;
     private IGameView gameView;
@@ -21,7 +24,7 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         initLayer();
         //设置主场景并显示
-        Scene scene =new Scene(gameView.getView(),800,600);
+        Scene scene =new Scene(gameView.getView(),SCENE_HEIGHT,SCENE_WIDTH);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Maze Game");
         primaryStage.show();

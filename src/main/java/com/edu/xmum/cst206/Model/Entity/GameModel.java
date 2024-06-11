@@ -5,6 +5,7 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 
 public class GameModel implements IGameModel {
+    //组合各个subModel
     private IPlayerModel playerModel;
     private IMazeModel mazeModel;
 

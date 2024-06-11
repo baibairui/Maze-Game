@@ -5,12 +5,13 @@ PlayerModel的接口
 规定了PlayModel应特有的方法：
 1.move
 2.setPosition
+
  */
 public interface IPlayerModel {
     int getStartX();
     int getStartY();
-    int getX();
-    int getY();
     void move(int dx,int dy);
     void setPosition(int x,int y);
+    int getX();
+    int getY();
 }

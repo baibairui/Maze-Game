@@ -6,7 +6,7 @@ MazeModel的接口
 1.Rows的get和set方法
 2.Cols的get和set方法
 3.GoalX和GoalY的get和set方法
-4.generateMaze的方法
+4.generateMaze：用来生成迷宫的方法，这里我们使用随机化prim算法来生成
 5.Maze的set和get方法：Maze是用来表示迷宫的一个二维数组，0表示通路，1表示墙壁
  */
 public interface IMazeModel {
@@ -20,5 +20,4 @@ public interface IMazeModel {
     void setRows(int rows);
     void setCols(int cols);
     void generateMaze();
-
 }

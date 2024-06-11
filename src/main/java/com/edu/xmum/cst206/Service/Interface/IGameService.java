@@ -11,10 +11,10 @@ import java.util.List;
 public interface IGameService {
     void setDifficulty(Difficulty difficulty);
     void resetGame();
-    boolean checkGoal();
     boolean movePlayer(Direction direction);
     IPlayerService getPlayerService();
     IMazeService getMazeService();
+    //用来获得路径提示的方法
     List<int[]> getHint();
     //用于依赖注入的方法
     void setGameController(IGameController gameController);

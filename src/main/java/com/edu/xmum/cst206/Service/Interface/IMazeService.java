@@ -3,6 +3,8 @@ package com.edu.xmum.cst206.Service.Interface;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 
+import java.util.List;
+
 /*
 用于处理地图相关的逻辑
  */
@@ -18,4 +20,6 @@ public interface IMazeService {
     //重置迷宫
     public void reset();
     IMazeModel getMaze();
+    //提示路线
+    public List<int[]> getPath(int x, int y);
 }

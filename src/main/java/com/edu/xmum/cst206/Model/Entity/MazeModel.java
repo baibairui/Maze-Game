@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Random;
 
 /*
-迷宫对象类
-由于设计了View层，因此不需要实现Drawable接口
-只需要专注模型层的相关属性问题
+迷宫对象的具体实现类
 属性：
-
+rows：表示行数
+cols：表示列数
+maze：用一个二维数组来表示迷宫,[y][x]
+goal:目标位置
+start：起始位置
  */
 public class MazeModel extends GameObject implements IMazeModel {
     private int rows;
