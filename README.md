@@ -1336,3 +1336,98 @@ public class VictoryView extends VBox implements IVictoryView {
 
 ```
 ---
+
+## 6.皮肤选择功能的改进
+
+这里我选择使用 **抽象工厂模式** 来设计皮肤的选择功能
+
+抽象工厂模式提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。通过使用抽象工厂模式，可以在游戏中灵活地切换不同的视图皮肤，增强用户的体验。
+
+### 6.1 抽象工厂父类的设计
+
+这个游戏中的视图层我们设计了许多不同的版本，这里使用抽象工厂来与用户交互选择皮肤
+
+```java
+public abstract class AbstractFactory {
+    public abstract IMazeView getMazeView(String maze, IMazeModel mazeModel);
+    public abstract IPlayerView getPlayerView(String player, IPlayerModel playerModel);
+    public abstract IPrepareView getPrepareView(String prepareView);
+    public abstract IRunView getRunView(String runView, IGameController gameController);
+    public abstract ISelectionView getSelectionView(String selectionView);
+    public abstract IVictoryView getVictoryView(String victoryView);
+    public abstract IWelcomeView getWelcomeView(String welcomeVIew);
+}
+```
+
+### 6.2 工厂生产者
+
+工厂生产者用于简化工厂的创建过程，根据用户的选择返回相应的工厂实例。
+
+```java
+public class FactoryProducer {
+    private static final Map<String, AbstractFactory> factoryMap = new HashMap<>();
+
+    static {
+        factoryMap.put("Maze", new MazeViewFactory());
+        factoryMap.put("Player", new PlayerViewFactory());
+        factoryMap.put("Prepare", new PrepareViewFactory());
+        factoryMap.put("Run", new RunViewFactory());
+        factoryMap.put("Select", new SelectionViewFactory());
+        factoryMap.put("Victory", new VictoryViewFactory());
+    }
+
+    public static AbstractFactory getFactory(String choice) {
+        return factoryMap.get(choice);
+    }
+}
+```
+
+### 6.3 具体工厂
+
+具体工厂类用于创建不同类型的视图对象。 每个具体工厂类负责创建其对应类型的视图对象，并且每个具体工厂可以创建不同版本或风格的视图对象。这样做可以将视图对象的创建逻辑集中到具体工厂类中，简化客户端代码，并提高代码的可维护性和可扩展性。
+
+**这里以PrePareView的具体工厂实现为例**
+```java
+public class PrepareViewFactory extends AbstractFactory {
+    @Override
+    public IMazeView getMazeView(String maze, IMazeModel mazeModel) {
+        return null;
+    }
+
+    @Override
+    public IPlayerView getPlayerView(String player, IPlayerModel playerModel) {
+        return null;
+    }
+
+    @Override
+    public IPrepareView getPrepareView(String prepareView) {
+        if (prepareView.equals("V1")) {
+            return new PrepareViewV1();
+        } else if (prepareView.equals("V2")) {
+            return new PrepareViewV2();
+        }
+        return null;
+    }
+
+    @Override
+    public IRunView getRunView(String runView, IGameController gameController) {
+        return null;
+    }
+
+
+    @Override
+    public ISelectionView getSelectionView(String selectionView) {
+        return null;
+    }
+
+    @Override
+    public IVictoryView getVictoryView(String victoryView) {
+        return null;
+    }
+
+    @Override
+    public IWelcomeView getWelcomeView(String welcomeVIew) {
+        return null;
+    }
+}
+```

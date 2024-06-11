@@ -1,21 +1,21 @@
 package com.edu.xmum.cst206.Factory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FactoryProducer {
-    public static AbstractFactory getFactory(String choice){
-        switch (choice){
-            case "Maze":
-                return new MazeViewFactory();
-            case "Player":
-                return new PlayerViewFactory();
-            case "Prepare":
-                return new PrepareViewFactory();
-            case "Run":
-                return new RunVIewFactory();
-            case "Select":
-                return new SelectionFactory();
-            case "Victory":
-                return new VictoryViewFactory();
-        }
-        return null;
+    private static final Map<String, AbstractFactory> factoryMap = new HashMap<>();
+
+    static {
+        factoryMap.put("Maze", new MazeViewFactory());
+        factoryMap.put("Player", new PlayerViewFactory());
+        factoryMap.put("Prepare", new PrepareViewFactory());
+        factoryMap.put("Run", new RunViewFactory());
+        factoryMap.put("Select", new SelectionFactory());
+        factoryMap.put("Victory", new VictoryViewFactory());
+    }
+
+    public static AbstractFactory getFactory(String choice) {
+        return factoryMap.get(choice);
     }
 }

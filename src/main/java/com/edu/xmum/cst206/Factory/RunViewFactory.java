@@ -7,7 +7,7 @@ import com.edu.xmum.cst206.View.Entity.V1.RunViewV1;
 import com.edu.xmum.cst206.View.Entity.V2.RunViewV2;
 import com.edu.xmum.cst206.View.Interface.*;
 
-public class RunVIewFactory extends AbstractFactory{
+public class RunViewFactory extends AbstractFactory{
     @Override
     public IMazeView getMazeView(String maze, IMazeModel mazeModel) {
         return null;
