@@ -8,17 +8,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class VictoryViewV1 extends VBox implements IVictoryView {
+    private final Button backButton= new Button("返回主页面");
     public VictoryViewV1() {
         setAlignment(Pos.CENTER);
         setSpacing(20);
         Label victoryLabel = new Label("恭喜通关!");
         victoryLabel.setFont(new Font(24));
-        getChildren().add(victoryLabel);
+        getChildren().addAll(victoryLabel,backButton);
     }
 
     @Override
     public Button getBackButton() {
-        return null;
+        return backButton;
     }
 
     @Override
