@@ -5,6 +5,7 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Entity.V1.RunViewV1;
 import com.edu.xmum.cst206.View.Entity.V2.RunViewV2;
+import com.edu.xmum.cst206.View.Entity.V3.RunViewV3;
 import com.edu.xmum.cst206.View.Interface.*;
 
 public class RunViewFactory extends AbstractFactory{
@@ -29,6 +30,8 @@ public class RunViewFactory extends AbstractFactory{
             return new RunViewV1(gameController);
         }else if(runView.equals("V2")){
             return new RunViewV2(gameController);
+        }else if(runView.equals("V3")){
+            return new RunViewV3(gameController);
         }
         return null;
     }

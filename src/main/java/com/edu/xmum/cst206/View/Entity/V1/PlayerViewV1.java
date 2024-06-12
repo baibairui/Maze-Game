@@ -1,5 +1,6 @@
 package com.edu.xmum.cst206.View.Entity.V1;
 
+import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import javafx.scene.layout.Pane;
@@ -35,5 +36,11 @@ public class PlayerViewV1 extends Pane implements IPlayerView {
     @Override
     public Pane getNode() {
         return this;
+    }
+
+    //空实现，不需要
+    @Override
+    public void setDirection(Direction direction) {
+
     }
 }

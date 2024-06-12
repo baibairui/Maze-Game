@@ -25,9 +25,11 @@ public class GameView extends BorderPane implements IGameView {
         Label label=new Label("选择你想用的皮肤");
         Button v1=new Button("V1");
         Button v2=new Button("V2");
+        Button v3=new Button("V3");
         v1.setOnAction(e->{gameController.setSkinVision("V1");setCenter(welcomeView.getNode());});
         v2.setOnAction(e->{gameController.setSkinVision("V2");setCenter(welcomeView.getNode());});
-        SkinSelectionView.getChildren().addAll(label,v1,v2);
+        v3.setOnAction(e->{gameController.setSkinVision("V3");setCenter(welcomeView.getNode());});
+        SkinSelectionView.getChildren().addAll(label,v1,v2,v3);
     }
     public GameView(IGameController gameController) {
         this.gameController = gameController;

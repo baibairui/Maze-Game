@@ -132,6 +132,7 @@ public class GameController implements IGameController {
                 throw new IllegalArgumentException("Unknown key: " + key);
         }
         boolean reachedGoal = movePlayer(direction);
+        gameView.getRunView().getPlayerView().setDirection(direction);
         if (reachedGoal) {
             showVictoryView();
         }

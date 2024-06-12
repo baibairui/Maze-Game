@@ -5,6 +5,7 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Entity.V1.VictoryViewV1;
 import com.edu.xmum.cst206.View.Entity.V2.VictoryViewV2;
+import com.edu.xmum.cst206.View.Entity.V3.VictoryViewV3;
 import com.edu.xmum.cst206.View.Interface.*;
 
 public class VictoryViewFactory extends AbstractFactory{
@@ -39,6 +40,8 @@ public class VictoryViewFactory extends AbstractFactory{
             return new VictoryViewV1();
         } else if (victoryView.equals("V2")) {
             return new VictoryViewV2();
+        }else if(victoryView.equals("V3")){
+            return new VictoryViewV3();
         }
         return null;
     }

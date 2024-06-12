@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.View.Entity.V2;
+package com.edu.xmum.cst206.View.Entity.V3;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
@@ -22,7 +22,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RunViewV2 extends BorderPane implements IRunView {
+public class RunViewV3 extends BorderPane implements IRunView {
     private IPlayerView playerView;
     private IMazeView mazeView;
     private Label currentDifficulty;
@@ -30,12 +30,12 @@ public class RunViewV2 extends BorderPane implements IRunView {
     private Button hintButton;
     private IGameController gameController;
 
-    public RunViewV2(IGameController gameController) {
+    public RunViewV3(IGameController gameController) {
         // 初始化组件
         this.gameController = gameController;
         currentDifficulty = new Label("难度:"+gameController.getDiffculty());
-        mazeView = FactoryProducer.getFactory("Maze").getMazeView("V2",gameController.getGameService().getMazeService().getMaze());
-        playerView = FactoryProducer.getFactory("Player").getPlayerView("V2",gameController.getGameService().getPlayerService().getPlayer());
+        mazeView = FactoryProducer.getFactory("Maze").getMazeView("V3",gameController.getGameService().getMazeService().getMaze());
+        playerView = FactoryProducer.getFactory("Player").getPlayerView("V3",gameController.getGameService().getPlayerService().getPlayer());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 

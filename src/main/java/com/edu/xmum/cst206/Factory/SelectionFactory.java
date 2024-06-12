@@ -5,6 +5,7 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Entity.V1.SelectionViewV1;
 import com.edu.xmum.cst206.View.Entity.V2.SelectionViewV2;
+import com.edu.xmum.cst206.View.Entity.V3.SelectionViewV3;
 import com.edu.xmum.cst206.View.Interface.*;
 
 public  class SelectionFactory extends AbstractFactory{
@@ -34,6 +35,8 @@ public  class SelectionFactory extends AbstractFactory{
             return new SelectionViewV1();
         }else if(selectionView.equals("V2")){
             return new SelectionViewV2();
+        }else if(selectionView.equals("V3")){
+            return new SelectionViewV3();
         }
         return null;
     }
