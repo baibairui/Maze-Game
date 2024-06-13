@@ -11,6 +11,9 @@ import com.edu.xmum.cst206.View.Entity.V2.PrepareViewV2;
 import com.edu.xmum.cst206.View.Entity.V2.SelectionViewV2;
 import com.edu.xmum.cst206.View.Entity.V2.VictoryViewV2;
 import com.edu.xmum.cst206.View.Interface.IGameView;
+import javafx.scene.control.Button;
+
+import java.util.ArrayList;
 
 import static com.edu.xmum.cst206.Model.Difficulty.MEDIUM;
 
@@ -189,7 +192,18 @@ public class GameController implements IGameController {
     @Override
     public void setGameView(IGameView gameView) {
         this.gameView = gameView;
-        gameView.getWelcomeView().getStartButton().setOnAction(event -> showSelectionView());
+        ArrayList<Button> buttons =gameView.getSkinSelectionView().getButtons();
+        for (int i=0;i<buttons.size();i++){
+            int finalI = i;
+            buttons.get(i).setOnAction(actionEvent -> {
+                setSkinVision("V"+ (finalI +1));
+                getGameView().setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(SkinVision));
+                gameView.getWelcomeView().getStartButton().setOnAction(actionEvent1 -> {
+                    showSelectionView();
+                });
+                getGameView().showWelcomeView();
+            });
+        }
         //setupEventHandlers();
     }
 

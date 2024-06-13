@@ -1,0 +1,28 @@
+/* v2.css */
+.root {
+    -fx-background-color: #e6f7ff;
+    -fx-padding: 20px;
+}
+
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #003366;
+}
+
+.button {
+    -fx-background-color: #ff6600;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #cc5200;
+}
+
+.button:pressed {
+    -fx-background-color: #993d00;
+}

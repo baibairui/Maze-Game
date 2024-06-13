@@ -15,6 +15,8 @@ public interface IGameView {
 
     IRunView getRunView();
     IVictoryView getVictoryView();
+    ISkinSelectionView getSkinSelectionView();
+    void setSkinSelectionView(ISkinSelectionView skinSelectionView);
     BorderPane getView();
 
 
@@ -25,6 +27,7 @@ public interface IGameView {
     void showPrepareView();
 
     void showRunView();
+    void showWelcomeView();
     public void setWelcomeView(IWelcomeView welcomeView) ;
 
     public void setSelectionView(ISelectionView selectionView);
@@ -34,5 +37,4 @@ public interface IGameView {
     public void setRunView(IRunView runView);
 
     public void setVictoryView(IVictoryView victoryView);
-
 }

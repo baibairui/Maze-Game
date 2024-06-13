@@ -1,6 +1,7 @@
 package com.edu.xmum.cst206.View.Entity;
 
 import com.edu.xmum.cst206.Controller.IGameController;
+import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.View.Entity.V2.WelcomeViewV2;
 import com.edu.xmum.cst206.View.Interface.*;
 import javafx.geometry.Pos;
@@ -17,7 +18,17 @@ public class GameView extends BorderPane implements IGameView {
     IRunView runView;
     IVictoryView victoryView;
     IGameController gameController;
-    private VBox SkinSelectionView;
+    ISkinSelectionView skinSelectionView;
+
+    @Override
+    public ISkinSelectionView getSkinSelectionView() {
+        return skinSelectionView;
+    }
+    @Override
+    public void setSkinSelectionView(ISkinSelectionView skinSelectionView) {
+        this.skinSelectionView = skinSelectionView;
+    }
+    /*
     private void initSkin(){
         SkinSelectionView=new VBox();
         SkinSelectionView.setAlignment(Pos.CENTER);
@@ -26,22 +37,32 @@ public class GameView extends BorderPane implements IGameView {
         Button v1=new Button("V1");
         Button v2=new Button("V2");
         Button v3=new Button("V3");
-        v1.setOnAction(e->{gameController.setSkinVision("V1");setCenter(welcomeView.getNode());});
-        v2.setOnAction(e->{gameController.setSkinVision("V2");setCenter(welcomeView.getNode());});
-        v3.setOnAction(e->{gameController.setSkinVision("V3");setCenter(welcomeView.getNode());});
+        v1.setOnAction(e->{
+            gameController.setSkinVision("V1");
+            setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(gameController.getSkinVision()));
+            setCenter(welcomeView.getNode());});
+        v2.setOnAction(e->{
+            gameController.setSkinVision("V2");
+            setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(gameController.getSkinVision()));
+            setCenter(welcomeView.getNode());});
+        v3.setOnAction(e->{
+            gameController.setSkinVision("V3");
+            setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(gameController.getSkinVision()));
+            setCenter(welcomeView.getNode());});
         SkinSelectionView.getChildren().addAll(label,v1,v2,v3);
     }
+     */
     public GameView(IGameController gameController) {
         this.gameController = gameController;
-        initSkin();
-        welcomeView = new WelcomeViewV2();
+        skinSelectionView=new SkinSelectionView();
         /*
+        initSkin();
         selectionView = new SelectionView();
         prepareView = new PrepareView();
         runView = new RunView(gameController);
         victoryView = new VictoryView();
          */
-        setCenter(SkinSelectionView);
+        setCenter(skinSelectionView.getNode());
     }
 
     @Override
@@ -97,6 +118,11 @@ public class GameView extends BorderPane implements IGameView {
     @Override
     public void showRunView() {
         setCenter(runView.getNode());
+    }
+
+    @Override
+    public void showWelcomeView() {
+        setCenter(welcomeView.getNode());
     }
     //set注入
 

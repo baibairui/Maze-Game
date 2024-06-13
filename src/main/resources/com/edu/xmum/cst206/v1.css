@@ -1,0 +1,45 @@
+/* v1.css */
+.root {
+    -fx-background-image: url("com/edu/xmum/cst206/");
+    -fx-background-size: 100-100; /* 使背景图片覆盖整个组件 */
+    -fx-background-repeat: no-repbangeat; /* 不重复 */
+    -fx-background-position: center center; /* 背景图片居中 */
+    -fx-padding: 20px; /* 添加内边距 */
+}
+
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e36666; /* 文本颜色为深灰色 */
+    -fx-effect: dropshadow(gaussian, rgba(117, 26, 26, 0.75), 10, 0.5, 0, 0); /* 添加阴影效果 */
+}
+
+.button {
+    -fx-background-color: #3f4b57; /* 按钮背景颜色为蓝色 */
+    -fx-text-fill: white; /* 按钮文本颜色为白色 */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5; /* 按钮圆角 */
+    -fx-cursor: hand; /* 鼠标悬停时显示为手型光标 */
+    -fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0); /* 添加阴影效果 */
+}
+
+.button:hover {
+    -fx-background-color: #005bb5; /* 鼠标悬停时背景颜色变为深蓝色 */
+}
+
+.button:pressed {
+    -fx-background-color: #003d80; /* 按钮按下时背景颜色变为更深的蓝色 */
+}
+
+.vbox {
+    -fx-background-color: rgba(255, 255, 255, 0.8); /* 背景颜色为半透明白色 */
+    -fx-padding: 20px; /* 内边距 */
+    -fx-border-radius: 10; /* 圆角 */
+    -fx-border-color: #0073e6; /* 边框颜色 */
+    -fx-border-width: 2px; /* 边框宽度 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); /* 阴影效果 */
+    -fx-alignment: center; /* 居中对齐 */
+    -fx-spacing: 20px; /* 垂直间距 */
+}
+

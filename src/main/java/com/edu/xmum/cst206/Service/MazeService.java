@@ -29,7 +29,7 @@ public class MazeService implements IMazeService {
         int startX = getMaze().getStartX();
         int startY = getMaze().getStartY();
         if (dfs(path, visited, startX, startY)) {
-            path.add(new int[]{getMaze().getGoalX(), getMaze().getGoalY()});
+            path.add(new int[]{getMaze().getGoalY(), getMaze().getGoalX()});
         }
         return path;
     }

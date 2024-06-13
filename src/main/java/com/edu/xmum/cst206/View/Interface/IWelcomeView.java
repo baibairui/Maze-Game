@@ -7,5 +7,5 @@ import javafx.scene.layout.VBox;
 
 public interface IWelcomeView {
     Button getStartButton();
-    VBox getNode();
+    Node getNode();
 }
