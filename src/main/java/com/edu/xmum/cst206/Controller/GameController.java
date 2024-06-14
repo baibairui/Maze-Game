@@ -186,7 +186,7 @@ public class GameController implements IGameController {
     @Override
     public void showHint() {
         // 提示功能可以在这里实现
-        gameView.getRunView().showHint(gameService.getHint());
+        gameView.getRunView().showHint(gameService.getHint().get(0),gameService.getHint().get(1));
     }
 
     @Override

@@ -17,5 +17,5 @@ public interface IRunView {
 
     void reSetView();
     public void adjustLayout();
-    public void showHint(List<int[]> path);
+    public void showHint(List<int[]> path,List<int[]> backPath);
 }

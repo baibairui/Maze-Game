@@ -15,7 +15,7 @@ public interface IGameService {
     IPlayerService getPlayerService();
     IMazeService getMazeService();
     //用来获得路径提示的方法
-    List<int[]> getHint();
+    List<List<int[]>> getHint();
     //用于依赖注入的方法
     void setGameController(IGameController gameController);
 }

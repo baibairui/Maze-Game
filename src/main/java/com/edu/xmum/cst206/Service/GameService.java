@@ -48,7 +48,7 @@ public class GameService implements IGameService {
 
 
     @Override
-    public List<int[]> getHint() {
+    public List<List<int[]>> getHint() {
         return mazeService.getPath(mazeService.getMaze().getGoalX(), mazeService.getMaze().getGoalY());
     }
 

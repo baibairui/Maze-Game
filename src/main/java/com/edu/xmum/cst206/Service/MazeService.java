@@ -19,21 +19,29 @@ public class MazeService implements IMazeService {
     使用DFS算法来提示迷宫路线
      */
     @Override
-    public List<int[]> getPath(int x, int y) {
+    public List<List<int[]>> getPath(int x, int y) {
         /*
         path.get(i)[0]:纵坐标
         path.get(i)[1]:横坐标
          */
         List<int[]> path = new ArrayList<>();
+        List<int[]> back =new ArrayList<>();
         boolean[][] visited = new boolean[getMaze().getRows()][getMaze().getCols()];
         int startX = getMaze().getStartX();
         int startY = getMaze().getStartY();
-        if (dfs(path, visited, startX, startY)) {
-            path.add(new int[]{getMaze().getGoalY(), getMaze().getGoalX()});
-        }
-        return path;
+        dfs(back,path,visited,startX,startY);
+        /*
+        hint.get(0):答案路径
+        hint.get(1):回溯过程路径
+         */
+        List<List<int[]>> hintPath=new ArrayList<>();
+        hintPath.add(path);
+        hintPath.add(back);
+        return hintPath;
     }
-
+    /*
+     不记录回溯过程的DFS
+      */
     private boolean dfs(List<int[]> path, boolean[][] visited, int x, int y) {
         // 如果越界或已经访问过或是墙，则返回 false
         if (x < 0 || x >= getMaze().getCols() || y < 0 || y >= getMaze().getRows() || visited[y][x] || getMaze().getMaze()[y][x] == 1) {
@@ -58,6 +66,41 @@ public class MazeService implements IMazeService {
 
         // 如果没有找到路径，回溯并从路径中移除当前点
         path.remove(path.size() - 1);
+
+        return false;
+    }
+    /*
+    记录回溯过程的DFS
+     */
+    private boolean dfs(List<int[]>backTrackPath,List<int[]> path, boolean[][] visited, int x, int y) {
+        // 如果越界或已经访问过或是墙，则返回 false
+        if (x < 0 || x >= getMaze().getCols() || y < 0 || y >= getMaze().getRows() || visited[y][x] || getMaze().getMaze()[y][x] == 1) {
+            return false;
+        }
+
+        // 标记为已访问
+        visited[y][x] = true;
+
+        // 添加当前点到路径
+        path.add(new int[]{y, x});
+
+        // 如果到达目标点，则返回 true
+        if (x == getMaze().getGoalX() && y == getMaze().getGoalY()) {
+            return true;
+        }
+
+        // 尝试四个方向的递归调用
+        if (dfs(backTrackPath, path, visited, x - 1, y) ||
+                dfs(backTrackPath, path, visited, x + 1, y) ||
+                dfs(backTrackPath, path, visited, x, y - 1) ||
+                dfs(backTrackPath, path, visited, x, y + 1)) {
+            return true;
+        }
+
+        // 如果没有找到路径，回溯并从路径中移除当前点
+        path.remove(path.size() - 1);
+        //把回溯的过程添加
+        backTrackPath.add(new int[]{y, x});
         return false;
     }
     @Override

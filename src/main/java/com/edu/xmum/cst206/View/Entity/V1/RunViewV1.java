@@ -181,22 +181,25 @@ public class RunViewV1 extends BorderPane implements IRunView {
         playerView.getNode().setTranslateY(offsetY);
     }
 
+
     @Override
-    public void showHint(List<int[]> path) {
+    public void showHint(List<int[]> path, List<int[]> backPath) {
         int cellSize = mazeView.getCellSize();
         // 清除之前的提示
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
+
         // 动态显示提示路径
         Timeline timeline = new Timeline();
         // 用于存储当前显示的矩形，以便逐步删除
         List<Rectangle> currentRects = new ArrayList<>();
 
-        for (int i = 0; i < path.size(); i++) {
-            int[] point = path.get(i);
+        // 显示回溯路径
+        for (int i = 0; i < backPath.size(); i++) {
+            int[] point = backPath.get(i);
 
             // 创建一个新的矩形，用于高亮当前路径点
             Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
-            rect.setFill(Color.GREEN);
+            rect.setFill(Color.RED); // 设置回溯路径颜色
             rect.setUserData("highlight");
 
             // 设置透明度动画，实现拖尾效果
@@ -205,17 +208,40 @@ public class RunViewV1 extends BorderPane implements IRunView {
                 currentRects.add(rect);
             });
 
-            KeyFrame fadeOut = new KeyFrame(Duration.seconds((i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0));
+            KeyFrame fadeOut = new KeyFrame(Duration.seconds((i + 1) * 0.2), new KeyValue(rect.opacityProperty(), 0));
+
+            timeline.getKeyFrames().addAll(addRect, fadeOut);
+        }
+
+        // 显示正确路径
+        for (int i = 0; i < path.size(); i++) {
+            int[] point = path.get(i);
+
+            // 创建一个新的矩形，用于高亮当前路径点
+            Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
+            rect.setFill(Color.BLUE);
+            rect.setUserData("highlight");
+
+            // 设置透明度动画，实现拖尾效果
+            KeyFrame addRect = new KeyFrame(Duration.seconds(backPath.size() * 0.1 + i * 0.3), event -> {
+                mazeView.getNode().getChildren().add(rect);
+                currentRects.add(rect);
+            });
+
+            KeyFrame fadeOut = new KeyFrame(Duration.seconds(backPath.size() * 0.1 + (i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0.3)); // 使路径更清晰
 
             timeline.getKeyFrames().addAll(addRect, fadeOut);
         }
 
         // 添加一个最终的关键帧来移除所有高亮的矩形
-        KeyFrame finalKeyFrame = new KeyFrame(Duration.seconds(path.size() * 0.1 + 0.1), event -> {
+        KeyFrame finalKeyFrame = new KeyFrame(Duration.seconds((backPath.size() + path.size()) * 0.3 + 0.2), event -> {
             mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
         });
 
         timeline.getKeyFrames().add(finalKeyFrame);
         timeline.play();
     }
+
+
+
 }
