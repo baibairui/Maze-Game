@@ -18,29 +18,30 @@ public class PlayerViewV3 extends Pane implements IPlayerView {
 
     @Override
     public void draw() {
-        /*Circle circle=new Circle(cellSize/2,Color.GRAY);
-        circle.setCenterX(player.getX() * cellSize + cellSize / 2);
-        circle.setCenterY(player.getY() * cellSize + cellSize / 2);
-        getChildren().clear();
-        getChildren().add(circle);*/
+    /*Circle circle = new Circle(cellSize / 2, Color.GRAY);
+    circle.setCenterX(player.getX() * cellSize + cellSize / 2);
+    circle.setCenterY(player.getY() * cellSize + cellSize / 2);
+    getChildren().clear();
+    getChildren().add(circle);*/
 
-        StringBuilder playerDir=new StringBuilder();
-        switch (direction){
-            case UP -> playerDir.append("Up");
-            case DOWN -> playerDir.append("Down");
-            case LEFT -> playerDir.append("Left");
-            case RIGHT -> playerDir.append("Right");
-            default -> playerDir.append("Down");//默认向下
+        String playerDir;
+        switch (direction) {
+            case UP -> playerDir = "Up";
+            case DOWN -> playerDir = "Down";
+            case LEFT -> playerDir = "Left";
+            case RIGHT -> playerDir = "Right";
+            default -> playerDir = "Down"; // 默认向下
         }
-        Image playImg=new Image("com/edu/xmum/cst206/player/player"+playerDir.toString()+".png");
-        playerDir.delete(0,playerDir.length());
-        ImageView playerView=new ImageView(playImg);
+
+        Image playImg = new Image("com/edu/xmum/cst206/player/player" + playerDir + ".png");
+        ImageView playerView = new ImageView(playImg);
         playerView.setFitHeight(cellSize);
-        playerView.setFitHeight(cellSize);
-        playerView.setX(player.getX()*cellSize);
-        playerView.setY(player.getY()*cellSize);
+        playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度
+        playerView.setX(player.getX() * cellSize);
+        playerView.setY(player.getY() * cellSize);
+
         getChildren().clear();
-        getChildren().addAll(playerView);
+        getChildren().add(playerView);
     }
 
     @Override
