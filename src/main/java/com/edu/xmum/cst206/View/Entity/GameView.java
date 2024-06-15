@@ -2,6 +2,7 @@ package com.edu.xmum.cst206.View.Entity;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
+import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Entity.V2.WelcomeViewV2;
 import com.edu.xmum.cst206.View.Interface.*;
 import javafx.geometry.Pos;
@@ -19,6 +20,7 @@ public class GameView extends BorderPane implements IGameView {
     IVictoryView victoryView;
     IGameController gameController;
     ISkinSelectionView skinSelectionView;
+    IFailView failView;
 
     @Override
     public ISkinSelectionView getSkinSelectionView() {
@@ -123,6 +125,21 @@ public class GameView extends BorderPane implements IGameView {
     @Override
     public void showWelcomeView() {
         setCenter(welcomeView.getNode());
+    }
+
+    @Override
+    public IFailView getFailView() {
+        return failView;
+    }
+
+    @Override
+    public void setFailView(IFailView failView) {
+        this.failView = failView;
+    }
+
+    @Override
+    public void showFailView() {
+        setCenter(failView.getNode());
     }
     //set注入
 

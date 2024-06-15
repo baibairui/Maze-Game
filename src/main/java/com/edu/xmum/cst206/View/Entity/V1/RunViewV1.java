@@ -13,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -24,6 +23,7 @@ import java.util.List;
 
 public class RunViewV1 extends BorderPane implements IRunView {
     private IPlayerView playerView;
+    private IPlayerView aiView;
     private IMazeView mazeView;
     private Label currentDifficulty;
     private Button resetButton;
@@ -36,6 +36,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         currentDifficulty = new Label("难度:" + gameController.getDiffculty());
         mazeView = FactoryProducer.getFactory("Maze").getMazeView("V1", gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("Player").getPlayerView("V1", gameController.getGameService().getPlayerService().getPlayer());
+        aiView = FactoryProducer.getFactory("Player").getPlayerView("V1", gameController.getGameService().getAiService().getAiModel());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
@@ -62,7 +63,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         // 设置游戏面板样式
         StackPane gamePane = new StackPane();
         gamePane.setAlignment(Pos.CENTER);
-        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
+        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), aiView.getNode()); // 添加AI视图
         gamePane.setStyle("-fx-background-color: white; -fx-border-color: #A9A9A9; -fx-border-width: 1px;");
 
         // 控制排版
@@ -158,6 +159,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
     public void reSetView() {
         playerView.reDraw();
         mazeView.reDraw();
+        aiView.reDraw(); // 重绘AI视图
     }
 
     @Override
@@ -168,6 +170,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         int cellSize = (int) Math.min(cellWidth, cellHeight);
         playerView.setCellSize(cellSize);
         mazeView.setCellSize(cellSize);
+        aiView.setCellSize(cellSize);
         reSetView();
         // 居中调整
         double mazeWidth = cellSize * gameController.getGameService().getMazeService().getMaze().getCols();
@@ -179,11 +182,12 @@ public class RunViewV1 extends BorderPane implements IRunView {
         mazeView.getNode().setTranslateY(offsetY);
         playerView.getNode().setTranslateX(offsetX);
         playerView.getNode().setTranslateY(offsetY);
+        aiView.getNode().setTranslateX(offsetX);
+        aiView.getNode().setTranslateY(offsetY);
     }
 
-
     @Override
-    public void showHint(List<int[]> path, List<int[]> backPath) {
+    public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
         // 清除之前的提示
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
@@ -192,26 +196,6 @@ public class RunViewV1 extends BorderPane implements IRunView {
         Timeline timeline = new Timeline();
         // 用于存储当前显示的矩形，以便逐步删除
         List<Rectangle> currentRects = new ArrayList<>();
-
-        // 显示回溯路径
-        for (int i = 0; i < backPath.size(); i++) {
-            int[] point = backPath.get(i);
-
-            // 创建一个新的矩形，用于高亮当前路径点
-            Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
-            rect.setFill(Color.RED); // 设置回溯路径颜色
-            rect.setUserData("highlight");
-
-            // 设置透明度动画，实现拖尾效果
-            KeyFrame addRect = new KeyFrame(Duration.seconds(i * 0.1), event -> {
-                mazeView.getNode().getChildren().add(rect);
-                currentRects.add(rect);
-            });
-
-            KeyFrame fadeOut = new KeyFrame(Duration.seconds((i + 1) * 0.2), new KeyValue(rect.opacityProperty(), 0));
-
-            timeline.getKeyFrames().addAll(addRect, fadeOut);
-        }
 
         // 显示正确路径
         for (int i = 0; i < path.size(); i++) {
@@ -223,18 +207,18 @@ public class RunViewV1 extends BorderPane implements IRunView {
             rect.setUserData("highlight");
 
             // 设置透明度动画，实现拖尾效果
-            KeyFrame addRect = new KeyFrame(Duration.seconds(backPath.size() * 0.1 + i * 0.3), event -> {
+            KeyFrame addRect = new KeyFrame(Duration.seconds(i * 0.3), event -> {
                 mazeView.getNode().getChildren().add(rect);
                 currentRects.add(rect);
             });
 
-            KeyFrame fadeOut = new KeyFrame(Duration.seconds(backPath.size() * 0.1 + (i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0.3)); // 使路径更清晰
+            KeyFrame fadeOut = new KeyFrame(Duration.seconds( (i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0.3)); // 使路径更清晰
 
             timeline.getKeyFrames().addAll(addRect, fadeOut);
         }
 
         // 添加一个最终的关键帧来移除所有高亮的矩形
-        KeyFrame finalKeyFrame = new KeyFrame(Duration.seconds((backPath.size() + path.size()) * 0.3 + 0.2), event -> {
+        KeyFrame finalKeyFrame = new KeyFrame(Duration.seconds((path.size()) * 0.3 + 0.2), event -> {
             mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
         });
 
@@ -242,6 +226,8 @@ public class RunViewV1 extends BorderPane implements IRunView {
         timeline.play();
     }
 
-
-
+    @Override
+    public IPlayerView getAiView() {
+        return aiView;
+    }
 }

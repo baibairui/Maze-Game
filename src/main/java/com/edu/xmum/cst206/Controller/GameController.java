@@ -1,28 +1,26 @@
 package com.edu.xmum.cst206.Controller;
 
 import com.edu.xmum.cst206.Config;
-import com.edu.xmum.cst206.Factory.AbstractFactory;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Difficulty;
 import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
-import com.edu.xmum.cst206.View.Entity.V1.RunViewV1;
-import com.edu.xmum.cst206.View.Entity.V2.PrepareViewV2;
-import com.edu.xmum.cst206.View.Entity.V2.SelectionViewV2;
-import com.edu.xmum.cst206.View.Entity.V2.VictoryViewV2;
+import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
-
-import static com.edu.xmum.cst206.Model.Difficulty.MEDIUM;
-
 
 public class GameController implements IGameController {
     private IGameService gameService;
     private IGameView gameView;
     private Difficulty diff;
     private String SkinVision;
+    private Timeline aiTimeline;
+    private boolean isAiEnabled;
 
     public String getSkinVision() {
         return SkinVision;
@@ -30,47 +28,29 @@ public class GameController implements IGameController {
 
     public void setSkinVision(String skinVision) {
         SkinVision = skinVision;
+        // 根据皮肤设置是否启用AI
+        isAiEnabled = skinVision.equals("V1");
     }
 
     public GameController(IGameService gameService) {
         this.gameService = gameService;
     }
-    /*
-    改用setter注入，
-    private void setupEventHandlers() {
-        if (gameView == null) {
-            throw new NullPointerException("gameView is null in setupEventHandlers");
-        }
-        gameView.getWelcomeView().getStartButton().setOnAction(event -> showSelectionView());
-        gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
-        gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
-        gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
-        gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
-        gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
-        gameView.getRunView().getHintButton().setOnAction(event -> showHint());
 
-        gameView.getRunView().getNode().setOnKeyPressed(event -> {
-            handleKeyPress(event.getText());
-        });
-    }
-     */
-    /*
-    private void handleVictory() {
-        System.out.println("Victory!");
-        gameView.showVictoryView();
-    }
-    */
     @Override
     public void startGame() {
         gameService.resetGame();
+        if (isAiEnabled) {
+            startAiMovement();
+        }
         showRunView();
     }
 
     @Override
     public void resetGame() {
-        // 重置玩家和迷宫的状态
         gameService.resetGame();
-        //调整尺寸并重新绘图
+        if (isAiEnabled) {
+            startAiMovement();
+        }
         gameView.getRunView().adjustLayout();
     }
 
@@ -81,7 +61,7 @@ public class GameController implements IGameController {
                 diff = Difficulty.EASY;
                 break;
             case "MEDIUM":
-                diff = MEDIUM;
+                diff = Difficulty.MEDIUM;
                 break;
             case "HARD":
                 diff = Difficulty.HARD;
@@ -89,30 +69,31 @@ public class GameController implements IGameController {
             default:
                 throw new IllegalArgumentException("Unknown difficulty: " + difficulty);
         }
-        //调整尺寸，设计定难度
         gameService.setDifficulty(diff);
         showPrepareView();
     }
-    public String getDiffculty(){
-        switch (diff){
-            case EASY -> {
+
+    public String getDiffculty() {
+        switch (diff) {
+            case EASY:
                 return "Easy";
-            }
-            case MEDIUM -> {
+            case MEDIUM:
                 return "Medium";
-            }
-            case HARD -> {
-                return "HARD";
-            }
+            case HARD:
+                return "Hard";
         }
         return null;
     }
+
     private void adjustCellSize() {
         double cellWidth = Config.SCENE_WIDTH / gameService.getMazeService().getMaze().getCols();
         double cellLength = Config.SCENE_HEIGHT / gameService.getMazeService().getMaze().getRows();
         int cellSize = (int) Math.min(cellLength, cellWidth);
         gameView.getRunView().getPlayerView().setCellSize(cellSize);
         gameView.getRunView().getMazeView().setCellSize(cellSize);
+        if (isAiEnabled) {
+            gameView.getRunView().getAiView().setCellSize(cellSize);
+        }
     }
 
     @Override
@@ -165,7 +146,7 @@ public class GameController implements IGameController {
 
     @Override
     public void showRunView() {
-        gameView.setRunView(FactoryProducer.getFactory("Run").getRunView(SkinVision,this));
+        gameView.setRunView(FactoryProducer.getFactory("Run").getRunView(SkinVision, this));
         adjustCellSize();
         gameView.getRunView().reSetView();
         gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
@@ -179,24 +160,25 @@ public class GameController implements IGameController {
     @Override
     public void showVictoryView() {
         gameView.setVictoryView(FactoryProducer.getFactory("Victory").getVictoryView(SkinVision));
-        gameView.getVictoryView().getBackButton().setOnAction(e->{showSelectionView();});
+        gameView.getVictoryView().getBackButton().setOnAction(e -> {
+            showSelectionView();
+        });
         gameView.showVictoryView();
     }
 
     @Override
     public void showHint() {
-        // 提示功能可以在这里实现
-        gameView.getRunView().showHint(gameService.getHint().get(0),gameService.getHint().get(1));
+        gameView.getRunView().showHint(gameService.getHint());
     }
 
     @Override
     public void setGameView(IGameView gameView) {
         this.gameView = gameView;
-        ArrayList<Button> buttons =gameView.getSkinSelectionView().getButtons();
-        for (int i=0;i<buttons.size();i++){
+        ArrayList<Button> buttons = gameView.getSkinSelectionView().getButtons();
+        for (int i = 0; i < buttons.size(); i++) {
             int finalI = i;
             buttons.get(i).setOnAction(actionEvent -> {
-                setSkinVision("V"+ (finalI +1));
+                setSkinVision("V" + (finalI + 1));
                 getGameView().setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(SkinVision));
                 gameView.getWelcomeView().getStartButton().setOnAction(actionEvent1 -> {
                     showSelectionView();
@@ -204,7 +186,32 @@ public class GameController implements IGameController {
                 getGameView().showWelcomeView();
             });
         }
-        //setupEventHandlers();
+    }
+
+    private void startAiMovement() {
+        if (aiTimeline != null) {
+            aiTimeline.stop();
+        }
+
+        aiTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            gameService.getAiService().moveAi();
+            gameView.getRunView().getAiView().draw(); // 重新绘制 AI 视图
+            gameView.getRunView().getPlayerView().draw();
+
+            if (gameService.getAiService().isPlayerCaught()) {
+                System.out.println("Player caught by AI!");
+                aiTimeline.stop();
+                showFailureView();
+            }
+        }));
+        aiTimeline.setCycleCount(Timeline.INDEFINITE);
+        aiTimeline.play();
+    }
+
+    private void showFailureView() {
+        gameView.setFailView(new FailView()); // 这里可以改成用抽象工厂来选择皮肤，暂时不需要
+        gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // 跳转
+        gameView.showFailView();
     }
 
     public IGameService getGameService() {
