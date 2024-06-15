@@ -21,5 +21,5 @@ public interface IMazeService {
     public void reset();
     IMazeModel getMaze();
     //提示路线
-    public List<List<int[]>> getPath(int x, int y);
+    public List<int[]> getPath(int x, int y);
 }

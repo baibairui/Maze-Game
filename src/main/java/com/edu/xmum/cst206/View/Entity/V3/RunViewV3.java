@@ -106,6 +106,11 @@ public class RunViewV3 extends BorderPane implements IRunView {
     }
 
     @Override
+    public IPlayerView getAiView() {
+        return null;
+    }
+
+    @Override
     public void reSetView() {
         playerView.reDraw();
         mazeView.reDraw();
@@ -136,7 +141,7 @@ public class RunViewV3 extends BorderPane implements IRunView {
     绘制DFS搜索出来的路径
      */
     @Override
-    public void showHint(List<int[]> path,List<int[]>backPath) {
+    public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
         // 清除之前的提示
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));

@@ -12,10 +12,11 @@ public interface IGameService {
     void setDifficulty(Difficulty difficulty);
     void resetGame();
     boolean movePlayer(Direction direction);
+    //获取子模块
     IPlayerService getPlayerService();
+    IAiService getAiService();
     IMazeService getMazeService();
     //用来获得路径提示的方法
-    List<List<int[]>> getHint();
-    //用于依赖注入的方法
-    void setGameController(IGameController gameController);
+    List<int[]> getHint();
+
 }
