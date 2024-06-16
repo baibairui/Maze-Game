@@ -2,6 +2,8 @@ package com.edu.xmum.cst206.View.Entity.V1;
 
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -28,12 +30,26 @@ public class MazeViewV1 extends Pane implements IMazeView {
 
     @Override
     public void draw() {
+        Image pathImage = new Image("com/edu/xmum/cst206/maze/草.gif");
+        Image wallImage = new Image("com/edu/xmum/cst206/maze/墙.gif");
+
+        // 清除以前的绘制
+        getChildren().clear();
+
+        // 绘制迷宫
         for (int y = 0; y < maze.getRows(); y++) {
             for (int x = 0; x < maze.getCols(); x++) {
-                Rectangle rect = new Rectangle(x * cellSize, y * cellSize, cellSize, cellSize);
-                rect.setFill(maze.getMaze()[y][x] == 1 ? Color.BLACK : Color.WHITE);
-                rect.setStroke(Color.GRAY);
-                getChildren().add(rect);
+                ImageView imageView;
+                if (maze.getMaze()[y][x] == 1) {
+                    imageView = new ImageView(wallImage);
+                } else {
+                    imageView = new ImageView(pathImage);
+                }
+                imageView.setFitWidth(cellSize);
+                imageView.setFitHeight(cellSize);
+                imageView.setX(x * cellSize);
+                imageView.setY(y * cellSize);
+                getChildren().add(imageView);
             }
         }
     }

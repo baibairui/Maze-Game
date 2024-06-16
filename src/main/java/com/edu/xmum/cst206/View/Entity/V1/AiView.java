@@ -22,7 +22,7 @@ public class AiView extends Pane implements IPlayerView {
     public void draw() {
 
 
-        Image playImg = new Image("com/edu/xmum/cst206/player/僵尸5.gif");
+        Image playImg = new Image("com/edu/xmum/cst206/player/僵尸4.gif");
         ImageView playerView = new ImageView(playImg);
         playerView.setFitHeight(cellSize);
         playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度
