@@ -37,7 +37,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         currentDifficulty = new Label("难度:" + gameController.getDiffculty());
         mazeView = FactoryProducer.getFactory("Maze").getMazeView(Skin.V1, gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V1, gameController.getGameService().getPlayerService().getPlayer());
-        aiView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V1, gameController.getGameService().getAiService().getAiModel());
+        aiView = new AiView(gameController.getGameService().getAiService().getAiModel());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 

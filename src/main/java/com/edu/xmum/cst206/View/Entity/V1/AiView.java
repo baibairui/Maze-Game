@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.View.Entity.V2;
+package com.edu.xmum.cst206.View.Entity.V1;
 
 import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
@@ -7,16 +7,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class PlayerViewV2 extends Pane implements IPlayerView {
+public class AiView extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
-    public PlayerViewV2(IPlayerModel playerModel){
+    public AiView(IPlayerModel playerModel){
         this.player=playerModel;
     }
 
     @Override
     public void draw() {
-        Circle circle=new Circle(cellSize/2,Color.GRAY);
+        Circle circle=new Circle(cellSize/2, Color.GRAY);
         circle.setCenterX(player.getX() * cellSize + cellSize / 2);
         circle.setCenterY(player.getY() * cellSize + cellSize / 2);
         getChildren().clear();
@@ -37,7 +37,8 @@ public class PlayerViewV2 extends Pane implements IPlayerView {
     public Pane getNode() {
         return this;
     }
-    //空实现
+
+    //空实现，不需要
     @Override
     public void setDirection(Direction direction) {
 
