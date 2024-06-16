@@ -2,6 +2,7 @@ package com.edu.xmum.cst206.View.Entity.V2;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
+import com.edu.xmum.cst206.Model.Skin;
 import com.edu.xmum.cst206.View.Entity.V1.MazeViewV1;
 import com.edu.xmum.cst206.View.Entity.V1.PlayerViewV1;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
@@ -34,8 +35,8 @@ public class RunViewV2 extends BorderPane implements IRunView {
         // 初始化组件
         this.gameController = gameController;
         currentDifficulty = new Label("难度:"+gameController.getDiffculty());
-        mazeView = FactoryProducer.getFactory("Maze").getMazeView("V2",gameController.getGameService().getMazeService().getMaze());
-        playerView = FactoryProducer.getFactory("Player").getPlayerView("V2",gameController.getGameService().getPlayerService().getPlayer());
+        mazeView = FactoryProducer.getFactory("Maze").getMazeView(Skin.V2,gameController.getGameService().getMazeService().getMaze());
+        playerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V2,gameController.getGameService().getPlayerService().getPlayer());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
@@ -107,6 +108,12 @@ public class RunViewV2 extends BorderPane implements IRunView {
 
     @Override
     public IPlayerView getAiView() {
+        return null;
+    }
+
+    //V2不需要
+    @Override
+    public IPlayerView getSecondPlayerView() {
         return null;
     }
 

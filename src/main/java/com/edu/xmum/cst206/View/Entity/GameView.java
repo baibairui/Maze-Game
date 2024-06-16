@@ -1,70 +1,24 @@
 package com.edu.xmum.cst206.View.Entity;
 
+import com.edu.xmum.cst206.Config;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
-import com.edu.xmum.cst206.View.Entity.V1.FailView;
-import com.edu.xmum.cst206.View.Entity.V2.WelcomeViewV2;
 import com.edu.xmum.cst206.View.Interface.*;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 public class GameView extends BorderPane implements IGameView {
-    IWelcomeView welcomeView;
-    ISelectionView selectionView;
-    IPrepareView prepareView;
-    IRunView runView;
-    IVictoryView victoryView;
-    IGameController gameController;
-    ISkinSelectionView skinSelectionView;
-    IFailView failView;
+    private IWelcomeView welcomeView;
+    private ISelectionView selectionView;
+    private IPrepareView prepareView;
+    private IRunView runView;
+    private IVictoryView victoryView;
+    private IGameController gameController;
+    private IFailView failView;
 
-    @Override
-    public ISkinSelectionView getSkinSelectionView() {
-        return skinSelectionView;
-    }
-    @Override
-    public void setSkinSelectionView(ISkinSelectionView skinSelectionView) {
-        this.skinSelectionView = skinSelectionView;
-    }
-    /*
-    private void initSkin(){
-        SkinSelectionView=new VBox();
-        SkinSelectionView.setAlignment(Pos.CENTER);
-        SkinSelectionView.setSpacing(20);
-        Label label=new Label("选择你想用的皮肤");
-        Button v1=new Button("V1");
-        Button v2=new Button("V2");
-        Button v3=new Button("V3");
-        v1.setOnAction(e->{
-            gameController.setSkinVision("V1");
-            setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(gameController.getSkinVision()));
-            setCenter(welcomeView.getNode());});
-        v2.setOnAction(e->{
-            gameController.setSkinVision("V2");
-            setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(gameController.getSkinVision()));
-            setCenter(welcomeView.getNode());});
-        v3.setOnAction(e->{
-            gameController.setSkinVision("V3");
-            setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(gameController.getSkinVision()));
-            setCenter(welcomeView.getNode());});
-        SkinSelectionView.getChildren().addAll(label,v1,v2,v3);
-    }
-     */
     public GameView(IGameController gameController) {
         this.gameController = gameController;
-        skinSelectionView=new SkinSelectionView();
-        /*
-        initSkin();
-        selectionView = new SelectionView();
-        prepareView = new PrepareView();
-        runView = new RunView(gameController);
-        victoryView = new VictoryView();
-         */
-        setCenter(skinSelectionView.getNode());
+        this.welcomeView=FactoryProducer.getFactory("Welcome").getWelcomeView(Config.skin);
+        setCenter(welcomeView.getNode());
     }
 
     @Override
@@ -101,6 +55,8 @@ public class GameView extends BorderPane implements IGameView {
     public BorderPane getView() {
         return this;
     }
+
+
 
     @Override
     public void showVictoryView() {
@@ -141,24 +97,29 @@ public class GameView extends BorderPane implements IGameView {
     public void showFailView() {
         setCenter(failView.getNode());
     }
-    //set注入
 
+    // Setters for other views
+    @Override
     public void setWelcomeView(IWelcomeView welcomeView) {
         this.welcomeView = welcomeView;
     }
 
+    @Override
     public void setSelectionView(ISelectionView selectionView) {
         this.selectionView = selectionView;
     }
 
+    @Override
     public void setPrepareView(IPrepareView prepareView) {
         this.prepareView = prepareView;
     }
 
+    @Override
     public void setRunView(IRunView runView) {
         this.runView = runView;
     }
 
+    @Override
     public void setVictoryView(IVictoryView victoryView) {
         this.victoryView = victoryView;
     }

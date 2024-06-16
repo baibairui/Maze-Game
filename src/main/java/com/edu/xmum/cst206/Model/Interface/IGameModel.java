@@ -6,4 +6,5 @@ public interface IGameModel {
     IPlayerModel getPlayModel();
     IMazeModel getMazeModel();
     IPlayerModel getAiModel();
+    IPlayerModel getSecondPlayModel();
 }

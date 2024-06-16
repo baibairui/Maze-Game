@@ -9,10 +9,11 @@ import javafx.scene.text.Font;
 
 public class VictoryViewV1 extends VBox implements IVictoryView {
     private final Button backButton= new Button("返回主页面");
+    private final String winner="Player";
     public VictoryViewV1() {
         setAlignment(Pos.CENTER);
         setSpacing(20);
-        Label victoryLabel = new Label("恭喜通关!");
+        Label victoryLabel = new Label(winner+" 获胜 ");
         victoryLabel.setFont(new Font(24));
         getChildren().addAll(victoryLabel,backButton);
     }
@@ -25,5 +26,11 @@ public class VictoryViewV1 extends VBox implements IVictoryView {
     @Override
     public VBox getNode() {
         return this;
+    }
+
+    //空实现
+    @Override
+    public void setWinner(String winner) {
+
     }
 }
