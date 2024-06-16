@@ -2,8 +2,7 @@ package com.edu.xmum.cst206.View.Entity.V3;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
-import com.edu.xmum.cst206.View.Entity.V1.MazeViewV1;
-import com.edu.xmum.cst206.View.Entity.V1.PlayerViewV1;
+import com.edu.xmum.cst206.Model.Skin;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import com.edu.xmum.cst206.View.Interface.IRunView;
@@ -24,6 +23,7 @@ import java.util.List;
 
 public class RunViewV3 extends BorderPane implements IRunView {
     private IPlayerView playerView;
+    private IPlayerView secondPlayerView;
     private IMazeView mazeView;
     private Label currentDifficulty;
     private Button resetButton;
@@ -33,36 +33,39 @@ public class RunViewV3 extends BorderPane implements IRunView {
     public RunViewV3(IGameController gameController) {
         // 初始化组件
         this.gameController = gameController;
-        currentDifficulty = new Label("难度:"+gameController.getDiffculty());
-        mazeView = FactoryProducer.getFactory("Maze").getMazeView("V3",gameController.getGameService().getMazeService().getMaze());
-        playerView = FactoryProducer.getFactory("Player").getPlayerView("V3",gameController.getGameService().getPlayerService().getPlayer());
+        currentDifficulty = new Label("难度:" + gameController.getDiffculty());
+        mazeView = FactoryProducer.getFactory("Maze").getMazeView(Skin.V3, gameController.getGameService().getMazeService().getMaze());
+        playerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V3, gameController.getGameService().getPlayerService().getPlayer());
+        secondPlayerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V3, gameController.getGameService().getSecondPlayerService().getPlayer());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
         // 设置按钮样式
-        resetButton.setStyle("-fx-background-color: #FF6347; -fx-text-fill: white; -fx-font-size: 14px;");
-        hintButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-size: 14px;");
+        setButtonStyle(resetButton, "#FF6347");
+        setButtonStyle(hintButton, "#4682B4");
+
         // 设置字体和颜色
         currentDifficulty.setFont(new Font("Arial", 16));
-        //currentDifficulty.setStyle("-fx-background-color: #ff4747; -fx-text-fill: white; -fx-font-size: 14px;");
+        currentDifficulty.setStyle("-fx-text-fill: white;");
 
         // 设置提示信息样式
-        HBox infoBox = new HBox(20,  currentDifficulty);
+        HBox infoBox = new HBox(20, currentDifficulty);
         infoBox.setAlignment(Pos.CENTER);
         infoBox.setPadding(new Insets(10, 10, 10, 10));
-        infoBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        infoBox.setStyle("-fx-background-color: #ffa347; -fx-text-fill: white; -fx-font-size: 14px;");
+        infoBox.setBackground(new Background(new BackgroundFill(Color.web("#ffa347"), CornerRadii.EMPTY, Insets.EMPTY)));
+
         // 设置控制面板样式
         HBox controlBox = new HBox(20, resetButton, hintButton);
         controlBox.setAlignment(Pos.CENTER);
         controlBox.setPadding(new Insets(10, 10, 10, 10));
-        controlBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        controlBox.setStyle("-fx-background-color: #ffa947; -fx-text-fill: white; -fx-font-size: 14px;");
+        controlBox.setBackground(new Background(new BackgroundFill(Color.web("#ffa947"), CornerRadii.EMPTY, Insets.EMPTY)));
+
         // 设置游戏面板样式
         StackPane gamePane = new StackPane();
         gamePane.setAlignment(Pos.CENTER);
-        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
+        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), secondPlayerView.getNode()); // 添加第二个玩家视图
         gamePane.setStyle("-fx-background-color: white; -fx-border-color: #A9A9A9; -fx-border-width: 1px;");
+
         // 控制排版
         setTop(infoBox);
         setCenter(gamePane);
@@ -78,6 +81,53 @@ public class RunViewV3 extends BorderPane implements IRunView {
 
         // 设置主边框
         setStyle("-fx-background-color: #F5F5F5;");
+    }
+
+    private void setButtonStyle(Button button, String backgroundColor) {
+        button.setStyle(
+                "-fx-background-color: " + backgroundColor + "; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-cursor: hand;"
+        );
+
+        button.setOnMouseEntered(event -> button.setStyle(
+                "-fx-background-color: #005bb5; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-cursor: hand;"
+        ));
+
+        button.setOnMouseExited(event -> button.setStyle(
+                "-fx-background-color: " + backgroundColor + "; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-cursor: hand;"
+        ));
+
+        button.setOnMousePressed(event -> button.setStyle(
+                "-fx-background-color: #003d80; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-cursor: hand;"
+        ));
+
+        button.setOnMouseReleased(event -> button.setStyle(
+                "-fx-background-color: #005bb5; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-cursor: hand;"
+        ));
     }
 
     @Override
@@ -111,8 +161,14 @@ public class RunViewV3 extends BorderPane implements IRunView {
     }
 
     @Override
+    public IPlayerView getSecondPlayerView() {
+        return secondPlayerView;
+    }
+
+    @Override
     public void reSetView() {
         playerView.reDraw();
+        secondPlayerView.reDraw(); // 重绘第二个玩家视图
         mazeView.reDraw();
     }
 
@@ -123,6 +179,7 @@ public class RunViewV3 extends BorderPane implements IRunView {
                 gameController.getGameService().getMazeService().getMaze().getRows();
         int cellSize = (int) Math.min(cellWidth, cellHeight);
         playerView.setCellSize(cellSize);
+        secondPlayerView.setCellSize(cellSize); // 设置第二个玩家的单元格大小
         mazeView.setCellSize(cellSize);
         reSetView();
         // 居中调整
@@ -135,6 +192,8 @@ public class RunViewV3 extends BorderPane implements IRunView {
         mazeView.getNode().setTranslateY(offsetY);
         playerView.getNode().setTranslateX(offsetX);
         playerView.getNode().setTranslateY(offsetY);
+        secondPlayerView.getNode().setTranslateX(offsetX);
+        secondPlayerView.getNode().setTranslateY(offsetY);
     }
 
     /*
@@ -174,6 +233,4 @@ public class RunViewV3 extends BorderPane implements IRunView {
 
         timeline.play();
     }
-
 }
-

@@ -46,6 +46,12 @@ public class VictoryViewV2 extends VBox implements IVictoryView {
         return this;
     }
 
+    //空实现
+    @Override
+    public void setWinner(String winner) {
+
+    }
+
     @Override
     public Button getBackButton() {
         //可以设计返回

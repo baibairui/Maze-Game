@@ -15,9 +15,7 @@ public interface IGameView {
 
     IRunView getRunView();
     IVictoryView getVictoryView();
-    ISkinSelectionView getSkinSelectionView();
     IFailView getFailView();
-    void setSkinSelectionView(ISkinSelectionView skinSelectionView);
     BorderPane getView();
 
 

@@ -15,6 +15,9 @@ public class FactoryProducer {
         factoryMap.put("Run", new RunViewFactory());
         factoryMap.put("Select", new SelectionFactory());
         factoryMap.put("Victory", new VictoryViewFactory());
+        factoryMap.put("GameModel",new GameModelFactory());
+        factoryMap.put("GameService",new GameServiceFactory());
+        factoryMap.put("GameController",new GameControllerFactory());
     }
 
     public static AbstractFactory getFactory(String choice) {

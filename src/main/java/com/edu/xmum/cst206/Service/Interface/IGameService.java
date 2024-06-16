@@ -16,7 +16,9 @@ public interface IGameService {
     IPlayerService getPlayerService();
     IAiService getAiService();
     IMazeService getMazeService();
+    IPlayerService getSecondPlayerService();
     //用来获得路径提示的方法
     List<int[]> getHint();
 
+    boolean moveSecondPlayer(Direction direction);
 }

@@ -8,41 +8,28 @@ import com.edu.xmum.cst206.Model.Skin;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.control.Button;
-import javafx.util.Duration;
 
-import java.util.ArrayList;
+/*
+需要双人控制的模型
+ */
 
-public class GameController implements IGameController {
+public class GameControllerVs implements IGameController {
     private IGameService gameService;
     private IGameView gameView;
-    private Timeline aiTimeline;
-    private boolean isAiEnabled;
 
-
-    public GameController(IGameService gameService) {
+    public GameControllerVs(IGameService gameService) {
         this.gameService = gameService;
     }
 
     @Override
     public void startGame() {
         gameService.resetGame();
-        isAiEnabled=Config.skin.getSkin().equals("V1");
-        if (isAiEnabled) {
-            startAiMovement();
-        }
         showRunView();
     }
 
     @Override
     public void resetGame() {
         gameService.resetGame();
-        isAiEnabled=Config.skin.getSkin().equals("V1");
-        if (isAiEnabled) {
-            startAiMovement();
-        }
         gameView.getRunView().adjustLayout();
     }
 
@@ -82,15 +69,16 @@ public class GameController implements IGameController {
         double cellLength = Config.SCENE_HEIGHT / gameService.getMazeService().getMaze().getRows();
         int cellSize = (int) Math.min(cellLength, cellWidth);
         gameView.getRunView().getPlayerView().setCellSize(cellSize);
+        gameView.getRunView().getSecondPlayerView().setCellSize(cellSize);
         gameView.getRunView().getMazeView().setCellSize(cellSize);
-        if (isAiEnabled) {
-            gameView.getRunView().getAiView().setCellSize(cellSize);
-        }
     }
 
     @Override
     public void handleKeyPress(String key) {
-        Direction direction;
+        Direction direction = null;
+        Direction secondPlayerDirection = null;
+        boolean isPlayerOne = true;
+
         switch (key.toUpperCase()) {
             case "W":
                 direction = Direction.UP;
@@ -104,19 +92,50 @@ public class GameController implements IGameController {
             case "D":
                 direction = Direction.RIGHT;
                 break;
+            case "I":
+                secondPlayerDirection = Direction.UP;
+                isPlayerOne = false;
+                break;
+            case "J":
+                secondPlayerDirection = Direction.LEFT;
+                isPlayerOne = false;
+                break;
+            case "K":
+                secondPlayerDirection = Direction.DOWN;
+                isPlayerOne = false;
+                break;
+            case "L":
+                secondPlayerDirection = Direction.RIGHT;
+                isPlayerOne = false;
+                break;
             default:
                 throw new IllegalArgumentException("Unknown key: " + key);
         }
-        boolean reachedGoal = movePlayer(direction);
-        gameView.getRunView().getPlayerView().setDirection(direction);
-        if (reachedGoal) {
-            showVictoryView("Player ");
+
+        if (isPlayerOne) {
+            boolean reachedGoal = movePlayer(direction);
+            gameView.getRunView().getPlayerView().setDirection(direction);
+            if (reachedGoal) {
+                showVictoryView("Player 1 ");
+            }
+        } else {
+            boolean reachedGoal = moveSecondPlayer(secondPlayerDirection);
+            gameView.getRunView().getSecondPlayerView().setDirection(secondPlayerDirection);
+            if (reachedGoal) {
+                showVictoryView("Player 2 ");
+            }
         }
     }
 
     private boolean movePlayer(Direction direction) {
         boolean hasWon = gameService.movePlayer(direction);
         gameView.getRunView().getPlayerView().draw();
+        return hasWon;
+    }
+
+    private boolean moveSecondPlayer(Direction direction) {
+        boolean hasWon = gameService.moveSecondPlayer(direction);
+        gameView.getRunView().getSecondPlayerView().draw();
         return hasWon;
     }
 
@@ -173,27 +192,12 @@ public class GameController implements IGameController {
         });
         getGameView().showWelcomeView();
     }
+    //Vs版本不需要
     @Override
     public void startAiMovement() {
-        if (aiTimeline != null) {
-            aiTimeline.stop();
-        }
 
-        aiTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            gameService.getAiService().moveAi();
-            gameView.getRunView().getAiView().draw(); // 重新绘制 AI 视图
-            gameView.getRunView().getPlayerView().draw();
-
-            if (gameService.getAiService().isPlayerCaught()) {
-                System.out.println("Player caught by AI!");
-                aiTimeline.stop();
-                showFailureView();
-            }
-        }));
-        aiTimeline.setCycleCount(Timeline.INDEFINITE);
-        aiTimeline.play();
     }
-
+    @Override
     public void showFailureView() {
         gameView.setFailView(new FailView()); // 这里可以改成用抽象工厂来选择皮肤，暂时不需要
         gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // 跳转

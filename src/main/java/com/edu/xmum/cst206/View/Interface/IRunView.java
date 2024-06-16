@@ -16,7 +16,7 @@ public interface IRunView {
     IPlayerView getPlayerView();
     IMazeView getMazeView();
     IPlayerView getAiView();
-
+    IPlayerView getSecondPlayerView();
     void reSetView();
     public void adjustLayout();
     public void showHint(List<int[]> path);

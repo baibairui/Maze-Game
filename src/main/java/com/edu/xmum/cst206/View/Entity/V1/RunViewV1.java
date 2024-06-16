@@ -2,6 +2,7 @@ package com.edu.xmum.cst206.View.Entity.V1;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
+import com.edu.xmum.cst206.Model.Skin;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
 import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
@@ -34,9 +35,9 @@ public class RunViewV1 extends BorderPane implements IRunView {
         // 初始化组件
         this.gameController = gameController;
         currentDifficulty = new Label("难度:" + gameController.getDiffculty());
-        mazeView = FactoryProducer.getFactory("Maze").getMazeView("V1", gameController.getGameService().getMazeService().getMaze());
-        playerView = FactoryProducer.getFactory("Player").getPlayerView("V1", gameController.getGameService().getPlayerService().getPlayer());
-        aiView = FactoryProducer.getFactory("Player").getPlayerView("V1", gameController.getGameService().getAiService().getAiModel());
+        mazeView = FactoryProducer.getFactory("Maze").getMazeView(Skin.V1, gameController.getGameService().getMazeService().getMaze());
+        playerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V1, gameController.getGameService().getPlayerService().getPlayer());
+        aiView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V1, gameController.getGameService().getAiService().getAiModel());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
@@ -229,5 +230,11 @@ public class RunViewV1 extends BorderPane implements IRunView {
     @Override
     public IPlayerView getAiView() {
         return aiView;
+    }
+
+    //V1不需要
+    @Override
+    public IPlayerView getSecondPlayerView() {
+        return null;
     }
 }
