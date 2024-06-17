@@ -1,6 +1,7 @@
 package com.edu.xmum.cst206.View.Styler;
 
 import Constant.Skin;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 public class RunViewStyler {
     public static void resetButtonStyle(Skin skin, Button resetButton) {
@@ -151,9 +153,22 @@ public class RunViewStyler {
     private static void applyButtonEffects(Button button, String normalColor, String hoverColor, String activeColor) {
         button.setStyle("-fx-background-color: " + normalColor + "; -fx-text-fill: white; -fx-font-size: 14px;");
 
-        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));
-        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: " + normalColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));
+        button.setOnMouseEntered(event -> {
+            button.setStyle("-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: 14px;");
+            addScaleAnimation(button, 1.1);  // 添加缩放动画
+        });
+        button.setOnMouseExited(event -> {
+            button.setStyle("-fx-background-color: " + normalColor + "; -fx-text-fill: white; -fx-font-size: 14px;");
+            addScaleAnimation(button, 1.0);  // 恢复缩放动画
+        });
         button.setOnMousePressed(event -> button.setStyle("-fx-background-color: " + activeColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));
         button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));
+    }
+
+    private static void addScaleAnimation(Button button, double scaleTo) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), button);
+        scaleTransition.setToX(scaleTo);
+        scaleTransition.setToY(scaleTo);
+        scaleTransition.play();
     }
 }

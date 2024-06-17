@@ -1,6 +1,8 @@
 package com.edu.xmum.cst206.View.Styler;
 
 import Constant.Skin;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 public class WelcomeViewStyler {
     // 用于美化容器
@@ -67,6 +70,8 @@ public class WelcomeViewStyler {
                 label.setStyle("-fx-background-color: #FF69B4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
         }
+        // 添加上下浮动动画
+        addTextFloatingAnimation(label);
     }
 
     // 用于美化按钮
@@ -82,36 +87,97 @@ public class WelcomeViewStyler {
                         "-fx-cursor: hand; " +
                         "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);");
 
-                button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2c3e50; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 16px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand; " +
-                        "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);"));
-
-                button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #3f4b57; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 16px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand; " +
-                        "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);"));
+                addButtonAnimation(button, "#3f4b57", "#2c3e50", "#21252b");
             }
             case V2 -> {
                 button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #FF6347; -fx-background-radius: 10;");
-                button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #FF4500; -fx-background-radius: 10;"));
-                button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #FF6347; -fx-background-radius: 10;"));
+                addButtonAnimation(button, "#FF6347", "#FF4500", "#FF6347");
             }
             case V3 -> {
                 button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #FF69B4; -fx-background-radius: 10;");
-                button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #FF1493; -fx-background-radius: 10;"));
-                button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #FF69B4; -fx-background-radius: 10;"));
+                addButtonAnimation(button, "#FF69B4", "#FF1493", "#FF69B4");
             }
         }
+    }
+
+    private static void addTextFloatingAnimation(Label label) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
+        translateTransition.setFromY(0);
+        translateTransition.setToY(-10);
+        translateTransition.setAutoReverse(true);
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition.play();
+    }
+
+    private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
+        button.setOnMouseEntered(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand; " +
+                            "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);"
+            );
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        button.setOnMouseExited(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + normalColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand; " +
+                            "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);"
+            );
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+
+        button.setOnMousePressed(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + pressedColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand; " +
+                            "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);"
+            );
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(2);
+            tt.play();
+        });
+
+        button.setOnMouseReleased(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand; " +
+                            "-fx-effect: dropshadow(gaussian, rgba(38, 6, 6, 0.75), 5, 0.5, 0, 0);"
+            );
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(-2);
+            tt.play();
+        });
     }
 }

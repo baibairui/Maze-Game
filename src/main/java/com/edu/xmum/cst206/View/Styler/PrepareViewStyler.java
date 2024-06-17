@@ -1,6 +1,8 @@
 package com.edu.xmum.cst206.View.Styler;
 
 import Constant.Skin;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 public class PrepareViewStyler {
     public static void VboxStyle(Skin skin, VBox vBox) {
@@ -66,6 +69,8 @@ public class PrepareViewStyler {
                 prepareLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #222;");
             }
         }
+        // 添加上下浮动动画
+        addTextFloatingAnimation(prepareLabel);
     }
 
     public static void ButtonStyle(Skin skin, Button button) {
@@ -81,41 +86,7 @@ public class PrepareViewStyler {
                                 "-fx-cursor: hand;"
                 );
 
-                button.setOnMouseEntered(event -> button.setStyle(
-                        "-fx-background-color: #45a049; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMouseExited(event -> button.setStyle(
-                        "-fx-background-color: #4CAF50; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMousePressed(event -> button.setStyle(
-                        "-fx-background-color: #3e8e41; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMouseReleased(event -> button.setStyle(
-                        "-fx-background-color: #45a049; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
+                addButtonAnimation(button, "#4CAF50", "#45a049", "#3e8e41");
             }
             case V2 -> {
                 button.setStyle(
@@ -127,41 +98,7 @@ public class PrepareViewStyler {
                                 "-fx-cursor: hand;"
                 );
 
-                button.setOnMouseEntered(event -> button.setStyle(
-                        "-fx-background-color: #0056b3; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMouseExited(event -> button.setStyle(
-                        "-fx-background-color: #007BFF; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMousePressed(event -> button.setStyle(
-                        "-fx-background-color: #004085; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMouseReleased(event -> button.setStyle(
-                        "-fx-background-color: #0056b3; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;"
-                ));
+                addButtonAnimation(button, "#007BFF", "#0056b3", "#004085");
             }
             case V3 -> {
                 button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
@@ -173,34 +110,81 @@ public class PrepareViewStyler {
                                 "-fx-cursor: hand;"
                 );
 
-                button.setOnMouseEntered(e -> button.setStyle(
-                        "-fx-background-color: #E64A19; " +
-                                "-fx-background-radius: 10; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMouseExited(e -> button.setStyle(
-                        "-fx-background-color: #FF5722; " +
-                                "-fx-background-radius: 10; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMousePressed(e -> button.setStyle(
-                        "-fx-background-color: #D84315; " +
-                                "-fx-background-radius: 10; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-cursor: hand;"
-                ));
-
-                button.setOnMouseReleased(e -> button.setStyle(
-                        "-fx-background-color: #E64A19; " +
-                                "-fx-background-radius: 10; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-cursor: hand;"
-                ));
+                addButtonAnimation(button, "#FF5722", "#E64A19", "#D84315");
             }
         }
+    }
+
+    private static void addTextFloatingAnimation(Label label) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
+        translateTransition.setFromY(0);
+        translateTransition.setToY(-10);
+        translateTransition.setAutoReverse(true);
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition.play();
+    }
+
+    private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
+        button.setOnMouseEntered(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        button.setOnMouseExited(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + normalColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+
+        button.setOnMousePressed(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + pressedColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(2);
+            tt.play();
+        });
+
+        button.setOnMouseReleased(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(-2);
+            tt.play();
+        });
     }
 }

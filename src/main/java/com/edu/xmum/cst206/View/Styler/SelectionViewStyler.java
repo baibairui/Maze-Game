@@ -1,6 +1,8 @@
 package com.edu.xmum.cst206.View.Styler;
 
 import Constant.Skin;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 public class SelectionViewStyler {
     // 用于美化容器
@@ -61,6 +64,8 @@ public class SelectionViewStyler {
                 difficultyLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
         }
+        // 添加上下浮动动画
+        addTextFloatingAnimation(difficultyLabel);
     }
 
     public static void styleButton(Skin skin, Button button) {
@@ -78,45 +83,7 @@ public class SelectionViewStyler {
                                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
                 );
 
-                button.setOnMouseEntered(event -> button.setStyle(
-                        "-fx-background-color: #005bb5; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
-                ));
-
-                button.setOnMouseExited(event -> button.setStyle(
-                        "-fx-background-color: #0073e6; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
-                ));
-
-                button.setOnMousePressed(event -> button.setStyle(
-                        "-fx-background-color: #003d80; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
-                ));
-
-                button.setOnMouseReleased(event -> button.setStyle(
-                        "-fx-background-color: #005bb5; " +
-                                "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
-                                "-fx-padding: 10px 20px; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-cursor: hand;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
-                ));
+                addButtonAnimation(button, "#0073e6", "#005bb5", "#003d80");
             }
             // 用来美化V2
             case V2 -> {
@@ -125,11 +92,7 @@ public class SelectionViewStyler {
                 button.setStyle("-fx-background-color: #32CD32; -fx-background-radius: 10; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
 
-                button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2E8B57; -fx-background-radius: 10;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"));
-
-                button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #32CD32; -fx-background-radius: 10;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"));
+                addButtonAnimation(button, "#32CD32", "#2E8B57", "#228B22");
             }
             // 用来美化V3
             case V3 -> {
@@ -138,12 +101,85 @@ public class SelectionViewStyler {
                 button.setStyle("-fx-background-color: #FF69B4; -fx-background-radius: 10; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
 
-                button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #FF1493; -fx-background-radius: 10;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"));
-
-                button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #FF69B4; -fx-background-radius: 10;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"));
+                addButtonAnimation(button, "#FF69B4", "#FF1493", "#FF007F");
             }
         }
+    }
+
+    private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
+        button.setOnMouseEntered(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
+            );
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        button.setOnMouseExited(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + normalColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
+            );
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+
+        button.setOnMousePressed(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + pressedColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
+            );
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(2);
+            tt.play();
+        });
+
+        button.setOnMouseReleased(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);"
+            );
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(-2);
+            tt.play();
+        });
+    }
+
+    private static void addTextFloatingAnimation(Label label) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
+        translateTransition.setFromY(0);
+        translateTransition.setToY(-10);
+        translateTransition.setAutoReverse(true);
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition.play();
     }
 }
