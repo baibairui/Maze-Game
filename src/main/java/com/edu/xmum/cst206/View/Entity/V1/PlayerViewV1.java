@@ -2,7 +2,9 @@ package com.edu.xmum.cst206.View.Entity.V1;
 
 import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
+import com.edu.xmum.cst206.Model.Skin;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
+import com.edu.xmum.cst206.View.Styler.PlayerViewStyler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -20,23 +22,9 @@ public class PlayerViewV1 extends Pane implements IPlayerView {
 
     @Override
     public void draw() {
-
-        String playerDir;
-        switch (direction) {
-            case UP -> playerDir = "Up";
-            case DOWN -> playerDir = "Down";
-            case LEFT -> playerDir = "Left";
-            case RIGHT -> playerDir = "Right";
-            default -> playerDir = "Down"; // 默认向下
-        }
-
-        Image playImg = new Image("com/edu/xmum/cst206/player/豌豆" + playerDir + ".gif");
-        ImageView playerView = new ImageView(playImg);
-        playerView.setFitHeight(cellSize);
-        playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度
-        playerView.setX(player.getX() * cellSize);
-        playerView.setY(player.getY() * cellSize);
-
+         //设置玩家视图
+        ImageView playerView = new ImageView();
+        PlayerViewStyler.playerViewStyle(Skin.V1,playerView,cellSize,player,direction.toString());
         getChildren().clear();
         getChildren().add(playerView);
     }

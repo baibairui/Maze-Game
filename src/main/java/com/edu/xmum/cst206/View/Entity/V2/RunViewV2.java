@@ -3,11 +3,10 @@ package com.edu.xmum.cst206.View.Entity.V2;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Skin;
-import com.edu.xmum.cst206.View.Entity.V1.MazeViewV1;
-import com.edu.xmum.cst206.View.Entity.V1.PlayerViewV1;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import com.edu.xmum.cst206.View.Interface.IRunView;
+import com.edu.xmum.cst206.View.Styler.RunViewStyler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -41,33 +40,23 @@ public class RunViewV2 extends BorderPane implements IRunView {
         hintButton = new Button("提示");
 
         // 设置按钮样式
-        resetButton.setStyle("-fx-background-color: #FF6347; -fx-text-fill: white; -fx-font-size: 14px;");
-        hintButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-size: 14px;");
+        RunViewStyler.resetButtonStyle(Skin.V2,resetButton);
+        RunViewStyler.hintButtonStyle(Skin.V2,hintButton);
         // 设置字体和颜色
-        currentDifficulty.setFont(new Font("Arial", 16));
-        //currentDifficulty.setStyle("-fx-background-color: #ff4747; -fx-text-fill: white; -fx-font-size: 14px;");
+        RunViewStyler.diffcultyTitleStyle(Skin.V2,currentDifficulty);
 
         // 设置提示信息样式
         HBox infoBox = new HBox(20,  currentDifficulty);
-        infoBox.setAlignment(Pos.CENTER);
-        infoBox.setPadding(new Insets(10, 10, 10, 10));
-        infoBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        infoBox.setStyle("-fx-background-color: #ffa347; -fx-text-fill: white; -fx-font-size: 14px;");
+        RunViewStyler.infoBoxStyle(Skin.V2,infoBox);
+
         // 设置控制面板样式
         HBox controlBox = new HBox(20, resetButton, hintButton);
-        controlBox.setAlignment(Pos.CENTER);
-        controlBox.setPadding(new Insets(10, 10, 10, 10));
-        controlBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        controlBox.setStyle("-fx-background-color: #ffa947; -fx-text-fill: white; -fx-font-size: 14px;");
+        RunViewStyler.controlBoxStyle(Skin.V2,controlBox);
+
         // 设置游戏面板样式
         StackPane gamePane = new StackPane();
-        gamePane.setAlignment(Pos.CENTER);
         gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
-        gamePane.setStyle("-fx-background-color: white; -fx-border-color: #A9A9A9; -fx-border-width: 1px;");
-        // 控制排版
-        setTop(infoBox);
-        setCenter(gamePane);
-        setBottom(controlBox);
+        RunViewStyler.gameBoxStyle(Skin.V2,gamePane);
 
         // 确保游戏面板可以获得焦点
         gamePane.setFocusTraversable(true);
@@ -77,8 +66,13 @@ public class RunViewV2 extends BorderPane implements IRunView {
         gamePane.widthProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
         gamePane.heightProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
 
-        // 设置主边框
-        setStyle("-fx-background-color: #F5F5F5;");
+        //调整整体页面
+        // 控制排版
+        setTop(infoBox);
+        setCenter(gamePane);
+        setBottom(controlBox);
+        RunViewStyler.BoxStyle(Skin.V2,this);
+
     }
 
     @Override

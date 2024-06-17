@@ -24,4 +24,24 @@ public enum Direction {
                 return 0; // 向左或向右移动时，Y方向不变
         }
     }
+    public String toString(){
+        switch (this) {
+            case UP -> {
+                return  "Up";
+            }
+            case DOWN -> {
+                return  "Down";
+            }
+            case LEFT -> {
+                return  "Left";
+            }
+            case RIGHT -> {
+                return  "Right";
+            }
+            default -> {
+                return  "Down"; // 默认向下
+            }
+        }
+    }
+
 }
