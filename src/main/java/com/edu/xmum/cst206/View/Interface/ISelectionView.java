@@ -10,5 +10,6 @@ public interface ISelectionView {
     Button getMediumButton();
 
     Button getHardButton();
+
     VBox getNode();
 }

@@ -1,10 +1,10 @@
 package com.edu.xmum.cst206;
 
-import com.edu.xmum.cst206.Controller.GameController;
+import Constant.Config;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.View.Entity.GameView;
 import com.edu.xmum.cst206.View.Entity.SkinSelectionView;
@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-import static com.edu.xmum.cst206.Config.SCENE_HEIGHT;
-import static com.edu.xmum.cst206.Config.SCENE_WIDTH;
+import static Constant.Config.SCENE_HEIGHT;
+import static Constant.Config.SCENE_WIDTH;
 
 public class App extends Application {
     private IGameController gameController;
@@ -56,7 +56,7 @@ public class App extends Application {
         // 初始化
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
-        gameController = FactoryProducer.getFactory("GameController").gameController(Config.skin, gameService);
+        gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView(gameController);
 
         // 依赖注入

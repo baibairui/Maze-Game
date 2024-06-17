@@ -1,6 +1,6 @@
 package com.edu.xmum.cst206.View.Styler;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

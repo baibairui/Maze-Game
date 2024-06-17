@@ -11,13 +11,22 @@ MazeModel的接口
  */
 public interface IMazeModel {
     int getRows();
+
     int getCols();
+
     int getGoalX();
+
     int getGoalY();
+
     int getStartX();
+
     int getStartY();
+
     int[][] getMaze();
+
     void setRows(int rows);
+
     void setCols(int cols);
+
     void generateMaze();
 }

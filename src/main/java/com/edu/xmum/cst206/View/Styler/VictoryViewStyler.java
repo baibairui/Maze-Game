@@ -1,6 +1,6 @@
 package com.edu.xmum.cst206.View.Styler;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,9 +15,9 @@ import javafx.scene.text.FontWeight;
 
 public class VictoryViewStyler {
 
-    public static void VboxStyle(Skin skin, VBox box){
-        if(box == null) return;
-        switch (skin){
+    public static void VboxStyle(Skin skin, VBox box) {
+        if (box == null) return;
+        switch (skin) {
             case V1 -> {
                 box.setAlignment(Pos.CENTER);
                 box.setSpacing(20);
@@ -43,8 +43,8 @@ public class VictoryViewStyler {
     }
 
     public static void LabelStyle(Skin skin, Label victoryLabel) {
-        if(victoryLabel == null) return;
-        switch (skin){
+        if (victoryLabel == null) return;
+        switch (skin) {
             case V1 -> {
                 victoryLabel.setFont(new Font(24));
                 victoryLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0073e6; " +
@@ -64,8 +64,8 @@ public class VictoryViewStyler {
     }
 
     public static void ButtonStyle(Skin skin, Button button) {
-        if(button == null) return;
-        switch (skin){
+        if (button == null) return;
+        switch (skin) {
             case V1 -> {
                 button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
                 button.setTextFill(Color.WHITE);

@@ -46,6 +46,7 @@ public class MazeModel extends GameObject implements IMazeModel {
         this.startY = 1;
         this.maze = new int[rows][cols];
     }
+
     /*基于随机prim算法的迷宫生成
         1.先将用于表示迷宫的二维数组全部初始化为1
         2.将入口位置设置为0

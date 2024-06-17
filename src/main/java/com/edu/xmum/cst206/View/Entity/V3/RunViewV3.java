@@ -2,21 +2,18 @@ package com.edu.xmum.cst206.View.Entity.V3;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Styler.RunViewStyler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -35,9 +32,9 @@ public class RunViewV3 extends BorderPane implements IRunView {
         // 初始化组件
         this.gameController = gameController;
         currentDifficulty = new Label("难度:" + gameController.getDiffculty());
-        mazeView = FactoryProducer.getFactory("Maze").getMazeView(Skin.V3, gameController.getGameService().getMazeService().getMaze());
-        playerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V3, gameController.getGameService().getPlayerService().getPlayer());
-        secondPlayerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.Vs, gameController.getGameService().getSecondPlayerService().getPlayer());
+        mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V3, gameController.getGameService().getMazeService().getMaze());
+        playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V3, gameController.getGameService().getPlayerService().getPlayer());
+        secondPlayerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.Vs, gameController.getGameService().getSecondPlayerService().getPlayer());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
@@ -45,24 +42,24 @@ public class RunViewV3 extends BorderPane implements IRunView {
         调用style对组件进行美化
          */
         // 设置按钮样式
-        RunViewStyler.resetButtonStyle(Skin.V3,resetButton);
-        RunViewStyler.hintButtonStyle(Skin.V3,hintButton);
+        RunViewStyler.resetButtonStyle(Skin.V3, resetButton);
+        RunViewStyler.hintButtonStyle(Skin.V3, hintButton);
 
         // 设置字体和颜色
-       RunViewStyler.diffcultyTitleStyle(Skin.V3,currentDifficulty);
+        RunViewStyler.diffcultyTitleStyle(Skin.V3, currentDifficulty);
 
         // 设置提示信息样式
         HBox infoBox = new HBox(20, currentDifficulty);
-        RunViewStyler.infoBoxStyle(Skin.V3,infoBox);
+        RunViewStyler.infoBoxStyle(Skin.V3, infoBox);
 
         // 设置控制面板样式
         HBox controlBox = new HBox(20, resetButton, hintButton);
-        RunViewStyler.infoBoxStyle(Skin.V3,controlBox);
+        RunViewStyler.infoBoxStyle(Skin.V3, controlBox);
 
         // 设置游戏面板样式
         StackPane gamePane = new StackPane();
         gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), secondPlayerView.getNode()); // 添加第二个玩家视图
-        RunViewStyler.gameBoxStyle(Skin.V3,gamePane);
+        RunViewStyler.gameBoxStyle(Skin.V3, gamePane);
 
 
         // 确保游戏面板可以获得焦点
@@ -78,55 +75,9 @@ public class RunViewV3 extends BorderPane implements IRunView {
         setTop(infoBox);
         setCenter(gamePane);
         setBottom(controlBox);
-        RunViewStyler.BoxStyle(Skin.V1,this);
+        RunViewStyler.BoxStyle(Skin.V1, this);
     }
 
-    private void setButtonStyle(Button button, String backgroundColor) {
-        button.setStyle(
-                "-fx-background-color: " + backgroundColor + "; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        );
-
-        button.setOnMouseEntered(event -> button.setStyle(
-                "-fx-background-color: #005bb5; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        button.setOnMouseExited(event -> button.setStyle(
-                "-fx-background-color: " + backgroundColor + "; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        button.setOnMousePressed(event -> button.setStyle(
-                "-fx-background-color: #003d80; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        button.setOnMouseReleased(event -> button.setStyle(
-                "-fx-background-color: #005bb5; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-    }
 
     @Override
     public Button getResetButton() {
@@ -184,7 +135,7 @@ public class RunViewV3 extends BorderPane implements IRunView {
         double mazeWidth = cellSize * gameController.getGameService().getMazeService().getMaze().getCols();
         double mazeHeight = cellSize * gameController.getGameService().getMazeService().getMaze().getRows();
         double offsetX = (getWidth() - mazeWidth) / 2;
-        double offsetY = (getHeight() - ((HBox)getTop()).getHeight() - ((HBox)getBottom()).getHeight() - mazeHeight) / 2;
+        double offsetY = (getHeight() - ((HBox) getTop()).getHeight() - ((HBox) getBottom()).getHeight() - mazeHeight) / 2;
 
         mazeView.getNode().setTranslateX(offsetX);
         mazeView.getNode().setTranslateY(offsetY);

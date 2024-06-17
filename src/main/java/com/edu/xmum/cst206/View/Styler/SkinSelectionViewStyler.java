@@ -12,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import static com.edu.xmum.cst206.Config.SCENE_HEIGHT;
-import static com.edu.xmum.cst206.Config.SCENE_WIDTH;
+import static Constant.Config.SCENE_HEIGHT;
+import static Constant.Config.SCENE_WIDTH;
 
 public class SkinSelectionViewStyler {
 

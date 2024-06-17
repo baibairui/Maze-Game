@@ -1,28 +1,26 @@
 package com.edu.xmum.cst206.View.Entity.V1;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import com.edu.xmum.cst206.View.Interface.IWelcomeView;
 import com.edu.xmum.cst206.View.Styler.WelcomeViewStyler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 public class WelComeViewV1 extends VBox implements IWelcomeView {
     private final Button startButton = new Button("开始游戏");
     private final Label titleLabel = new Label("欢迎来到迷宫游戏");
+
     public WelComeViewV1() {
         // 美化容器
-        WelcomeViewStyler.styleVbox(Skin.V1,this);
+        WelcomeViewStyler.styleVbox(Skin.V1, this);
         //美化组件
-        WelcomeViewStyler.styleTitleLabel(Skin.V1,titleLabel);
-        WelcomeViewStyler.styleStartButton(Skin.V1,startButton);
+        WelcomeViewStyler.styleTitleLabel(Skin.V1, titleLabel);
+        WelcomeViewStyler.styleStartButton(Skin.V1, startButton);
 
         //添加组件
-        getChildren().addAll(titleLabel,startButton);
+        getChildren().addAll(titleLabel, startButton);
     }
 
     public Button getStartButton() {

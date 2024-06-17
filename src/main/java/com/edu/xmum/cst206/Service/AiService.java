@@ -1,9 +1,10 @@
 package com.edu.xmum.cst206.Service;
 
+import com.edu.xmum.cst206.AlgorithmStrategy.AstarStrategy;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.Service.Interface.IAiService;
 import com.edu.xmum.cst206.Service.Interface.IMazeService;
-import com.edu.xmum.cst206.Service.Interface.IFindPathStrategy;
+import com.edu.xmum.cst206.AlgorithmStrategy.IFindPathStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class AiService implements IAiService {
                 ai.setPosition(nextMove[1], nextMove[0]);
             }
         }
-        System.out.println("X: "+ai.getX()+" Y "+ai.getY());
+        System.out.println("X: " + ai.getX() + " Y " + ai.getY());
     }
 
     @Override
@@ -47,6 +48,6 @@ public class AiService implements IAiService {
 
     @Override
     public void reset() {
-        ai.setPosition(mazeService.getMaze().getStartX(), mazeService.getMaze().getRows()-2);
+        ai.setPosition(mazeService.getMaze().getStartX(), mazeService.getMaze().getRows() - 2);
     }
 }

@@ -10,15 +10,16 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 
 public class SkinSelectionView extends VBox implements ISkinSelectionView {
-    ArrayList<Button> Buttons=new ArrayList<>();
-    private final Label label=new Label("选择你想用的皮肤");
-    public SkinSelectionView(){
+    ArrayList<Button> Buttons = new ArrayList<>();
+    private final Label label = new Label("选择你想用的皮肤");
+
+    public SkinSelectionView() {
         super();
         SkinSelectionViewStyler.VBoxStyle(this);
         SkinSelectionViewStyler.LabelStyle(label);
         //添加按钮
-        for(int i=0;i<FactoryProducer.getSize();i++){
-            Button button=new Button("V"+(i+1));
+        for (int i = 0; i < FactoryProducer.getSkinSize(); i++) {
+            Button button = new Button("V" + (i + 1));
             SkinSelectionViewStyler.ButtonStyle(button);
             Buttons.add(button);
         }
@@ -26,6 +27,7 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
         getChildren().add(label);
         getChildren().addAll(Buttons);
     }
+
     @Override
     public ArrayList<Button> getButtons() {
         return Buttons;

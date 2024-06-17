@@ -1,30 +1,28 @@
 package com.edu.xmum.cst206.View.Entity.V2;
 
-import com.edu.xmum.cst206.Model.Direction;
+import Constant.Direction;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import com.edu.xmum.cst206.View.Styler.PlayerViewStyler;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 public class PlayerViewV2 extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
     private Direction direction;
 
-    public PlayerViewV2(IPlayerModel playerModel){
-        this.player=playerModel;
-        direction=Direction.DOWN;//默认向下
+    public PlayerViewV2(IPlayerModel playerModel) {
+        this.player = playerModel;
+        direction = Direction.DOWN;//默认向下
     }
 
     @Override
     public void draw() {
         //设置玩家视图
         ImageView playerView = new ImageView();
-        PlayerViewStyler.playerViewStyle(Skin.V1,playerView,cellSize,player,direction.toString());
+        PlayerViewStyler.playerViewStyle(Skin.V1, playerView, cellSize, player, direction.toString());
         getChildren().clear();
         getChildren().add(playerView);
     }
@@ -36,7 +34,7 @@ public class PlayerViewV2 extends Pane implements IPlayerView {
 
     @Override
     public void setCellSize(int cellSize) {
-        this.cellSize=cellSize;
+        this.cellSize = cellSize;
     }
 
     @Override
@@ -46,6 +44,6 @@ public class PlayerViewV2 extends Pane implements IPlayerView {
 
     @Override
     public void setDirection(Direction direction) {
-        this.direction=direction;
+        this.direction = direction;
     }
 }

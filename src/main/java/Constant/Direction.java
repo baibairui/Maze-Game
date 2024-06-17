@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.Model;
+package Constant;
 
 public enum Direction {
     UP, DOWN, LEFT, RIGHT;
@@ -24,22 +24,23 @@ public enum Direction {
                 return 0; // 向左或向右移动时，Y方向不变
         }
     }
-    public String toString(){
+
+    public String toString() {
         switch (this) {
             case UP -> {
-                return  "Up";
+                return "Up";
             }
             case DOWN -> {
-                return  "Down";
+                return "Down";
             }
             case LEFT -> {
-                return  "Left";
+                return "Left";
             }
             case RIGHT -> {
-                return  "Right";
+                return "Right";
             }
             default -> {
-                return  "Down"; // 默认向下
+                return "Down"; // 默认向下
             }
         }
     }

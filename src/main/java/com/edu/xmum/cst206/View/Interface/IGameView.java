@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 public interface IGameView {
 
     void setGameController(IGameController gameController);
+
     IWelcomeView getWelcomeView();
 
     ISelectionView getSelectionView();
@@ -14,8 +15,11 @@ public interface IGameView {
     IPrepareView getPrepareView();
 
     IRunView getRunView();
+
     IVictoryView getVictoryView();
+
     IFailView getFailView();
+
     BorderPane getView();
 
 
@@ -26,9 +30,12 @@ public interface IGameView {
     void showPrepareView();
 
     void showRunView();
+
     void showWelcomeView();
+
     void showFailView();
-    public void setWelcomeView(IWelcomeView welcomeView) ;
+
+    public void setWelcomeView(IWelcomeView welcomeView);
 
     public void setSelectionView(ISelectionView selectionView);
 
@@ -37,5 +44,6 @@ public interface IGameView {
     public void setRunView(IRunView runView);
 
     public void setVictoryView(IVictoryView victoryView);
+
     void setFailView(IFailView failView);
 }

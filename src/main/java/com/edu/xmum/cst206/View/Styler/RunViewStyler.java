@@ -1,6 +1,6 @@
 package com.edu.xmum.cst206.View.Styler;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,9 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class RunViewStyler {
-    public static void resetButtonStyle(Skin skin, Button resetButton){
-        if(resetButton==null)return;
-        switch (skin){
+    public static void resetButtonStyle(Skin skin, Button resetButton) {
+        if (resetButton == null) return;
+        switch (skin) {
             case V1 -> {
                 resetButton.setStyle("-fx-background-color: #FF6347; -fx-text-fill: white; -fx-font-size: 14px;");
                 applyButtonEffects(resetButton, "#FF6347", "#FF4500", "#FF6347");
@@ -29,9 +29,9 @@ public class RunViewStyler {
         }
     }
 
-    public static void hintButtonStyle(Skin skin, Button hintButton){
-        if(hintButton==null)return;
-        switch (skin){
+    public static void hintButtonStyle(Skin skin, Button hintButton) {
+        if (hintButton == null) return;
+        switch (skin) {
             case V1 -> {
                 hintButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-size: 14px;");
                 applyButtonEffects(hintButton, "#4682B4", "#4169E1", "#4682B4");
@@ -47,9 +47,9 @@ public class RunViewStyler {
         }
     }
 
-    public static void diffcultyTitleStyle(Skin skin, Label currentDifficulty){
-        if(currentDifficulty==null)return;
-        switch (skin){
+    public static void diffcultyTitleStyle(Skin skin, Label currentDifficulty) {
+        if (currentDifficulty == null) return;
+        switch (skin) {
             case V1 -> {
                 currentDifficulty.setFont(Font.font("Arial", FontWeight.BOLD, 16));
                 currentDifficulty.setStyle("-fx-text-fill: #333;");
@@ -65,9 +65,9 @@ public class RunViewStyler {
         }
     }
 
-    public static void infoBoxStyle(Skin skin, HBox infoBox){
-        if(infoBox==null)return;
-        switch (skin){
+    public static void infoBoxStyle(Skin skin, HBox infoBox) {
+        if (infoBox == null) return;
+        switch (skin) {
             case V1 -> {
                 infoBox.setAlignment(Pos.CENTER);
                 infoBox.setPadding(new Insets(10, 10, 10, 10));
@@ -89,9 +89,9 @@ public class RunViewStyler {
         }
     }
 
-    public static void controlBoxStyle(Skin skin, HBox controlBox){
-        if(controlBox==null)return;
-        switch (skin){
+    public static void controlBoxStyle(Skin skin, HBox controlBox) {
+        if (controlBox == null) return;
+        switch (skin) {
             case V1 -> {
                 controlBox.setAlignment(Pos.CENTER);
                 controlBox.setPadding(new Insets(10, 10, 10, 10));
@@ -111,9 +111,9 @@ public class RunViewStyler {
         }
     }
 
-    public static void gameBoxStyle(Skin skin, StackPane gamePane){
-        if(gamePane == null) return;
-        switch (skin){
+    public static void gameBoxStyle(Skin skin, StackPane gamePane) {
+        if (gamePane == null) return;
+        switch (skin) {
             case V1 -> {
                 gamePane.setAlignment(Pos.CENTER);
                 gamePane.setStyle("-fx-background-color: white; -fx-border-color: #A9A9A9; -fx-border-width: 1px;");
@@ -130,9 +130,9 @@ public class RunViewStyler {
     }
 
     // 整体盒子的美化
-    public static void BoxStyle(Skin skin, BorderPane pane){
-        if(pane == null)return;
-        switch (skin){
+    public static void BoxStyle(Skin skin, BorderPane pane) {
+        if (pane == null) return;
+        switch (skin) {
             case V1 -> {
                 // 设置主边框
                 pane.setStyle("-fx-background-color: #F5F5F5;");

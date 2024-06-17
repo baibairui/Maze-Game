@@ -12,6 +12,7 @@ package com.edu.xmum.cst206.Model.AbstractClass;
 public abstract class GameObject {
     protected int x;
     protected int y;
+
     //构造函数
     public GameObject(int x, int y) {
         this.x = x;

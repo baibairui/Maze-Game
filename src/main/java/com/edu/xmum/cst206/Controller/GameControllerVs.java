@@ -1,10 +1,9 @@
 package com.edu.xmum.cst206.Controller;
 
-import com.edu.xmum.cst206.Config;
+import Constant.Config;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
-import com.edu.xmum.cst206.Model.Difficulty;
-import com.edu.xmum.cst206.Model.Direction;
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Difficulty;
+import Constant.Direction;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
@@ -142,7 +141,7 @@ public class GameControllerVs implements IGameController {
 
     @Override
     public void showSelectionView() {
-        gameView.setSelectionView(FactoryProducer.getFactory("Select").getSelectionView(Config.skin));
+        gameView.setSelectionView(FactoryProducer.getFactory("GameView").getSelectionView(Config.skin));
         gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
         gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
         gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
@@ -151,14 +150,14 @@ public class GameControllerVs implements IGameController {
 
     @Override
     public void showPrepareView() {
-        gameView.setPrepareView(FactoryProducer.getFactory("Prepare").getPrepareView(Config.skin));
+        gameView.setPrepareView(FactoryProducer.getFactory("GameView").getPrepareView(Config.skin));
         gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
         gameView.showPrepareView();
     }
 
     @Override
     public void showRunView() {
-        gameView.setRunView(FactoryProducer.getFactory("Run").getRunView(Config.skin, this));
+        gameView.setRunView(FactoryProducer.getFactory("GameView").getRunView(Config.skin, this));
         adjustCellSize();
         gameView.getRunView().reSetView();
         gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
@@ -171,7 +170,7 @@ public class GameControllerVs implements IGameController {
 
     @Override
     public void showVictoryView(String winner) {
-        gameView.setVictoryView(FactoryProducer.getFactory("Victory").getVictoryView(Config.skin));
+        gameView.setVictoryView(FactoryProducer.getFactory("GameView").getVictoryView(Config.skin));
         gameView.getVictoryView().setWinner(winner);
         gameView.getVictoryView().getBackButton().setOnAction(e -> {
             showSelectionView();
@@ -187,17 +186,19 @@ public class GameControllerVs implements IGameController {
     @Override
     public void setGameView(IGameView gameView) {
         this.gameView = gameView;
-        getGameView().setWelcomeView(FactoryProducer.getFactory("Welcome").getWelcomeView(Config.skin));
+        getGameView().setWelcomeView(FactoryProducer.getFactory("GameView").getWelcomeView(Config.skin));
         gameView.getWelcomeView().getStartButton().setOnAction(actionEvent1 -> {
             showSelectionView();
         });
         getGameView().showWelcomeView();
     }
+
     //Vs版本不需要
     @Override
     public void startAiMovement() {
 
     }
+
     @Override
     public void showFailureView() {
         gameView.setFailView(new FailView()); // 这里可以改成用抽象工厂来选择皮肤，暂时不需要

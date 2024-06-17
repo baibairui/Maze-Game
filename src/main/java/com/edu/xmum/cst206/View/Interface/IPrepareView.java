@@ -6,5 +6,6 @@ import javafx.scene.layout.VBox;
 
 public interface IPrepareView {
     Button getStartGameButton();
+
     VBox getNode();
 }

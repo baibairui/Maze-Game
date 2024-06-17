@@ -1,7 +1,8 @@
-package com.edu.xmum.cst206.Model;
+package Constant;
 
 public enum Skin {
-    V1,V2,V3,Vs,AI;
+    V1, V2, V3, Vs, AI;
+
     public String getSkin() {
         switch (this) {
             case V1:

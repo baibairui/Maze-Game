@@ -28,8 +28,8 @@ public class MazeViewV3 extends Pane implements IMazeView {
 
     @Override
     public void draw() {
-       Image pathImage = new Image("com/edu/xmum/cst206/maze/path.png");
-       Image wallImage = new Image("com/edu/xmum/cst206/maze/wall.png");
+        Image pathImage = new Image("com/edu/xmum/cst206/maze/path.png");
+        Image wallImage = new Image("com/edu/xmum/cst206/maze/wall.png");
 
         // 清除以前的绘制
         getChildren().clear();
@@ -51,7 +51,8 @@ public class MazeViewV3 extends Pane implements IMazeView {
             }
         }
     }
-    public int getCellSize(){
+
+    public int getCellSize() {
         return this.cellSize;
     }
 

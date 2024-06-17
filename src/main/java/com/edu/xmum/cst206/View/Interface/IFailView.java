@@ -5,5 +5,6 @@ import javafx.scene.layout.VBox;
 
 public interface IFailView {
     VBox getNode();
+
     Button getBackButton();
 }

@@ -2,21 +2,18 @@ package com.edu.xmum.cst206.View.Entity.V2;
 
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Styler.RunViewStyler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -33,30 +30,30 @@ public class RunViewV2 extends BorderPane implements IRunView {
     public RunViewV2(IGameController gameController) {
         // 初始化组件
         this.gameController = gameController;
-        currentDifficulty = new Label("难度:"+gameController.getDiffculty());
-        mazeView = FactoryProducer.getFactory("Maze").getMazeView(Skin.V2,gameController.getGameService().getMazeService().getMaze());
-        playerView = FactoryProducer.getFactory("Player").getPlayerView(Skin.V2,gameController.getGameService().getPlayerService().getPlayer());
+        currentDifficulty = new Label("难度:" + gameController.getDiffculty());
+        mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V2, gameController.getGameService().getMazeService().getMaze());
+        playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V2, gameController.getGameService().getPlayerService().getPlayer());
         resetButton = new Button("重置游戏");
         hintButton = new Button("提示");
 
         // 设置按钮样式
-        RunViewStyler.resetButtonStyle(Skin.V2,resetButton);
-        RunViewStyler.hintButtonStyle(Skin.V2,hintButton);
+        RunViewStyler.resetButtonStyle(Skin.V2, resetButton);
+        RunViewStyler.hintButtonStyle(Skin.V2, hintButton);
         // 设置字体和颜色
-        RunViewStyler.diffcultyTitleStyle(Skin.V2,currentDifficulty);
+        RunViewStyler.diffcultyTitleStyle(Skin.V2, currentDifficulty);
 
         // 设置提示信息样式
-        HBox infoBox = new HBox(20,  currentDifficulty);
-        RunViewStyler.infoBoxStyle(Skin.V2,infoBox);
+        HBox infoBox = new HBox(20, currentDifficulty);
+        RunViewStyler.infoBoxStyle(Skin.V2, infoBox);
 
         // 设置控制面板样式
         HBox controlBox = new HBox(20, resetButton, hintButton);
-        RunViewStyler.controlBoxStyle(Skin.V2,controlBox);
+        RunViewStyler.controlBoxStyle(Skin.V2, controlBox);
 
         // 设置游戏面板样式
         StackPane gamePane = new StackPane();
         gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
-        RunViewStyler.gameBoxStyle(Skin.V2,gamePane);
+        RunViewStyler.gameBoxStyle(Skin.V2, gamePane);
 
         // 确保游戏面板可以获得焦点
         gamePane.setFocusTraversable(true);
@@ -71,7 +68,7 @@ public class RunViewV2 extends BorderPane implements IRunView {
         setTop(infoBox);
         setCenter(gamePane);
         setBottom(controlBox);
-        RunViewStyler.BoxStyle(Skin.V2,this);
+        RunViewStyler.BoxStyle(Skin.V2, this);
 
     }
 
@@ -130,7 +127,7 @@ public class RunViewV2 extends BorderPane implements IRunView {
         double mazeWidth = cellSize * gameController.getGameService().getMazeService().getMaze().getCols();
         double mazeHeight = cellSize * gameController.getGameService().getMazeService().getMaze().getRows();
         double offsetX = (getWidth() - mazeWidth) / 2;
-        double offsetY = (getHeight() - ((HBox)getTop()).getHeight() - ((HBox)getBottom()).getHeight() - mazeHeight) / 2;
+        double offsetY = (getHeight() - ((HBox) getTop()).getHeight() - ((HBox) getBottom()).getHeight() - mazeHeight) / 2;
 
         mazeView.getNode().setTranslateX(offsetX);
         mazeView.getNode().setTranslateY(offsetY);

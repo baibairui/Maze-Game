@@ -1,8 +1,10 @@
 package com.edu.xmum.cst206.View.Entity.V3;
 
-import com.edu.xmum.cst206.Model.Direction;
+import Constant.Direction;
+import Constant.Skin;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
+import com.edu.xmum.cst206.View.Styler.PlayerViewStyler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -11,9 +13,10 @@ public class SecondPlayerViewV3 extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
     private Direction direction;
-    public SecondPlayerViewV3(IPlayerModel playerModel){
-        this.player=playerModel;
-        this.direction=Direction.DOWN;//默认向下
+
+    public SecondPlayerViewV3(IPlayerModel playerModel) {
+        this.player = playerModel;
+        this.direction = Direction.DOWN;//默认向下
     }
 
     @Override
@@ -33,15 +36,12 @@ public class SecondPlayerViewV3 extends Pane implements IPlayerView {
             default -> playerDir = "Down"; // 默认向下
         }
 
-        Image playImg = new Image("com/edu/xmum/cst206/player/豌豆" + playerDir + ".gif");
-        ImageView playerView = new ImageView(playImg);
-        playerView.setFitHeight(cellSize);
-        playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度
-        playerView.setX(player.getX() * cellSize);
-        playerView.setY(player.getY() * cellSize);
-
+        ImageView playerView = new ImageView();
+        PlayerViewStyler.playerViewStyle(Skin.Vs,playerView,cellSize,player,playerDir);
         getChildren().clear();
         getChildren().add(playerView);
+        System.out.println("x: "+player.getX()+"Y: "+player.getY());
+        System.out.println("second Done");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SecondPlayerViewV3 extends Pane implements IPlayerView {
 
     @Override
     public void setCellSize(int cellSize) {
-        this.cellSize=cellSize;
+        this.cellSize = cellSize;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class SecondPlayerViewV3 extends Pane implements IPlayerView {
 
     @Override
     public void setDirection(Direction direction) {
-        this.direction=direction;
+        this.direction = direction;
         draw();
     }
 }

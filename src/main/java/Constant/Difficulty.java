@@ -1,11 +1,12 @@
-package com.edu.xmum.cst206.Model;
+package Constant;
 
 /*
 Diffculty表示游戏的难度，全局只需要创建一次，通过枚举来实现单例模式
 
  */
 public enum Difficulty {
-    EASY,MEDIUM,HARD;
+    EASY, MEDIUM, HARD;
+
     public int getMazeSize() {
         switch (this) {
             case EASY:

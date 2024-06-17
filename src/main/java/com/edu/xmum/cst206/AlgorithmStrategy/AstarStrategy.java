@@ -1,7 +1,6 @@
-package com.edu.xmum.cst206.Service;
+package com.edu.xmum.cst206.AlgorithmStrategy;
 
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
-import com.edu.xmum.cst206.Service.Interface.IFindPathStrategy;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -47,7 +46,7 @@ public class AstarStrategy implements IFindPathStrategy {
     }
 
     @Override
-    public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y,int goalX,int goalY) {
+    public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y, int goalX, int goalY) {
         // 优先级队列，用来保证每次都是处理f值最小的节点
         PriorityQueue<Node> openList = new PriorityQueue<>();
         // 用来储存已经处理过的节点，防止重复
@@ -55,7 +54,7 @@ public class AstarStrategy implements IFindPathStrategy {
         // 用来记录路径的容器，每次都将距离目标代价最小的点放入容器
         Map<Node, Node> pathRecord = new HashMap<>();
 
-        Node startNode = new Node(x, y, 0, heuristic(x, y,goalX, goalY));
+        Node startNode = new Node(x, y, 0, heuristic(x, y, goalX, goalY));
         openList.add(startNode);
 
         while (!openList.isEmpty()) {
@@ -74,7 +73,7 @@ public class AstarStrategy implements IFindPathStrategy {
                     continue;
                 }
 
-                Node neighborNode = new Node(neighborX, neighborY, currentNode.g + 1, heuristic(neighborX, neighborY, goalX,goalY));
+                Node neighborNode = new Node(neighborX, neighborY, currentNode.g + 1, heuristic(neighborX, neighborY, goalX, goalY));
                 if (closedList.contains(neighborNode)) {
                     continue;
                 }
@@ -91,6 +90,7 @@ public class AstarStrategy implements IFindPathStrategy {
     private int heuristic(int x, int y, int goalX, int goalY) {
         return Math.abs(x - goalX) + Math.abs(y - goalY);
     }
+
     //回溯构建路线
     private List<int[]> buildPath(Node endNode, Map<Node, Node> record) {
         List<int[]> path = new ArrayList<>();

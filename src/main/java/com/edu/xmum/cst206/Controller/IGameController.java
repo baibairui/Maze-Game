@@ -11,23 +11,35 @@ Service层的主类gameService
 用于处理前端交互的请求并将后端的响应返回
 */
 
-import com.edu.xmum.cst206.Model.Skin;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.View.Interface.IGameView;
 
 public interface IGameController {
     void startGame();
+
     void resetGame();
+
     void setDifficulty(String difficulty);
+
     void handleKeyPress(String key);
+
     void showSelectionView();
+
     void showPrepareView();
+
     void showRunView();
+
     void showVictoryView(String winner);
+
     void showHint();
+
     void showFailureView();
+
     void setGameView(IGameView gameView);
+
     String getDiffculty();
+
     IGameService getGameService();
+
     void startAiMovement();
 }

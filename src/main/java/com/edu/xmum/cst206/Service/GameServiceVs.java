@@ -1,7 +1,8 @@
 package com.edu.xmum.cst206.Service;
 
-import com.edu.xmum.cst206.Model.Difficulty;
-import com.edu.xmum.cst206.Model.Direction;
+import Constant.Difficulty;
+import Constant.Direction;
+import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Service.Interface.IAiService;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
@@ -19,16 +20,17 @@ public class GameServiceVs implements IGameService {
 
     public GameServiceVs(IGameModel gameModel) {
         this.gameModel = gameModel;
-        mazeService = new MazeService(gameModel.getMazeModel());
-        playerService = new PlayerService(mazeService, gameModel.getPlayModel());
-        secondPlayerService=new PlayerService(mazeService,gameModel.getSecondPlayModel());
+        mazeService = FactoryProducer.getFactory("GameService").getMazeService("Maze",gameModel.getMazeModel());
+        playerService = FactoryProducer.getFactory("GameService").getPlayerService("Player",gameModel.getPlayModel(),mazeService);
+        secondPlayerService = FactoryProducer.getFactory("GameService").getPlayerService("Player",gameModel.getSecondPlayModel(),mazeService);
     }
 
     @Override
     public void setDifficulty(Difficulty difficulty) {
         gameModel.getMazeModel().setRows(difficulty.getMazeSize());
         gameModel.getMazeModel().setCols(difficulty.getMazeSize());
-        gameModel.getSecondPlayModel().setPosition(mazeService.getMaze().getStartX(),mazeService.getMaze().getRows()-2);
+        gameModel.getSecondPlayModel().setPosition(gameModel.getMazeModel().getStartX(),gameModel.getMazeModel().getStartY());
+
     }
 
     @Override
@@ -42,9 +44,10 @@ public class GameServiceVs implements IGameService {
     public boolean movePlayer(Direction direction) {
         return playerService.movePlayer(direction.getDirectionX(), direction.getDirectionY());
     }
+
     @Override
     public boolean moveSecondPlayer(Direction direction) {
-        return secondPlayerService.movePlayer(direction.getDirectionX(),direction.getDirectionY());
+        return secondPlayerService.movePlayer(direction.getDirectionX(), direction.getDirectionY());
     }
 
     @Override
@@ -57,12 +60,17 @@ public class GameServiceVs implements IGameService {
     public IPlayerService getPlayerService() {
         return playerService;
     }
+
     @Override
-    public IAiService getAiService(){return null;}
+    public IAiService getAiService() {
+        return null;
+    }
+
     @Override
     public IMazeService getMazeService() {
         return mazeService;
     }
+
     //该版本需要设计双人游戏
     @Override
     public IPlayerService getSecondPlayerService() {

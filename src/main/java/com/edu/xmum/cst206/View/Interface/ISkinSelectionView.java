@@ -7,5 +7,6 @@ import java.util.ArrayList;
 
 public interface ISkinSelectionView {
     ArrayList<Button> getButtons();
+
     VBox getNode();
 }

@@ -54,6 +54,7 @@ public class FailView implements IFailView {
     public VBox getNode() {
         return root;
     }
+
     @Override
     public Button getBackButton() {
         return backButton;

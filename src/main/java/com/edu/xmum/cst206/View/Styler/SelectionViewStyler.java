@@ -1,6 +1,6 @@
 package com.edu.xmum.cst206.View.Styler;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,9 +12,9 @@ import javafx.scene.text.FontWeight;
 
 public class SelectionViewStyler {
     // 用于美化容器
-    public static void styleVBox(Skin skin, VBox box){
-        if(box == null) return;
-        switch (skin){
+    public static void styleVBox(Skin skin, VBox box) {
+        if (box == null) return;
+        switch (skin) {
             case V1 -> {
                 box.setAlignment(Pos.CENTER);
                 box.setSpacing(20);
@@ -39,9 +39,9 @@ public class SelectionViewStyler {
         }
     }
 
-    public static void styleTitleLabel(Skin skin, Label difficultyLabel){
-        if(difficultyLabel == null) return;
-        switch (skin){
+    public static void styleTitleLabel(Skin skin, Label difficultyLabel) {
+        if (difficultyLabel == null) return;
+        switch (skin) {
             // 对V1模式的美化
             case V1 -> {
                 difficultyLabel.setFont(new Font(24));
@@ -63,9 +63,9 @@ public class SelectionViewStyler {
         }
     }
 
-    public static void styleButton(Skin skin, Button button){
-        if(button == null) return;
-        switch (skin){
+    public static void styleButton(Skin skin, Button button) {
+        if (button == null) return;
+        switch (skin) {
             // 用来美化V1
             case V1 -> {
                 button.setStyle(

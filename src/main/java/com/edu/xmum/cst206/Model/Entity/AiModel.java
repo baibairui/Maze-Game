@@ -9,9 +9,9 @@ public class AiModel extends GameObject implements IPlayerModel {
     private int startY;
 
     public AiModel(IMazeModel mazeModel) {
-        super(mazeModel.getStartX(), mazeModel.getRows()-1);
+        super(mazeModel.getStartX(), mazeModel.getRows() - 1);
         this.startX = mazeModel.getStartX();
-        this.startY = mazeModel.getRows()-1;
+        this.startY = mazeModel.getRows() - 1;
     }
 
     @Override

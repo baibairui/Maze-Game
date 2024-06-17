@@ -4,11 +4,12 @@ import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
+import com.edu.xmum.cst206.Service.Interface.IAiService;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
+import com.edu.xmum.cst206.Service.Interface.IMazeService;
+import com.edu.xmum.cst206.Service.Interface.IPlayerService;
 import com.edu.xmum.cst206.View.Interface.*;
-
-import java.util.function.IntPredicate;
 
 public abstract class AbstractFactory {
     public IMazeView getMazeView(Skin maze, IMazeModel mazeModel) {
@@ -47,7 +48,12 @@ public abstract class AbstractFactory {
         return null;
     }
 
-    public IGameController gameController(Skin gameController,IGameService gameService) {
+    public IGameController getGameController(Skin gameController, IGameService gameService) {
         return null;
     }
+    public IMazeModel getMazeModel(String maze){ return null;}
+    public IPlayerModel getPlayerModel(String player,IMazeModel mazeModel){return null;}
+    public IPlayerService getPlayerService(String vision,IPlayerModel mazeModel,IMazeService mazeService){return null;}
+    public IMazeService getMazeService(String vision,IMazeModel mazeModel){return null;}
+    public IAiService getAiService(String vision,IMazeService mazeService,IPlayerModel playModel,IPlayerModel aiModel){return null;}
 }

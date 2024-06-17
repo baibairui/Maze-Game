@@ -1,15 +1,15 @@
 package com.edu.xmum.cst206.Service;
 
-import com.edu.xmum.cst206.Controller.IGameController;
-import com.edu.xmum.cst206.Model.Difficulty;
-import com.edu.xmum.cst206.Model.Direction;
+import Constant.Difficulty;
+import Constant.Direction;
+import Constant.Skin;
+import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Service.Interface.IAiService;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.Service.Interface.IMazeService;
 import com.edu.xmum.cst206.Service.Interface.IPlayerService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameService implements IGameService {
@@ -20,16 +20,16 @@ public class GameService implements IGameService {
 
     public GameService(IGameModel gameModel) {
         this.gameModel = gameModel;
-        mazeService = new MazeService(gameModel.getMazeModel());
-        playerService = new PlayerService(mazeService, gameModel.getPlayModel());
-        aiService=new AiService(mazeService,gameModel.getPlayModel(),gameModel.getAiModel());
+        mazeService = FactoryProducer.getFactory("GameService").getMazeService("Maze",gameModel.getMazeModel());
+        playerService = FactoryProducer.getFactory("GameService").getPlayerService("Player",gameModel.getPlayModel(),mazeService);
+        aiService = FactoryProducer.getFactory("GameService").getAiService("AI",mazeService,gameModel.getPlayModel(),gameModel.getAiModel());
     }
 
     @Override
     public void setDifficulty(Difficulty difficulty) {
         gameModel.getMazeModel().setRows(difficulty.getMazeSize());
         gameModel.getMazeModel().setCols(difficulty.getMazeSize());
-        gameModel.getAiModel().setPosition(mazeService.getMaze().getStartX(),mazeService.getMaze().getRows()-2);
+        gameModel.getAiModel().setPosition(mazeService.getMaze().getStartX(), mazeService.getMaze().getRows() - 2);
     }
 
     @Override
@@ -43,10 +43,12 @@ public class GameService implements IGameService {
     public boolean movePlayer(Direction direction) {
         return playerService.movePlayer(direction.getDirectionX(), direction.getDirectionY());
     }
+
     @Override
     public List<int[]> getHint() {
         return mazeService.getPath(mazeService.getMaze().getGoalX(), mazeService.getMaze().getGoalY());
     }
+
     //该版本不需要
     @Override
     public boolean moveSecondPlayer(Direction direction) {
@@ -58,12 +60,17 @@ public class GameService implements IGameService {
     public IPlayerService getPlayerService() {
         return playerService;
     }
+
     @Override
-    public IAiService getAiService(){return aiService;}
+    public IAiService getAiService() {
+        return aiService;
+    }
+
     @Override
     public IMazeService getMazeService() {
         return mazeService;
     }
+
     //该版本不需要
     @Override
     public IPlayerService getSecondPlayerService() {

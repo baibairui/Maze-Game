@@ -1,6 +1,6 @@
 package com.edu.xmum.cst206.View.Styler;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,8 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class PrepareViewStyler {
-    public static void VboxStyle(Skin skin, VBox vBox){
-        if(vBox == null) return;
+    public static void VboxStyle(Skin skin, VBox vBox) {
+        if (vBox == null) return;
         switch (skin) {
             case V1 -> {
                 vBox.setAlignment(Pos.CENTER);
@@ -51,7 +51,7 @@ public class PrepareViewStyler {
     }
 
     public static void LabelStyle(Skin skin, Label prepareLabel) {
-        if(prepareLabel == null) return;
+        if (prepareLabel == null) return;
         switch (skin) {
             case V1 -> {
                 prepareLabel.setFont(new Font(18));
@@ -69,7 +69,7 @@ public class PrepareViewStyler {
     }
 
     public static void ButtonStyle(Skin skin, Button button) {
-        if(button == null) return;
+        if (button == null) return;
         switch (skin) {
             case V1 -> {
                 button.setStyle(

@@ -53,7 +53,8 @@ public class MazeViewV1 extends Pane implements IMazeView {
             }
         }
     }
-    public int getCellSize(){
+
+    public int getCellSize() {
         return this.cellSize;
     }
 

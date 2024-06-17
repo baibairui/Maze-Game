@@ -4,6 +4,7 @@ import com.edu.xmum.cst206.Service.Interface.IMazeService;
 import com.edu.xmum.cst206.Service.Interface.IPlayerService;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
+
 public class PlayerService implements IPlayerService {
     private IPlayerModel player;
     private IMazeService mazeService;

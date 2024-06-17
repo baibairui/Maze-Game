@@ -1,35 +1,28 @@
 package com.edu.xmum.cst206.View.Entity.V3;
 
-import com.edu.xmum.cst206.Model.Skin;
+import Constant.Skin;
 import com.edu.xmum.cst206.View.Interface.ISelectionView;
 import com.edu.xmum.cst206.View.Styler.SelectionViewStyler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class SelectionViewV3 extends VBox implements ISelectionView {
     private Button easyButton = new Button("Easy");
     private Button mediumButton = new Button("Medium");
     private Button hardButton = new Button("Hard");
-    private final  Label difficultyLabel = new Label("选择难度");
+    private final Label difficultyLabel = new Label("选择难度");
+
     public SelectionViewV3() {
         // 设置背景颜色
         super();
         //美化容器
-        SelectionViewStyler.styleVBox(Skin.V3,this);
+        SelectionViewStyler.styleVBox(Skin.V3, this);
         // 美化组件
-        SelectionViewStyler.styleTitleLabel(Skin.V3,difficultyLabel);
-        SelectionViewStyler.styleButton(Skin.V3,easyButton);
-        SelectionViewStyler.styleButton(Skin.V3,mediumButton);
-        SelectionViewStyler.styleButton(Skin.V3,hardButton);
+        SelectionViewStyler.styleTitleLabel(Skin.V3, difficultyLabel);
+        SelectionViewStyler.styleButton(Skin.V3, easyButton);
+        SelectionViewStyler.styleButton(Skin.V3, mediumButton);
+        SelectionViewStyler.styleButton(Skin.V3, hardButton);
 
         // 添加组件到VBox
         getChildren().addAll(difficultyLabel, easyButton, mediumButton, hardButton);

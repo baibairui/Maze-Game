@@ -1,21 +1,20 @@
 package com.edu.xmum.cst206.View.Entity.V1;
 
-import com.edu.xmum.cst206.Model.Direction;
+import Constant.Direction;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 public class AiView extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
     private Direction direction;
-    public AiView(IPlayerModel playerModel){
-        this.player=playerModel;
-        this.direction=Direction.DOWN;//默认向下
+
+    public AiView(IPlayerModel playerModel) {
+        this.player = playerModel;
+        this.direction = Direction.DOWN;//默认向下
     }
 
     @Override
@@ -38,7 +37,7 @@ public class AiView extends Pane implements IPlayerView {
 
     @Override
     public void setCellSize(int cellSize) {
-        this.cellSize=cellSize;
+        this.cellSize = cellSize;
     }
 
     @Override
@@ -48,7 +47,7 @@ public class AiView extends Pane implements IPlayerView {
 
     @Override
     public void setDirection(Direction direction) {
-        this.direction=direction;
+        this.direction = direction;
         draw();
     }
 }

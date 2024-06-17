@@ -1,6 +1,6 @@
 package com.edu.xmum.cst206.View.Entity;
 
-import com.edu.xmum.cst206.Config;
+import Constant.Config;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.View.Interface.*;
@@ -17,7 +17,7 @@ public class GameView extends BorderPane implements IGameView {
 
     public GameView(IGameController gameController) {
         this.gameController = gameController;
-        this.welcomeView=FactoryProducer.getFactory("Welcome").getWelcomeView(Config.skin);
+        this.welcomeView = FactoryProducer.getFactory("GameView").getWelcomeView(Config.skin);
         setCenter(welcomeView.getNode());
     }
 
@@ -55,7 +55,6 @@ public class GameView extends BorderPane implements IGameView {
     public BorderPane getView() {
         return this;
     }
-
 
 
     @Override
