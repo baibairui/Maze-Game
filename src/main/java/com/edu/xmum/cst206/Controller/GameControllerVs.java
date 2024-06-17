@@ -21,6 +21,7 @@ public class GameControllerVs implements IGameController {
         this.gameService = gameService;
     }
 
+
     @Override
     public void startGame() {
         gameService.resetGame();

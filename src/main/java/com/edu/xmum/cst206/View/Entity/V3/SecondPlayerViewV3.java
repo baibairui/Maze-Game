@@ -1,4 +1,4 @@
-package com.edu.xmum.cst206.View.Entity.V1;
+package com.edu.xmum.cst206.View.Entity.V3;
 
 import com.edu.xmum.cst206.Model.Direction;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
@@ -6,21 +6,34 @@ import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
-public class AiView extends Pane implements IPlayerView {
+public class SecondPlayerViewV3 extends Pane implements IPlayerView {
     private int cellSize;
     private IPlayerModel player;
     private Direction direction;
-    public AiView(IPlayerModel playerModel){
+    public SecondPlayerViewV3(IPlayerModel playerModel){
         this.player=playerModel;
         this.direction=Direction.DOWN;//默认向下
     }
 
     @Override
     public void draw() {
-        Image playImg = new Image("com/edu/xmum/cst206/player/僵尸4.gif");
+    /*Circle circle = new Circle(cellSize / 2, Color.GRAY);
+    circle.setCenterX(player.getX() * cellSize + cellSize / 2);
+    circle.setCenterY(player.getY() * cellSize + cellSize / 2);
+    getChildren().clear();
+    getChildren().add(circle);*/
+
+        String playerDir;
+        switch (direction) {
+            case UP -> playerDir = "Up";
+            case DOWN -> playerDir = "Down";
+            case LEFT -> playerDir = "Left";
+            case RIGHT -> playerDir = "Right";
+            default -> playerDir = "Down"; // 默认向下
+        }
+
+        Image playImg = new Image("com/edu/xmum/cst206/player/豌豆" + playerDir + ".gif");
         ImageView playerView = new ImageView(playImg);
         playerView.setFitHeight(cellSize);
         playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度

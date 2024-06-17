@@ -10,10 +10,7 @@ import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.control.Button;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
 
 public class GameController implements IGameController {
     private IGameService gameService;
@@ -21,15 +18,15 @@ public class GameController implements IGameController {
     private Timeline aiTimeline;
     private boolean isAiEnabled;
 
-
     public GameController(IGameService gameService) {
         this.gameService = gameService;
+
     }
 
     @Override
     public void startGame() {
         gameService.resetGame();
-        isAiEnabled=Config.skin.getSkin().equals("V1");
+        isAiEnabled = Config.skin.getSkin().equals("V1");
         if (isAiEnabled) {
             startAiMovement();
         }
@@ -39,7 +36,7 @@ public class GameController implements IGameController {
     @Override
     public void resetGame() {
         gameService.resetGame();
-        isAiEnabled=Config.skin.getSkin().equals("V1");
+        isAiEnabled = Config.skin.getSkin().equals("V1");
         if (isAiEnabled) {
             startAiMovement();
         }
@@ -173,6 +170,7 @@ public class GameController implements IGameController {
         });
         getGameView().showWelcomeView();
     }
+
     @Override
     public void startAiMovement() {
         if (aiTimeline != null) {
@@ -194,6 +192,7 @@ public class GameController implements IGameController {
         aiTimeline.play();
     }
 
+    @Override
     public void showFailureView() {
         gameView.setFailView(new FailView()); // 这里可以改成用抽象工厂来选择皮肤，暂时不需要
         gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // 跳转
