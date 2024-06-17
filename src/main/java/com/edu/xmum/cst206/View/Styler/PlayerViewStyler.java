@@ -42,7 +42,7 @@ public class PlayerViewStyler {
             }
             case Vs -> {
                 //暂时设计为豌豆
-                Image playImg = new Image("com/edu/xmum/cst206/player/豌豆" + playerDir + ".gif");
+                Image playImg = new Image("com/edu/xmum/cst206/player/小黄人" + playerDir + ".gif");
                 playerView.setImage(playImg);
                 playerView.setFitHeight(cellSize);
                 playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度
