@@ -8,16 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class PrepareViewV2 extends VBox implements IPrepareView {
-    private final Button startGameButton = new Button("开始游戏");
-    private final Label prepareLabel = new Label("准备好开始游戏!");
+    private final Button startGameButton = new Button("Start game");
+    private final Label prepareLabel = new Label("Get ready to start playing!");
 
     public PrepareViewV2() {
         super();
-        //设置样式
+        //Setting the style
         PrepareViewStyler.VboxStyle(Skin.V2, this);
         PrepareViewStyler.LabelStyle(Skin.V2, prepareLabel);
         PrepareViewStyler.ButtonStyle(Skin.V2, startGameButton);
-        // 添加组件到VBox
+        // Adding components to VBox
         getChildren().addAll(prepareLabel, startGameButton);
     }
 

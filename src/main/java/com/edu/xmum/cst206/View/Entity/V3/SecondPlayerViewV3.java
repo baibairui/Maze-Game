@@ -16,7 +16,7 @@ public class SecondPlayerViewV3 extends Pane implements IPlayerView {
 
     public SecondPlayerViewV3(IPlayerModel playerModel) {
         this.player = playerModel;
-        this.direction = Direction.DOWN;//默认向下
+        this.direction = Direction.DOWN;//Default down
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SecondPlayerViewV3 extends Pane implements IPlayerView {
             case DOWN -> playerDir = "Down";
             case LEFT -> playerDir = "Left";
             case RIGHT -> playerDir = "Right";
-            default -> playerDir = "Down"; // 默认向下
+            default -> playerDir = "Down"; // Default down
         }
 
         ImageView playerView = new ImageView();

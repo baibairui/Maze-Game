@@ -5,8 +5,7 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import java.util.List;
 
 /*
-策略模式
-选择不同的算法
+Strategy mode Select different algorithms
  */
 public class PathfindingContext {
     private IFindPathStrategy strategy;

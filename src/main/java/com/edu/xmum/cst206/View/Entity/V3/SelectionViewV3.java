@@ -11,20 +11,20 @@ public class SelectionViewV3 extends VBox implements ISelectionView {
     private Button easyButton = new Button("Easy");
     private Button mediumButton = new Button("Medium");
     private Button hardButton = new Button("Hard");
-    private final Label difficultyLabel = new Label("选择难度");
+    private final Label difficultyLabel = new Label("Choose difficulty");
 
     public SelectionViewV3() {
-        // 设置背景颜色
+        // Setting the background colour
         super();
-        //美化容器
+        //Beautification Containers
         SelectionViewStyler.styleVBox(Skin.V3, this);
-        // 美化组件
+        // Beautification Components
         SelectionViewStyler.styleTitleLabel(Skin.V3, difficultyLabel);
         SelectionViewStyler.styleButton(Skin.V3, easyButton);
         SelectionViewStyler.styleButton(Skin.V3, mediumButton);
         SelectionViewStyler.styleButton(Skin.V3, hardButton);
 
-        // 添加组件到VBox
+        // Adding components to VBox
         getChildren().addAll(difficultyLabel, easyButton, mediumButton, hardButton);
     }
 

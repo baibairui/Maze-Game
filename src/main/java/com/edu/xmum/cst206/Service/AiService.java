@@ -25,11 +25,11 @@ public class AiService implements IAiService {
         List<int[]> path = new ArrayList<>();
         boolean[][] visited = new boolean[mazeService.getMaze().getRows()][mazeService.getMaze().getCols()];
         IFindPathStrategy findPathStrategy = new AstarStrategy();
-        // 使用A*算法找到路径
+        // Finding paths using the AI algorithm
         if (findPathStrategy.findPath(mazeService.getMaze(), path, visited, ai.getX(), ai.getY(), player.getX(), player.getY())) {
-            // 如果找到路径，移动AI到路径的下一个位置
+            // If a path is found, move the AI to the next position in the path
             if (path.size() > 1) {
-                int[] nextMove = path.get(1); // 路径的第一个元素是当前AI的位置，第二个元素是下一个位置
+                int[] nextMove = path.get(1); // The first element of the path is the current AI position and the second element is the next position
                 ai.setPosition(nextMove[1], nextMove[0]);
             }
         }

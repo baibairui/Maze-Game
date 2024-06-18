@@ -28,43 +28,43 @@ public class RunViewV2 extends BorderPane implements IRunView {
     private IGameController gameController;
 
     public RunViewV2(IGameController gameController) {
-        // 初始化组件
+        // Initialising components
         this.gameController = gameController;
-        currentDifficulty = new Label("难度:" + gameController.getDiffculty());
+        currentDifficulty = new Label("Difficulty:" + gameController.getDiffculty());
         mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V2, gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V2, gameController.getGameService().getPlayerService().getPlayer());
-        resetButton = new Button("重置游戏");
-        hintButton = new Button("提示");
+        resetButton = new Button("Restart");
+        hintButton = new Button("Tips");
 
-        // 设置按钮样式
+        // Setting the button style
         RunViewStyler.resetButtonStyle(Skin.V2, resetButton);
         RunViewStyler.hintButtonStyle(Skin.V2, hintButton);
-        // 设置字体和颜色
+        // Setting fonts and colours
         RunViewStyler.diffcultyTitleStyle(Skin.V2, currentDifficulty);
 
-        // 设置提示信息样式
+        // Setting the prompt message style
         HBox infoBox = new HBox(20, currentDifficulty);
         RunViewStyler.infoBoxStyle(Skin.V2, infoBox);
 
-        // 设置控制面板样式
+        // Setting the control panel style
         HBox controlBox = new HBox(20, resetButton, hintButton);
         RunViewStyler.controlBoxStyle(Skin.V2, controlBox);
 
-        // 设置游戏面板样式
+        // Setting the game panel style
         StackPane gamePane = new StackPane();
         gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
         RunViewStyler.gameBoxStyle(Skin.V2, gamePane);
 
-        // 确保游戏面板可以获得焦点
+        // Ensure that the game panel can gain focus
         gamePane.setFocusTraversable(true);
         setOnMouseClicked(event -> requestFocus());
 
-        // 添加监听器调整组件大小
+        // Adding a listener to resize a component
         gamePane.widthProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
         gamePane.heightProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
 
-        //调整整体页面
-        // 控制排版
+        //Adjustments to the overall page
+        // Controlling typography
         setTop(infoBox);
         setCenter(gamePane);
         setBottom(controlBox);
@@ -123,7 +123,7 @@ public class RunViewV2 extends BorderPane implements IRunView {
         playerView.setCellSize(cellSize);
         mazeView.setCellSize(cellSize);
         reSetView();
-        // 居中调整
+        // centre
         double mazeWidth = cellSize * gameController.getGameService().getMazeService().getMaze().getCols();
         double mazeHeight = cellSize * gameController.getGameService().getMazeService().getMaze().getRows();
         double offsetX = (getWidth() - mazeWidth) / 2;
@@ -136,33 +136,33 @@ public class RunViewV2 extends BorderPane implements IRunView {
     }
 
     /*
-    绘制DFS搜索出来的路径
+    Plotting the path searched by DFS
      */
     @Override
     public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
-        // 清除之前的提示
+        // Clear the previous tip
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
-        // 动态显示提示路径
+        // Dynamic display of cue paths
         Timeline timeline = new Timeline();
-        // 用于存储当前显示的矩形，以便逐步删除
+        // Used to store the currently displayed rectangle for progressive deletion
         List<Rectangle> currentRects = new ArrayList<>();
 
         for (int i = 0; i < path.size(); i++) {
             int[] point = path.get(i);
 
-            // 创建一个新的矩形，用于高亮当前路径点
+            // Creates a new rectangle for highlighting the current path point
             Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
             rect.setFill(Color.GRAY);
             rect.setUserData("highlight");
 
-            // 将绘制和删除操作封装在 KeyFrame 中
+            // Encapsulate drawing and deletion operations in KeyFrame
             KeyFrame keyFrame = new KeyFrame(Duration.seconds(i * 0.5), event -> {
-                // 移除前一个高亮的矩形（如果有）
+                // Remove the previous highlighted rectangle (if any)
                 if (!currentRects.isEmpty()) {
                     mazeView.getNode().getChildren().remove(currentRects.remove(0));
                 }
-                // 添加当前高亮的矩形
+                // Add the currently highlighted rectangle
                 mazeView.getNode().getChildren().add(rect);
                 currentRects.add(rect);
             });

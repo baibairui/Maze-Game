@@ -9,12 +9,12 @@ import javafx.scene.layout.VBox;
 
 public class VictoryViewV3 extends VBox implements IVictoryView {
     private Label victoryLabel = new Label();
-    private final Button backButton = new Button("返回主菜单");
+    private final Button backButton = new Button("Back to Main Menu");
     private String winner;
 
 
     public VictoryViewV3() {
-        //设置css样式
+        //Setting css style
         VictoryViewStyler.VboxStyle(Skin.V3, this);
         VictoryViewStyler.LabelStyle(Skin.V3, victoryLabel);
         VictoryViewStyler.ButtonStyle(Skin.V3, backButton);
@@ -34,7 +34,7 @@ public class VictoryViewV3 extends VBox implements IVictoryView {
 
     @Override
     public Button getBackButton() {
-        //可以设计返回
+        //can be designed to return
         return backButton;
     }
 }

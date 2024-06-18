@@ -12,6 +12,6 @@ public interface IPlayerView {
 
     Pane getNode();
 
-    //控制方向
+    //Control direction
     void setDirection(Direction direction);
 }

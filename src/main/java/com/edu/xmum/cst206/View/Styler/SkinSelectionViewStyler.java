@@ -21,10 +21,10 @@ import static Constant.Config.SCENE_WIDTH;
 public class SkinSelectionViewStyler {
 
     public static void VBoxStyle(SkinSelectionView skinSelectionView) {
-        skinSelectionView.setMinWidth(300);  // 设置最小宽度
-        skinSelectionView.setMinHeight(400); // 设置最小高度
-        skinSelectionView.setMaxWidth(SCENE_WIDTH);  // 设置最大宽度
-        skinSelectionView.setMaxHeight(SCENE_HEIGHT); // 设置最大高度
+        skinSelectionView.setMinWidth(300);  // Setting the minimum width
+        skinSelectionView.setMinHeight(400); // Setting the minimum height
+        skinSelectionView.setMaxWidth(SCENE_WIDTH);  // Setting the maximum width
+        skinSelectionView.setMaxHeight(SCENE_HEIGHT); // Setting the maximum height
         skinSelectionView.setAlignment(Pos.CENTER);
         skinSelectionView.setSpacing(20);
         skinSelectionView.setPadding(new Insets(40));
@@ -35,7 +35,7 @@ public class SkinSelectionViewStyler {
     public static void LabelStyle(Label label) {
         label.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         label.setTextFill(Color.DARKBLUE);
-        // 添加上下浮动动画
+        // Adding a float up/down animation
         addTextFloatingAnimation(label);
     }
 
@@ -46,12 +46,12 @@ public class SkinSelectionViewStyler {
 
         button.setOnMouseEntered(e -> {
             button.setStyle("-fx-background-color: #45a049; -fx-background-radius: 10;");
-            // 添加缩放动画
+            // Add zoom animation
             addScaleAnimation(button, 1.1);
         });
         button.setOnMouseExited(e -> {
             button.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 10;");
-            // 添加缩放动画
+            // Add zoom animation
             addScaleAnimation(button, 1.0);
         });
 

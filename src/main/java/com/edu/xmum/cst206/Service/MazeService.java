@@ -13,19 +13,19 @@ import java.util.List;
 public class MazeService implements IMazeService {
     private IMazeModel maze;
 
-    // 使用依赖注入的方法构造
+    // Methods constructed using dependency injection
     public MazeService(IMazeModel mazeModel) {
         this.maze = mazeModel;
     }
 
     /*
-    使用DFS算法来提示迷宫路线
+    Using the DFS algorithm to hint at maze routes
      */
     @Override
     public List<int[]> getPath(int x, int y) {
         /*
-        path.get(i)[0]:纵坐标
-        path.get(i)[1]:横坐标
+        path.get(i)[0]:vertical coordinate
+        path.get(i)[1]:horizontal coordinate
          */
         List<int[]> path = new ArrayList<>();
         List<int[]> back = new ArrayList<>();
@@ -34,7 +34,7 @@ public class MazeService implements IMazeService {
         int startY = getMaze().getStartY();
 
         List<int[]> hintPath = new ArrayList<>();
-        //使用DFS算法寻找答案
+        //Finding Answers Using the DFS Algorithm
         PathfindingContext findPath = new PathfindingContext(new DfsStrategy());
         findPath.findPath(maze, hintPath, visited, startX, startY, maze.getGoalX(), maze.getGoalY());
         return hintPath;
@@ -42,18 +42,18 @@ public class MazeService implements IMazeService {
 
     @Override
     public boolean isValidMove(IPlayerModel player, int dx, int dy) {
-        //获取新的坐标
+        //Get new coordinates
         int newX = (int) (player.getX() + dx);
         int newY = (int) (player.getY() + dy);
 
-        // 检查新的坐标是否在边界内以及是否是通路
+        // Checks if the new coordinates are within the boundary and if it is a pathway
         boolean isInBounds = isWithinBounds(newX, newY);
         if (isInBounds) {
             System.out.println("Maze cell value at (" + newX + ", " + newY + "): " + maze.getMaze()[newY][newX]);
         }
         boolean isInMaze = isInBounds && isPath(newX, newY);
 
-        // 调试信息
+        // Debugging Information
         System.out.println("Checking move to: (" + newX + ", " + newY + "), isInBounds: " + isInBounds + ", isInMaze: " + isInMaze);
         System.out.println(maze.getRows() + " " + maze.getCols());
         return isInBounds && isInMaze;

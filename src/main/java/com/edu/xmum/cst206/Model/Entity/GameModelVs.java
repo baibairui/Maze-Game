@@ -6,7 +6,7 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 
 public class GameModelVs implements IGameModel {
-    //组合各个subModel
+    //Combining subModels
     private IPlayerModel playerModel;
     private IMazeModel mazeModel;
     private IPlayerModel secondPlayerModel;
@@ -17,7 +17,7 @@ public class GameModelVs implements IGameModel {
         this.secondPlayerModel = FactoryProducer.getFactory("GameModel").getPlayerModel("Player",mazeModel);
     }
 
-    //获取playerModel和MazeModel
+    //Get playerModel and MazeModel
     @Override
     public IPlayerModel getPlayModel() {
         return playerModel;
@@ -28,7 +28,7 @@ public class GameModelVs implements IGameModel {
         return mazeModel;
     }
 
-    //该版本不需要ai
+    //This version does not require ai
     @Override
     public IPlayerModel getAiModel() {
         return null;

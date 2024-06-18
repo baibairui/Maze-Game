@@ -49,13 +49,13 @@ public class GameService implements IGameService {
         return mazeService.getPath(mazeService.getMaze().getGoalX(), mazeService.getMaze().getGoalY());
     }
 
-    //该版本不需要
+    //This version does not require
     @Override
     public boolean moveSecondPlayer(Direction direction) {
         return false;
     }
 
-    //获取子模块的方法
+    //Methods to get submodules
     @Override
     public IPlayerService getPlayerService() {
         return playerService;
@@ -71,7 +71,7 @@ public class GameService implements IGameService {
         return mazeService;
     }
 
-    //该版本不需要
+    //This version does not require
     @Override
     public IPlayerService getSecondPlayerService() {
         return null;

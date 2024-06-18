@@ -15,12 +15,12 @@ public class PlayerViewV1 extends Pane implements IPlayerView {
 
     public PlayerViewV1(IPlayerModel playerModel) {
         this.player = playerModel;
-        this.direction = Direction.DOWN;//默认向下
+        this.direction = Direction.DOWN;//Default down
     }
 
     @Override
     public void draw() {
-        //设置玩家视图
+        //Setting the Player View
         ImageView playerView = new ImageView();
         PlayerViewStyler.playerViewStyle(Skin.V1, playerView, cellSize, player, direction.toString());
         getChildren().clear();

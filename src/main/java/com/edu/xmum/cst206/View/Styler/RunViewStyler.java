@@ -131,20 +131,20 @@ public class RunViewStyler {
         }
     }
 
-    // 整体盒子的美化
+    // Overall box landscaping
     public static void BoxStyle(Skin skin, BorderPane pane) {
         if (pane == null) return;
         switch (skin) {
             case V1 -> {
-                // 设置主边框
+                // Setting the main border
                 pane.setStyle("-fx-background-color: #F5F5F5;");
             }
             case V2 -> {
-                // 设置主边框
+                // Setting the main border
                 pane.setStyle("-fx-background-color: #E0FFFF;");
             }
             case V3 -> {
-                // 设置主边框
+                // Setting the main border
                 pane.setStyle("-fx-background-color: #F0FFF0;");
             }
         }
@@ -155,11 +155,11 @@ public class RunViewStyler {
 
         button.setOnMouseEntered(event -> {
             button.setStyle("-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: 14px;");
-            addScaleAnimation(button, 1.1);  // 添加缩放动画
+            addScaleAnimation(button, 1.1);  // Add zoom animation
         });
         button.setOnMouseExited(event -> {
             button.setStyle("-fx-background-color: " + normalColor + "; -fx-text-fill: white; -fx-font-size: 14px;");
-            addScaleAnimation(button, 1.0);  // 恢复缩放动画
+            addScaleAnimation(button, 1.0);  // Restore zoom animation
         });
         button.setOnMousePressed(event -> button.setStyle("-fx-background-color: " + activeColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));
         button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));

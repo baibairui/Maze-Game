@@ -13,7 +13,7 @@ public class MazeViewV2 extends Pane implements IMazeView {
     public MazeViewV2(IMazeModel maze) {
         super();
         this.maze = maze;
-        this.cellSize = 20; // 默认初始化为20
+        this.cellSize = 20; // Default initialisation is 20
     }
 
     @Override

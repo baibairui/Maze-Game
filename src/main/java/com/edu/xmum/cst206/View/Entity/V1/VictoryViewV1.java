@@ -8,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class VictoryViewV1 extends VBox implements IVictoryView {
-    private final Button backButton = new Button("返回主页面");
+    private final Button backButton = new Button("Back to main page");
     private String winner = "Player";
-    private final Label victoryLabel = new Label(winner + " 获胜 ");
+    private final Label victoryLabel = new Label(winner + " Win! ");
 
     public VictoryViewV1() {
         VictoryViewStyler.VboxStyle(Skin.V1, this);

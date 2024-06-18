@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class FactoryProducer {
     private static final Map<String, AbstractFactory> factoryMap = new HashMap<>();
-    private static final int size = 3;//皮肤数量
+    private static final int size = 3;//Number of skins
 
     static {
         factoryMap.put("GameView",new GameViewFactory());

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SkinSelectionView extends VBox implements ISkinSelectionView {
     ArrayList<Button> Buttons = new ArrayList<>();
-    private final Label label = new Label("选择你想用的皮肤");
+    private final Label label = new Label("Choose the your skin!");
 
     public SkinSelectionView() {
         super();

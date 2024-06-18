@@ -1,8 +1,8 @@
 package com.edu.xmum.cst206.Model.Interface;
 
 /*
-PlayerModel的接口
-规定了PlayModel应特有的方法：
+PlayerModel's interface
+Specifies the methods that should be unique to the PlayModel：
 1.move
 2.setPosition
 

@@ -13,7 +13,7 @@ public class MazeViewV3 extends Pane implements IMazeView {
     public MazeViewV3(IMazeModel maze) {
         super();
         this.maze = maze;
-        this.cellSize = 20; // 默认初始化为20
+        this.cellSize = 20; // Default initialisation is 20
     }
 
     @Override
@@ -31,10 +31,10 @@ public class MazeViewV3 extends Pane implements IMazeView {
         Image pathImage = new Image("com/edu/xmum/cst206/maze/path.png");
         Image wallImage = new Image("com/edu/xmum/cst206/maze/wall.png");
 
-        // 清除以前的绘制
+        // Clearing previous drawings
         getChildren().clear();
 
-        // 绘制迷宫
+        // Drawing a labyrinth
         for (int y = 0; y < maze.getRows(); y++) {
             for (int x = 0; x < maze.getCols(); x++) {
                 ImageView imageView;

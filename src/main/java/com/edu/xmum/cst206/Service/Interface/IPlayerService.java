@@ -4,18 +4,18 @@ import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 
 public interface IPlayerService {
-    //检查移动是否有效
+    //Check if the move is valid
     public boolean movePlayer(int dx, int dy);
 
-    //检查是否通关
+    //Checking for customs clearance
     public boolean checkGoal();
 
-    //获取Player对象实例
+    //Get Player object instance
     public IPlayerModel getPlayer();
 
-    //重置玩家位置
+    //Reset Player Position
     public void reset();
 
-    //获取地图实例
+    //Get map example
     IMazeModel getMaze();
 }

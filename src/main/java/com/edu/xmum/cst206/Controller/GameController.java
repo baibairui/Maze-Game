@@ -178,7 +178,7 @@ public class GameController implements IGameController {
 
         aiTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             gameService.getAiService().moveAi();
-            gameView.getRunView().getAiView().draw(); // 重新绘制 AI 视图
+            gameView.getRunView().getAiView().draw(); // Redrawing the AI view
             gameView.getRunView().getPlayerView().draw();
 
             if (gameService.getAiService().isPlayerCaught()) {
@@ -193,8 +193,8 @@ public class GameController implements IGameController {
 
     @Override
     public void showFailureView() {
-        gameView.setFailView(new FailView()); // 这里可以改成用抽象工厂来选择皮肤，暂时不需要
-        gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // 跳转
+        gameView.setFailView(new FailView()); // Here you can instead use an abstract factory to select the skin, for now
+        gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // jump to
         gameView.showFailView();
     }
 

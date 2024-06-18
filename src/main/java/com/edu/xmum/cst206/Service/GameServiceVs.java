@@ -55,7 +55,7 @@ public class GameServiceVs implements IGameService {
         return mazeService.getPath(mazeService.getMaze().getGoalX(), mazeService.getMaze().getGoalY());
     }
 
-    //获取子模块的方法
+    //Methods to get submodules
     @Override
     public IPlayerService getPlayerService() {
         return playerService;
@@ -71,7 +71,7 @@ public class GameServiceVs implements IGameService {
         return mazeService;
     }
 
-    //该版本需要设计双人游戏
+    //This version requires the design of a two-player game
     @Override
     public IPlayerService getSecondPlayerService() {
         return secondPlayerService;

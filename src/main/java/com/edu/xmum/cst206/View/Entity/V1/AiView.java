@@ -14,7 +14,7 @@ public class AiView extends Pane implements IPlayerView {
 
     public AiView(IPlayerModel playerModel) {
         this.player = playerModel;
-        this.direction = Direction.DOWN;//默认向下
+        this.direction = Direction.DOWN;//Default down
     }
 
     @Override
@@ -22,7 +22,7 @@ public class AiView extends Pane implements IPlayerView {
         Image playImg = new Image("com/edu/xmum/cst206/player/僵尸4.gif");
         ImageView playerView = new ImageView(playImg);
         playerView.setFitHeight(cellSize);
-        playerView.setFitWidth(cellSize); // 修正这里，应该设置宽度而不是再设置一次高度
+        playerView.setFitWidth(cellSize); // Fixed here, should have set the width instead of setting the height again
         playerView.setX(player.getX() * cellSize);
         playerView.setY(player.getY() * cellSize);
 

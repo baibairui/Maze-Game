@@ -18,7 +18,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class WelcomeViewStyler {
-    // 用于美化容器
+    // For landscaping containers
     public static void styleVbox(Skin skin, VBox box) {
         if (box == null) return;
         switch (skin) {
@@ -46,7 +46,7 @@ public class WelcomeViewStyler {
         }
     }
 
-    // 用于美化文本
+    // Used to embellish text
     public static void styleTitleLabel(Skin skin, Label label) {
         if (label == null) return;
         switch (skin) {
@@ -70,11 +70,11 @@ public class WelcomeViewStyler {
                 label.setStyle("-fx-background-color: #FF69B4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
         }
-        // 添加上下浮动动画
+        // Adding a float up/down animation
         addTextFloatingAnimation(label);
     }
 
-    // 用于美化按钮
+    // Used to beautify buttons
     public static void styleStartButton(Skin skin, Button button) {
         if (button == null) return;
         switch (skin) {

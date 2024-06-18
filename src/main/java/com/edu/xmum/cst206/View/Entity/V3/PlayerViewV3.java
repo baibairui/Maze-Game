@@ -15,7 +15,7 @@ public class PlayerViewV3 extends Pane implements IPlayerView {
 
     public PlayerViewV3(IPlayerModel playerModel) {
         this.player = playerModel;
-        this.direction = Direction.DOWN;//默认向下
+        this.direction = Direction.DOWN;//Default down
     }
 
     @Override

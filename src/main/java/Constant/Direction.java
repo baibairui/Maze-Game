@@ -6,22 +6,22 @@ public enum Direction {
     public int getDirectionX() {
         switch (this) {
             case LEFT:
-                return -1; // 向左移动
+                return -1; // turn left
             case RIGHT:
-                return 1; // 向右移动
+                return 1; // turn right
             default:
-                return 0; // 向上或向下移动时，X方向不变
+                return 0; // No change in X direction when moving up or down
         }
     }
 
     public int getDirectionY() {
         switch (this) {
             case UP:
-                return -1; // 向上移动
+                return -1; // upwards
             case DOWN:
-                return 1; // 向下移动
+                return 1; // move down
             default:
-                return 0; // 向左或向右移动时，Y方向不变
+                return 0; // Y direction is unchanged when moving to the left or to the right
         }
     }
 
@@ -40,7 +40,7 @@ public enum Direction {
                 return "Right";
             }
             default -> {
-                return "Down"; // 默认向下
+                return "Down"; // Default down
             }
         }
     }

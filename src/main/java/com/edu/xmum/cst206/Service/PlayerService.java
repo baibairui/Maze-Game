@@ -9,7 +9,7 @@ public class PlayerService implements IPlayerService {
     private IPlayerModel player;
     private IMazeService mazeService;
 
-    // 依赖注入
+    // dependency injection
     public PlayerService(IMazeService maze, IPlayerModel playerModel) {
         this.player = playerModel;
         this.mazeService = maze;
@@ -20,9 +20,9 @@ public class PlayerService implements IPlayerService {
         if (mazeService.isValidMove(player, dx, dy)) {
             player.move(dx, dy);
             System.out.println("X: " + player.getX() + " Y: " + player.getY());
-            return checkGoal(); // 返回是否到达终点
+            return checkGoal(); // Returns whether or not the end point has been reached
         }
-        return false; // 移动无效
+        return false; // Mobile Invalid
     }
 
     @Override

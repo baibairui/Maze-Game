@@ -1,7 +1,7 @@
 package Constant;
 
 /*
-Diffculty表示游戏的难度，全局只需要创建一次，通过枚举来实现单例模式
+Diffculty indicates the difficulty of the game, globally it only needs to be created once, and the singleton pattern is implemented through enumeration
 
  */
 public enum Difficulty {
@@ -10,11 +10,11 @@ public enum Difficulty {
     public int getMazeSize() {
         switch (this) {
             case EASY:
-                return 15; // 简单难度的迷宫大小
+                return 15; // Easy difficulty maze size
             case MEDIUM:
-                return 25; // 中等难度的迷宫大小
+                return 25; // Medium difficulty maze size
             case HARD:
-                return 35; // 困难难度的迷宫大小
+                return 35; // Labyrinth size on hard difficulty
             default:
                 return 15;
         }

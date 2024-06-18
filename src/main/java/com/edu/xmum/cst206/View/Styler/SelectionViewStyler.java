@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 public class SelectionViewStyler {
-    // 用于美化容器
+    // For landscaping containers
     public static void styleVBox(Skin skin, VBox box) {
         if (box == null) return;
         switch (skin) {
@@ -45,33 +45,33 @@ public class SelectionViewStyler {
     public static void styleTitleLabel(Skin skin, Label difficultyLabel) {
         if (difficultyLabel == null) return;
         switch (skin) {
-            // 对V1模式的美化
+            // Beautification of the V1 model
             case V1 -> {
                 difficultyLabel.setFont(new Font(24));
                 difficultyLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0073e6; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
-            // 对V2模式的美化
+            // Beautification of the V2 model
             case V2 -> {
                 difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 difficultyLabel.setTextFill(Color.DARKGREEN);
                 difficultyLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
-            // 对V3模式的美化
+            // Beautification of the V3 model
             case V3 -> {
                 difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 difficultyLabel.setTextFill(Color.DEEPPINK);
                 difficultyLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
         }
-        // 添加上下浮动动画
+        // Adding a float up/down animation
         addTextFloatingAnimation(difficultyLabel);
     }
 
     public static void styleButton(Skin skin, Button button) {
         if (button == null) return;
         switch (skin) {
-            // 用来美化V1
+            // Used to beautify V1
             case V1 -> {
                 button.setStyle(
                         "-fx-background-color: #0073e6; " +
@@ -85,7 +85,7 @@ public class SelectionViewStyler {
 
                 addButtonAnimation(button, "#0073e6", "#005bb5", "#003d80");
             }
-            // 用来美化V2
+            // Used to beautify V2
             case V2 -> {
                 button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
                 button.setTextFill(Color.WHITE);
@@ -94,7 +94,7 @@ public class SelectionViewStyler {
 
                 addButtonAnimation(button, "#32CD32", "#2E8B57", "#228B22");
             }
-            // 用来美化V3
+            // Used to beautify V3
             case V3 -> {
                 button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
                 button.setTextFill(Color.WHITE);

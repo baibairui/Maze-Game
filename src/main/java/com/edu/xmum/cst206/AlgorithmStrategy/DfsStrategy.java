@@ -7,32 +7,32 @@ import java.util.List;
 public class DfsStrategy implements IFindPathStrategy {
 
     /*
-     不记录回溯过程的DFS
+     DFS without recording the backtracking process
       */
     @Override
     public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y, int goalX, int goalY) {
-        // 如果越界或已经访问过或是墙，则返回 false
+        // Returns false if it is out of bounds or has already been accessed or walled.
         if (x < 0 || x >= mazeModel.getCols() || y < 0 || y >= mazeModel.getRows() || visited[y][x] || mazeModel.getMaze()[y][x] == 1) {
             return false;
         }
 
-        // 标记为已访问
+        // Marked as visited
         visited[y][x] = true;
 
-        // 添加当前点到路径
+        // Add the current point to the path
         path.add(new int[]{y, x});
 
-        // 如果到达目标点，则返回 true
+        // Returns true if the target point is reached
         if (x == goalX && y == goalY) {
             return true;
         }
 
-        // 尝试四个方向的递归调用
+        // Try recursive calls in all four directions
         if (findPath(mazeModel, path, visited, x - 1, y, goalX, goalY) || findPath(mazeModel, path, visited, x + 1, y, goalX, goalY) || findPath(mazeModel, path, visited, x, y - 1, goalX, goalY) || findPath(mazeModel, path, visited, x, y + 1, goalX, goalY)) {
             return true;
         }
 
-        // 如果没有找到路径，回溯并从路径中移除当前点
+        // If no path is found, backtrack and remove the current point from the path
         path.remove(path.size() - 1);
 
         return false;

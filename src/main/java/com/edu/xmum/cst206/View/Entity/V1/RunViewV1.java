@@ -30,49 +30,48 @@ public class RunViewV1 extends BorderPane implements IRunView {
     private IGameController gameController;
 
     public RunViewV1(IGameController gameController) {
-        // 初始化组件
+        // Initialising components
         this.gameController = gameController;
-        currentDifficulty = new Label("难度:" + gameController.getDiffculty());
+        currentDifficulty = new Label("Difficulty:" + gameController.getDiffculty());
         mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V1, gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V1, gameController.getGameService().getPlayerService().getPlayer());
         aiView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.AI, gameController.getGameService().getAiService().getAiModel());
-        resetButton = new Button("重置游戏");
-        hintButton = new Button("提示");
+        resetButton = new Button("Restart");
+        hintButton = new Button("Tip");
 
         /*
-        调用style进行美化
+        Call style for beautification
          */
-        // 设置按钮样式
+        // Setting the button style
         RunViewStyler.resetButtonStyle(Skin.V1, resetButton);
         RunViewStyler.hintButtonStyle(Skin.V1, hintButton);
 
-        // 设置字体和颜色
+        // Setting fonts and colours
         RunViewStyler.diffcultyTitleStyle(Skin.V1, currentDifficulty);
 
-        // 设置提示信息样式
+        // Setting the prompt message style
         HBox infoBox = new HBox(20, currentDifficulty);
         RunViewStyler.infoBoxStyle(Skin.V1, infoBox);
 
-        // 设置控制面板样式
+        // Setting the control panel style
         HBox controlBox = new HBox(20, resetButton, hintButton);
         RunViewStyler.controlBoxStyle(Skin.V1, controlBox);
 
-        // 设置游戏面板样式
+        // Setting the game panel style
         StackPane gamePane = new StackPane();
-        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), aiView.getNode()); // 添加AI视图
+        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), aiView.getNode()); // Adding an AI view
         RunViewStyler.gameBoxStyle(Skin.V1, gamePane);
 
 
-        // 确保游戏面板可以获得焦点
+        // Ensure that the game panel can gain focus
         gamePane.setFocusTraversable(true);
         setOnMouseClicked(event -> requestFocus());
 
-        // 添加监听器调整组件大小
+        // Adding a listener to resize a component
         gamePane.widthProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
         gamePane.heightProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
 
-        // 设置主边框
-        // 控制排版
+        // Setting the main border
         setTop(infoBox);
         setCenter(gamePane);
         setBottom(controlBox);
@@ -155,7 +154,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
     public void reSetView() {
         playerView.reDraw();
         mazeView.reDraw();
-        aiView.reDraw(); // 重绘AI视图
+        aiView.reDraw(); // Redrawing the AI view
     }
 
     @Override
@@ -185,24 +184,24 @@ public class RunViewV1 extends BorderPane implements IRunView {
     @Override
     public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
-        // 清除之前的提示
+        // Clear the previous tip
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
 
-        // 动态显示提示路径
+        // Dynamic display of cue paths
         Timeline timeline = new Timeline();
-        // 用于存储当前显示的矩形，以便逐步删除
+        // Used to store the currently displayed rectangle for progressive deletion
         List<Rectangle> currentRects = new ArrayList<>();
 
-        // 显示正确路径
+        // Show correct path
         for (int i = 0; i < path.size(); i++) {
             int[] point = path.get(i);
 
-            // 创建一个新的矩形，用于高亮当前路径点
+            // Creates a new rectangle for highlighting the current path point
             Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
             rect.setFill(Color.BLUE);
             rect.setUserData("highlight");
 
-            // 设置透明度动画，实现拖尾效果
+            // Setting the transparency animation for a trailing effect
             KeyFrame addRect = new KeyFrame(Duration.seconds(i * 0.3), event -> {
                 mazeView.getNode().getChildren().add(rect);
                 currentRects.add(rect);
@@ -213,7 +212,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
             timeline.getKeyFrames().addAll(addRect, fadeOut);
         }
 
-        // 添加一个最终的关键帧来移除所有高亮的矩形
+        // Add a final keyframe to remove all highlighted rectangles
         KeyFrame finalKeyFrame = new KeyFrame(Duration.seconds((path.size()) * 0.3 + 0.2), event -> {
             mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
         });
@@ -227,7 +226,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         return aiView;
     }
 
-    //V1不需要
+    //V1 not required
     @Override
     public IPlayerView getSecondPlayerView() {
         return null;

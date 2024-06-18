@@ -12,7 +12,7 @@ public interface IGameService {
 
     boolean movePlayer(Direction direction);
 
-    //获取子模块
+    //Get Submodule
     IPlayerService getPlayerService();
 
     IAiService getAiService();
@@ -21,7 +21,7 @@ public interface IGameService {
 
     IPlayerService getSecondPlayerService();
 
-    //用来获得路径提示的方法
+    //Methods used to get path hints
     List<int[]> getHint();
 
     boolean moveSecondPlayer(Direction direction);

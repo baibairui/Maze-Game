@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class VictoryViewV2 extends VBox implements IVictoryView {
-    private final Label victoryLabel = new Label("恭喜通关!");
-    private final Button backButton = new Button("返回主菜单");
+    private final Label victoryLabel = new Label("Congrats on the clearance!");
+    private final Button backButton = new Button("Back to Main Menu");
 
     public VictoryViewV2() {
         //美化
@@ -33,7 +33,7 @@ public class VictoryViewV2 extends VBox implements IVictoryView {
 
     @Override
     public Button getBackButton() {
-        //可以设计返回
+        //can be designed to return
         return backButton;
     }
 }

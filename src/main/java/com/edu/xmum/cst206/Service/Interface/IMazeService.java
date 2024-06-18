@@ -6,26 +6,26 @@ import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import java.util.List;
 
 /*
-用于处理地图相关的逻辑
+Used to handle map-related logic
  */
 public interface IMazeService {
-    //检查玩家是否走的是通路
+    //Check if the player is taking the pathway
     public boolean isValidMove(IPlayerModel player, int dx, int dy);
 
-    //检查玩家是否在迷宫边界内
+    //Check if the player is within the maze boundary
     public boolean isWithinBounds(int x, int y);
 
-    //检查当前位置是否是墙
+    //Check if the current position is a wall
     public boolean isPath(int X, int Y);
 
-    //检查玩家是否通关
+    //Checking if the player has cleared the level
     public boolean hasReachedGoal(IPlayerModel player);
 
-    //重置迷宫
+    //Reset Labyrinth
     public void reset();
 
     IMazeModel getMaze();
 
-    //提示路线
+    //Cue Route
     public List<int[]> getPath(int x, int y);
 }

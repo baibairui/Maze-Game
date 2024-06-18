@@ -9,16 +9,16 @@ import javafx.scene.layout.VBox;
 
 
 public class WelcomeViewV3 extends VBox implements IWelcomeView {
-    private final Button startButton = new Button("开始游戏");
-    private final Label titleLabel = new Label("欢迎来到迷宫游戏");
+    private final Button startButton = new Button("Start game");
+    private final Label titleLabel = new Label("Welcome to Labyrinth Games");
 
     public WelcomeViewV3() {
-        //美化容器
+        //Beautification Containers
         WelcomeViewStyler.styleVbox(Skin.V3, this);
-        // 美化组件
+        // Beautification Components
         WelcomeViewStyler.styleTitleLabel(Skin.V3, titleLabel);
         WelcomeViewStyler.styleStartButton(Skin.V3, startButton);
-        // 添加组件到VBox
+        // Adding components to VBox
         getChildren().addAll(titleLabel, startButton);
     }
 

@@ -8,9 +8,9 @@ import java.util.*;
 public class AstarStrategy implements IFindPathStrategy {
 
     public static class Node implements Comparable<Node> {
-        int x, y; // 坐标
-        int g; // 从起点移动到当前坐标的代价
-        int h; // 移动到目标点的估算代价，启发函数
+        int x, y; // coordinate
+        int g; // The cost of moving from the starting point to the current coordinates
+        int h; // The estimated cost of moving to the target point, the heuristic function
 
         public Node(int x, int y, int g, int h) {
             this.x = x;
@@ -19,18 +19,18 @@ public class AstarStrategy implements IFindPathStrategy {
             this.h = h;
         }
 
-        // 用于评价的标准
+        // Criteria used for evaluation
         int f() {
             return g + h;
         }
 
-        // 用于比较代价的大小
+        // Used to compare the size of the cost
         @Override
         public int compareTo(@NotNull Node o) {
             return Integer.compare(this.f(), o.f());
         }
 
-        // 用于set去重
+        // For set de-duplication
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -47,11 +47,11 @@ public class AstarStrategy implements IFindPathStrategy {
 
     @Override
     public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y, int goalX, int goalY) {
-        // 优先级队列，用来保证每次都是处理f值最小的节点
+        // Priority queue to ensure that the node with the smallest f value is processed every time
         PriorityQueue<Node> openList = new PriorityQueue<>();
-        // 用来储存已经处理过的节点，防止重复
+        // Used to store nodes that have already been processed to prevent duplication
         Set<Node> closedList = new HashSet<>();
-        // 用来记录路径的容器，每次都将距离目标代价最小的点放入容器
+        // A container used to record paths, each time placing the point with the smallest cost from the goal into the container
         Map<Node, Node> pathRecord = new HashMap<>();
 
         Node startNode = new Node(x, y, 0, heuristic(x, y, goalX, goalY));
@@ -86,12 +86,12 @@ public class AstarStrategy implements IFindPathStrategy {
         return false;
     }
 
-    // 启发函数
+    // heuristic function
     private int heuristic(int x, int y, int goalX, int goalY) {
         return Math.abs(x - goalX) + Math.abs(y - goalY);
     }
 
-    //回溯构建路线
+    //Retrospective construction routes
     private List<int[]> buildPath(Node endNode, Map<Node, Node> record) {
         List<int[]> path = new ArrayList<>();
         Node curr = endNode;

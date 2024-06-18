@@ -9,7 +9,7 @@ import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
 
 /*
-需要双人控制的模型
+Models requiring two-person control
  */
 
 public class GameControllerVs implements IGameController {
@@ -193,7 +193,7 @@ public class GameControllerVs implements IGameController {
         getGameView().showWelcomeView();
     }
 
-    //Vs版本不需要
+    //Not required for Vs version
     @Override
     public void startAiMovement() {
 
@@ -201,8 +201,8 @@ public class GameControllerVs implements IGameController {
 
     @Override
     public void showFailureView() {
-        gameView.setFailView(new FailView()); // 这里可以改成用抽象工厂来选择皮肤，暂时不需要
-        gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // 跳转
+        gameView.setFailView(new FailView()); // Here you can instead use an abstract factory to select the skin, for now
+        gameView.getFailView().getBackButton().setOnAction(e -> showSelectionView()); // jump to
         gameView.showFailView();
     }
 

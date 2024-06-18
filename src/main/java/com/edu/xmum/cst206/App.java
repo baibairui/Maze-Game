@@ -39,7 +39,7 @@ public class App extends Application {
             buttons.get(i).setOnAction(actionEvent -> {
                 Config.skin = Skin.valueOf("V" + (finalI + 1));
                 initLayer();
-                //设置主场景并显示
+                //Setting up the main scene and displaying it
                 Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
                 primaryStage.setScene(scene);
                 primaryStage.setTitle("Maze Game");
@@ -53,13 +53,13 @@ public class App extends Application {
     }
 
     private void initLayer() {
-        // 初始化
+        // initialisation
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView(gameController);
 
-        // 依赖注入
+        // dependency injection
         gameController.setGameView(gameView);
     }
 }
