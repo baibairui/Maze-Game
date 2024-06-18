@@ -59,7 +59,7 @@ public class SkinSelectionViewStyler {
     }
 
     public static void ButtonStyle(Button button) {
-        button.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        button.setFont(Font.font("Arial", FontWeight.BOLD, 30));
         button.setTextFill(Color.WHITE);
         button.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 10;");
 

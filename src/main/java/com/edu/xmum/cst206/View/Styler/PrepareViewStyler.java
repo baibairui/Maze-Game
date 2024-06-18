@@ -61,12 +61,16 @@ public class PrepareViewStyler {
                 vBox.setAlignment(Pos.CENTER);
                 vBox.setSpacing(20);
                 vBox.setPadding(new Insets(40));
-                vBox.setStyle(
-                        "-fx-background-color: linear-gradient(to bottom right, #ffecd2, #fcb69f); " +
-                                "-fx-padding: 20px; " +
-                                "-fx-border-radius: 10; " +
-                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);"
+                vBox.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/小黄人2.gif");
+                BackgroundImage bgImage = new BackgroundImage(
+                        backgroundImage,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER,
+                        new BackgroundSize(100, 100, true, true, false, true)
                 );
+                vBox.setBackground(new Background(bgImage));
             }
         }
     }
@@ -90,7 +94,7 @@ public class PrepareViewStyler {
             }
             case V3 -> {
                 prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
-                prepareLabel.setStyle("-fx-font-size: 48px; -fx-text-fill: #222;");
+                prepareLabel.setStyle("-fx-font-size: 48px; -fx-text-fill: #FFFFFF;");
             }
         }
         // Adds floating animation to the label

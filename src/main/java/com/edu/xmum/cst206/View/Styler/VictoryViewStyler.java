@@ -58,6 +58,17 @@ public class VictoryViewStyler {
                 box.setPadding(new Insets(40));
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, new CornerRadii(10), Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #FF69B4; -fx-border-width: 2px; -fx-border-radius: 10;");
+
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/皮卡丘3.jpg");
+                BackgroundImage bgImage = new BackgroundImage(
+                        backgroundImage,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER,
+                        new BackgroundSize(100, 100, true, true, false, true)
+                );
+                box.setBackground(new Background(bgImage));
+
             }
         }
     }
