@@ -1,29 +1,320 @@
-# CST206
+# Maze Game (CST206)
 
-*基于JavaFx开发的迷宫游戏,实现了最基本功能*
+## 简介
 
-**设计模式**
-- **MVC模式** : 整个游戏的架构设计，用来保证整体结构的可拓展性
-- **组合模式** : 负责将每层的子模块进行组合，保证了代码的简洁
-- **抽象工厂模式** : 负责不同模式的切换,游戏中的组合对象都由工厂生产
-- **享元模式** : 负责抽象工厂的实例化
-- **策略模式** ：负责算法的选择 
-- **外观模式** ：将各层方法封装，将css样式分离封装
----
+这是一个使用JavaFX开发的迷宫游戏，实现了基本功能，并采用了多种设计模式来确保代码的简洁性和可扩展性。
 
-## 1. 代码架构
+## 设计模式
 
-游戏基于**MVC设计模式**并引入**Service层** 处理游戏中涉及的**相关逻辑**，以保证各层之间**高内聚和低耦合**
+1. **MVC模式**：整个游戏架构采用了MVC（Model-View-Controller）设计模式。
+    - **Model**：负责存储游戏状态和业务逻辑（如`GameModel`、`MazeModel`、`PlayerModel`等）。
+    - **View**：负责展示游戏界面（如`GameView`、`MazeView`、`PlayerView`等）。
+    - **Controller**：负责处理用户输入并更新Model和View（如`GameController`）。
 
-**M(游戏模型层):** 存储游戏中涉及的类对象
+2. **抽象工厂模式**：用于创建一系列相关或依赖对象，而无需指定它们的具体类。你在工厂类（如`GameViewFactory`、`GameModelFactory`、`GameServiceFactory`、`GameControllerFactory`）中实现了这一模式，通过不同的皮肤枚举值来生成相应的视图、模型和服务实例。
+    - **AbstractFactory**：提供了多个创建对象的方法，每个方法创建一个类型的对象。
+    - **FactoryProducer**：用于获取具体的工厂实例。
+    - **具体工厂类**：如`GameViewFactory`、`GameModelFactory`、`GameServiceFactory`和`GameControllerFactory`，实现了创建不同版本对象的方法。
 
-**V(游戏视图层):** 通过GUI库**JavaFx**给用户提供交互页面
+3. **策略模式**：
+    - **皮肤选择模式**
+在游戏服务层中，通过根据不同的皮肤类型创建不同的服务实现（如`GameService`和`GameServiceVs`），实现了策略模式。这个模式允许你在运行时改变算法或逻辑。
+    - **算法策略模式**：在迷宫生成算法和路径提示算法中，通过不同的策略实现（如随机化Prim算法和深度优先搜索算法），实现了动态选择和切换不同的算法。
+      在游戏中，算法策略模式用于实现不同的迷宫生成和路径提示算法。
+    
 
-**C(交换控制层):** 通过**JavaFx**中的事件响应功能与后端进行交互
+4. **依赖注入**：通过工厂和构造函数或setter方法注入依赖对象，提高了代码的灵活性和可测试性。例如，在初始化控制器时，通过工厂方法注入了GameService实例，并在控制器中设置了GameView。
 
-**S(逻辑处理层):** 处理游戏中涉及碰撞移动等功能
+5. **组合模式**：在View层，使用组合模式将不同的子视图（如MazeView、PlayerView等）组合成一个完整的游戏视图（如RunView）。这使得可以方便地管理和更新视图的各个部分。
 
-通过面向接口编程，使得代码具有更高的灵活性和可维护性。
+6. **外观模式**：在View层，使用外观模式封装了美化组件的功能
+## 代码架构
+
+**Main Application (App.java)**
+
+- **职责**：启动应用程序，显示皮肤选择视图，初始化游戏层次。
+- **流程**：
+    1. 显示皮肤选择视图，让用户选择皮肤。
+    2. 根据用户选择的皮肤，初始化游戏模型、服务、控制器和视图。
+    3. 将视图展示给用户。
+
+**Factory层 (如AbstractFactory.java, FactoryProducer.java)**
+
+- **职责**：提供创建对象的接口，通过具体工厂实现类创建不同类型和版本的对象。
+- **流程**：
+    1. `FactoryProducer`根据传入的类型返回相应的工厂实例。
+    2. 各具体工厂实现类根据皮肤枚举值创建相应的对象实例。
+
+**Model层 (如GameModel.java, MazeModel.java)**
+
+- **职责**：定义游戏中的数据结构和业务逻辑。
+- **流程**：
+    1. 定义各种模型接口和实现类。
+    2. 提供数据访问和操作方法。
+
+**Service层 (如GameService.java, MazeService.java)**
+
+- **职责**：处理游戏的具体业务逻辑。
+- **流程**：
+    1. 根据传入的模型数据进行逻辑处理。
+    2. 提供对模型数据的操作接口。
+
+**Controller层 (如GameController.java)**
+
+- **职责**：接收用户输入并调用相应的服务层处理逻辑。
+- **流程**：
+    1. 监听用户输入事件。
+    2. 调用服务层进行相应的业务逻辑处理。
+    3. 更新视图。
+
+**View层 (如GameView.java, SkinSelectionView.java)**
+
+- **职责**：负责用户界面的展示和交互。
+- **流程**：
+    1. 定义各种视图接口和实现类。
+    2. 通过组合模式将各个子视图组合成完整的界面。
+
+## 算法策略模式
+
+### 寻路算法
+
+#### **1.AstarStrategy**
+
+用于ai追踪玩家，效率比dfs高
+
+```java
+package com.edu.xmum.cst206.AlgorithmStrategy;
+
+import com.edu.xmum.cst206.Model.Interface.IMazeModel;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
+
+/**
+ * Implementation of the A* algorithm for pathfinding in a maze.
+ * This class uses the A* algorithm to find the shortest path from the starting position to the goal position.
+ */
+public class AstarStrategy implements IFindPathStrategy {
+
+    /**
+     * Inner class representing a node in the A* algorithm.
+     */
+    public static class Node implements Comparable<Node> {
+        final int x;
+        final int y; // Coordinate
+        final int g; // The cost of moving from the starting point to the current coordinates
+        final int h; // The estimated cost of moving to the target point, the heuristic function
+
+        /**
+         * Constructor to initialize a node.
+         *
+         * @param x The x-coordinate of the node.
+         * @param y The y-coordinate of the node.
+         * @param g The cost from the start to this node.
+         * @param h The estimated cost from this node to the goal.
+         */
+        public Node(int x, int y, int g, int h) {
+            this.x = x;
+            this.y = y;
+            this.g = g;
+            this.h = h;
+        }
+
+        /**
+         * Calculates the f value (total cost) for this node.
+         *
+         * @return The total cost.
+         */
+        int f() {
+            return g + h;
+        }
+
+        /**
+         * Compares this node to another node based on their f values.
+         *
+         * @param o The other node to compare to.
+         * @return The comparison result.
+         */
+        @Override
+        public int compareTo(@NotNull Node o) {
+            return Integer.compare(this.f(), o.f());
+        }
+
+        /**
+         * Checks if this node is equal to another object.
+         *
+         * @param o The object to compare to.
+         * @return True if the objects are equal, false otherwise.
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node node = (Node) o;
+            return x == node.x && y == node.y;
+        }
+
+        /**
+         * Generates a hash code for this node.
+         *
+         * @return The hash code.
+         */
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+    }
+
+    /**
+     * Finds a path using the A* algorithm.
+     *
+     * @param mazeModel The maze model containing the maze structure.
+     * @param path      A list to store the path found from start to goal.
+     * @param visited   A 2D boolean array to keep track of visited positions in the maze.
+     * @param x         The x-coordinate of the current position.
+     * @param y         The y-coordinate of the current position.
+     * @param goalX     The x-coordinate of the goal position.
+     * @param goalY     The y-coordinate of the goal position.
+     * @return True if a path is found, false otherwise.
+     */
+    @Override
+    public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y, int goalX, int goalY) {
+        // Priority queue to ensure that the node with the smallest f value is processed first
+        PriorityQueue<Node> openList = new PriorityQueue<>();
+        // Set to store nodes that have already been processed to prevent duplication
+        Set<Node> closedList = new HashSet<>();
+        // Map to record paths, placing the point with the smallest cost from the goal into the map
+        Map<Node, Node> pathRecord = new HashMap<>();
+
+        Node startNode = new Node(x, y, 0, heuristic(x, y, goalX, goalY));
+        openList.add(startNode);
+
+        while (!openList.isEmpty()) {
+            Node currentNode = openList.poll();
+            if (currentNode.x == goalX && currentNode.y == goalY) {
+                path.clear();
+                path.addAll(buildPath(currentNode, pathRecord));
+                return true;
+            }
+            closedList.add(currentNode);
+            for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
+                int neighborX = currentNode.x + dir[0];
+                int neighborY = currentNode.y + dir[1];
+
+                if (neighborX < 0 || neighborY < 0 || neighborX >= mazeModel.getCols() || neighborY >= mazeModel.getRows() || mazeModel.getMaze()[neighborY][neighborX] == 1) {
+                    continue;
+                }
+
+                Node neighborNode = new Node(neighborX, neighborY, currentNode.g + 1, heuristic(neighborX, neighborY, goalX, goalY));
+                if (closedList.contains(neighborNode)) {
+                    continue;
+                }
+                if (!openList.contains(neighborNode)) {
+                    openList.add(neighborNode);
+                    pathRecord.put(neighborNode, currentNode);
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Heuristic function to estimate the cost from the current position to the goal.
+     *
+     * @param x     The x-coordinate of the current position.
+     * @param y     The y-coordinate of the current position.
+     * @param goalX The x-coordinate of the goal position.
+     * @param goalY The y-coordinate of the goal position.
+     * @return The estimated cost.
+     */
+    private int heuristic(int x, int y, int goalX, int goalY) {
+        return Math.abs(x - goalX) + Math.abs(y - goalY);
+    }
+
+    /**
+     * Builds the path from the end node to the start node by backtracking.
+     *
+     * @param endNode The end node of the path.
+     * @param record  The map containing the path record.
+     * @return The list of coordinates representing the path.
+     */
+    private List<int[]> buildPath(Node endNode, Map<Node, Node> record) {
+        List<int[]> path = new ArrayList<>();
+        Node curr = endNode;
+        while (curr != null) {
+            path.add(new int[]{curr.y, curr.x});
+            curr = record.get(curr);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+}
+
+```
+
+#### **2.DfsStrategy**
+
+用于给玩家提示路径
+
+```java
+package com.edu.xmum.cst206.AlgorithmStrategy;
+
+import com.edu.xmum.cst206.Model.Interface.IMazeModel;
+
+import java.util.List;
+
+/**
+ * Implementation of the depth-first search (DFS) strategy for pathfinding in a maze.
+ * This class uses a DFS algorithm to find a path from the starting position to the goal position without recording the backtracking process.
+ */
+public class DfsStrategy implements IFindPathStrategy {
+
+    /**
+     * Finds a path using DFS without recording the backtracking process.
+     *
+     * @param mazeModel The maze model containing the maze structure.
+     * @param path      A list to store the path found from start to goal.
+     * @param visited   A 2D boolean array to keep track of visited positions in the maze.
+     * @param x         The x-coordinate of the current position.
+     * @param y         The y-coordinate of the current position.
+     * @param goalX     The x-coordinate of the goal position.
+     * @param goalY     The y-coordinate of the goal position.
+     * @return True if a path is found, false otherwise.
+     */
+    @Override
+    public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y, int goalX, int goalY) {
+        // Returns false if it is out of bounds or has already been accessed or is walled.
+        if (x < 0 || x >= mazeModel.getCols() || y < 0 || y >= mazeModel.getRows() || visited[y][x] || mazeModel.getMaze()[y][x] == 1) {
+            return false;
+        }
+
+        // Mark the current cell as visited
+        visited[y][x] = true;
+
+        // Add the current point to the path
+        path.add(new int[]{y, x});
+
+        // Returns true if the target point is reached
+        if (x == goalX && y == goalY) {
+            return true;
+        }
+
+        // Try recursive calls in all four directions
+        if (findPath(mazeModel, path, visited, x - 1, y, goalX, goalY) ||
+                findPath(mazeModel, path, visited, x + 1, y, goalX, goalY) ||
+                findPath(mazeModel, path, visited, x, y - 1, goalX, goalY) ||
+                findPath(mazeModel, path, visited, x, y + 1, goalX, goalY)) {
+            return true;
+        }
+
+        // If no path is found, backtrack and remove the current point from the path
+        path.remove(path.size() - 1);
+
+        return false;
+    }
+}
+```
+
 
 --- 
 ## **2. Model层设计**
@@ -34,34 +325,41 @@
 
 **接口设计**
 ```java
+/**
+ * Interface for the game model, which combines different sub-models such as player models and maze models.
+ */
 public interface IGameModel {
+    /**
+     * Gets the player model.
+     *
+     * @return The player model.
+     */
     IPlayerModel getPlayModel();
+
+    /**
+     * Gets the maze model.
+     *
+     * @return The maze model.
+     */
     IMazeModel getMazeModel();
+
+    /**
+     * Gets the AI model.
+     *
+     * @return The AI model, or null if not applicable.
+     */
+    IPlayerModel getAiModel();
+
+    /**
+     * Gets the second player model.
+     *
+     * @return The second player model, or null if not applicable.
+     */
+    IPlayerModel getSecondPlayModel();
 }
+
 ```
 
-**具体实现类**
-```java
-public class GameModel implements IGameModel {
-    //组合各个subModel
-    private IPlayerModel playerModel;
-    private IMazeModel mazeModel;
-
-    public GameModel(){
-        this.mazeModel=new MazeModel(60,60);//先初始化为60,60
-        this.playerModel=new PlayerModel(mazeModel);
-    }
-    //获取playerModel和MazeModel
-    @Override
-    public IPlayerModel getPlayModel() {
-        return playerModel;
-    }
-    @Override
-    public IMazeModel getMazeModel() {
-        return mazeModel;
-    }
-}
-```
 
 ### 2.2 GameObject
 
@@ -114,61 +412,60 @@ public abstract class GameObject {
 
 **接口设计**
 ```java
-/*
-PlayerModel的接口
-规定了PlayModel应特有的方法：
-1.move：用于改变对象的坐标
-2.setPosition：用于设置对象的坐标
-3.获取起始位置的get方法
+package com.edu.xmum.cst206.Model.Interface;
+
+/**
+ * Interface for PlayerModel.
+ * Specifies the methods that should be unique to the PlayerModel.
+ * These include methods for movement, setting position, and getting start and current coordinates.
  */
 public interface IPlayerModel {
+    /**
+     * Gets the starting x-coordinate of the player model.
+     *
+     * @return The starting x-coordinate.
+     */
     int getStartX();
+
+    /**
+     * Gets the starting y-coordinate of the player model.
+     *
+     * @return The starting y-coordinate.
+     */
     int getStartY();
-    void move(int dx,int dy);
-    void setPosition(int x,int y);
-    //获取当前位置
+
+    /**
+     * Moves the player model by the specified delta values.
+     *
+     * @param dx The delta x value.
+     * @param dy The delta y value.
+     */
+    void move(int dx, int dy);
+
+    /**
+     * Sets the position of the player model to the specified coordinates.
+     *
+     * @param x The x-coordinate to set.
+     * @param y The y-coordinate to set.
+     */
+    void setPosition(int x, int y);
+
+    /**
+     * Gets the current x-coordinate of the player model.
+     *
+     * @return The current x-coordinate.
+     */
     int getX();
+
+    /**
+     * Gets the current y-coordinate of the player model.
+     *
+     * @return The current y-coordinate.
+     */
     int getY();
 }
-
 ```
 
-**具体实现**
-```java
-public class PlayerModel extends GameObject implements IPlayerModel {
-  private int startX;
-  private int startY;
-
-  public PlayerModel(IMazeModel mazeModel) {
-    super(mazeModel.getStartX(), mazeModel.getStartY());
-    this.startX = mazeModel.getStartX();
-    this.startY = mazeModel.getStartY();
-  }
-
-  @Override
-  public int getStartX() {
-    return startX;
-  }
-
-  @Override
-  public int getStartY() {
-    return startY;
-  }
-
-  @Override
-  public void move(int dx, int dy) {
-    x += dx;
-    y += dy;
-  }
-
-  @Override
-  public void setPosition(int x, int y) {
-    setX(x);
-    setY(y);
-  }
-}
-
-```
 ### 2.4 Maze类
 
 **迷宫类**需要被绘制在界面并且不可移动
@@ -177,130 +474,88 @@ public class PlayerModel extends GameObject implements IPlayerModel {
 
 **接口设计**
 ```java
-/*
-MazeModel的接口
-规定了MazeModel应实现的方法：
-1.Rows的get和set方法
-2.Cols的get和set方法
-3.GoalX和GoalY的get和set方法
-4.generateMaze：用来生成迷宫的方法
-5.Maze的set和get方法：Maze是用来表示迷宫的一个二维数组，0表示通路，1表示墙壁
+package com.edu.xmum.cst206.Model.Interface;
+
+/**
+ * Interface for MazeModel.
+ * Specifies the methods that the MazeModel should implement.
+ * These include methods for getting and setting rows, columns, goal coordinates,
+ * and methods for generating and accessing the maze structure.
  */
 public interface IMazeModel {
-  int getRows();
-  int getCols();
-  int getGoalX();
-  int getGoalY();
-  int getStartX();
-  int getStartY();
-  int[][] getMaze();
-  void setRows(int rows);
-  void setCols(int cols);
-  void generateMaze();
+    /**
+     * Gets the number of rows in the maze.
+     *
+     * @return The number of rows.
+     */
+    int getRows();
+
+    /**
+     * Gets the number of columns in the maze.
+     *
+     * @return The number of columns.
+     */
+    int getCols();
+
+    /**
+     * Gets the x-coordinate of the goal position in the maze.
+     *
+     * @return The x-coordinate of the goal.
+     */
+    int getGoalX();
+
+    /**
+     * Gets the y-coordinate of the goal position in the maze.
+     *
+     * @return The y-coordinate of the goal.
+     */
+    int getGoalY();
+
+    /**
+     * Gets the x-coordinate of the start position in the maze.
+     *
+     * @return The x-coordinate of the start.
+     */
+    int getStartX();
+
+    /**
+     * Gets the y-coordinate of the start position in the maze.
+     *
+     * @return The y-coordinate of the start.
+     */
+    int getStartY();
+
+    /**
+     * Gets the maze structure as a two-dimensional array.
+     * 0 means the cell is accessible, 1 means the cell is a wall.
+     *
+     * @return The maze structure.
+     */
+    int[][] getMaze();
+
+    /**
+     * Sets the number of rows in the maze.
+     *
+     * @param rows The number of rows to set.
+     */
+    void setRows(int rows);
+
+    /**
+     * Sets the number of columns in the maze.
+     *
+     * @param cols The number of columns to set.
+     */
+    void setCols(int cols);
+
+    /**
+     * Generates the maze using the randomized Prime's algorithm.
+     */
+    void generateMaze();
 }
+
 ```
-这里我们是使用的 **随机化prim生成树算法**来生成迷宫
+这里我们使用 **随机化prim生成树算法**来生成迷宫
 
-**具体实现**
-```java
-/*
-迷宫对象的具体实现类
-属性：
-rows：表示行数
-cols：表示列数
-maze：用一个二维数组来表示迷宫,[y][x]
-goal:目标位置
-start：起始位置
- */
-public class MazeModel extends GameObject implements IMazeModel {
-    private int rows;
-    private int cols;
-    private int[][] maze;
-    private int goalX;
-    private int goalY;
-    private int startX;
-    private int startY;
-
-    // 定义边的类
-    private static class Edge {
-        int x1, y1, x2, y2;
-
-        Edge(int x1, int y1, int x2, int y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-        }
-    }
-
-    public MazeModel(int rows, int cols) {
-        super(0, 0);
-        this.rows = rows;
-        this.cols = cols;
-        this.startX = 1;
-        this.startY = 1;
-        this.maze = new int[rows][cols];
-    }
-
-    /*基于随机prim算法的迷宫生成
-        1.先将用于表示迷宫的二维数组全部初始化为1
-        2.将入口位置设置为0
-        3.初始化一个邻接边的列表用来存储候选边
-        4.从当前位置开始添加候选边
-        5.在候选边列表中随机选择通路
-        6.循环选择通路直至列表为空
-         */
-    public void generateMaze() {
-        this.goalX = cols - 1; // 初始化的迷宫终点坐标（cols-1，rows-2）
-        this.goalY = rows - 2;
-        Random random = new Random();
-        for (int y = 0; y < maze.length; y++) {
-            for (int x = 0; x < maze[0].length; x++) {
-                maze[y][x] = 1; // 初始化迷宫的二维数组为1（墙）
-            }
-        }
-        maze[startY][startX] = 0; // 设置入口
-        //初始化一个边的列表 ，用于储存候选通路
-        List<Edge> edges = new ArrayList<>();
-        //初始化候选通路
-        addEdges(startX, startY, edges);
-
-        //循环处理候选通路，直至生成到终点的通路
-        while (!edges.isEmpty()) {
-            // 随机选择一个边并移除
-            Edge edge = edges.remove(random.nextInt(edges.size()));//在候选边中随机选择一条边来生成通路
-            //如果该位置是墙则表示没访问过
-            if (maze[edge.x2][edge.y2] == 1) {
-                //设置一条通路
-                maze[edge.x1][edge.y1] = 0;
-                maze[edge.x2][edge.y2] = 0;
-                //添加新的候选边
-                addEdges(edge.x2, edge.y2, edges);
-            }
-        }
-        maze[goalY][goalX] = 0; // 设置出口
-
-        // 打印迷宫结构
-        System.out.println("Maze structure:");
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                System.out.print(maze[row][col] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    //用于添加候选边的方法
-    private void addEdges(int x, int y, List<Edge> edges) {
-        // 限制边际，确保添加的候选边不会越界
-        if (x > 1 && maze[x - 2][y] == 1) edges.add(new Edge(x - 1, y, x - 2, y));
-        if (y > 1 && maze[x][y - 2] == 1) edges.add(new Edge(x, y - 1, x, y - 2));
-        if (x < rows - 2 && maze[x + 2][y] == 1) edges.add(new Edge(x + 1, y, x + 2, y));
-        if (y < cols - 2 && maze[x][y + 2] == 1) edges.add(new Edge(x, y + 1, x, y + 2));
-    }
-  //相关的set和get方法
-}
-```
 ---
 ## 3. Service层设计
 
@@ -312,204 +567,104 @@ public class MazeModel extends GameObject implements IMazeModel {
 
 **接口设计**
 ```java
-public interface IGameService {
-  void setDifficulty(Difficulty difficulty);
-  void resetGame();
-  boolean movePlayer(Direction direction);
-  IPlayerService getPlayerService();
-  IMazeService getMazeService();
-  //用来获得路径提示
-  List<int[]> getHint();
-  //用于依赖注入的方法
-  void setGameController(IGameController gameController);
+public interface IAiService{
+/**
+ * Moves the AI according to its algorithm.
+ */
+void moveAi();
+
+/**
+ * Checks if the AI has caught the player.
+ *
+ * @return True if the player is caught, false otherwise.
+ */
+boolean isPlayerCaught();
+
+/**
+ * Gets the AI model.
+ *
+ * @return The AI model.
+ */
+IPlayerModel getAiModel();
+
+/**
+ * Resets the AI to its initial state.
+ */
+void reset();
 }
 ```
-**具体实现类**
-```java
-public class GameService implements IGameService {
-    IGameModel gameModel;
-    IMazeService mazeService;
-    IPlayerService playerService;
-    IGameController gameController;
 
-    public GameService(IGameModel gameModel) {
-        this.gameModel = gameModel;
-        mazeService = new MazeService(gameModel.getMazeModel());
-        playerService = new PlayerService(mazeService, gameModel.getPlayModel());
-    }
-
-    @Override
-    public void setDifficulty(Difficulty difficulty) {
-        gameModel.getMazeModel().setRows(difficulty.getMazeSize());
-        gameModel.getMazeModel().setCols(difficulty.getMazeSize());
-    }
-
-    @Override
-    public void resetGame() {
-        playerService.reset();
-        mazeService.reset();
-    }
-
-    @Override
-    public boolean movePlayer(Direction direction) {
-        return playerService.movePlayer(direction.getDirectionX(), direction.getDirectionY());
-    }
-
-    @Override
-    public IMazeService getMazeService() {
-        return mazeService;
-    }
-    
-
-    @Override
-    public List<int[]> getHint() {
-        return getPath(mazeService.getMaze().getGoalX(), mazeService.getMaze().getGoalY());
-    }
-
-    @Override
-    public void setGameController(IGameController gameController) {
-        this.gameController = gameController;
-    }
-
-    @Override
-    public IPlayerService getPlayerService() {
-        return playerService;
-    }
-}
-```
 
 ### 3.2 MazeService
 **MazeService类**用于处理与**Maze**类相关的逻辑
 **包括**
 1.检测玩家是否碰壁
 2.是否在边界内以及是否到达终点。
-3.获得路径提示
+3.获得路径提示(这里我们使用DFS算法来实现寻路的算法逻辑)
 
 **接口设计**
 ```java
-/*
-用于处理地图相关的逻辑
+public interface IMazeService{
+
+/**
+ * Checks if the player's move to the specified direction (dx, dy) is valid within the maze.
+ *
+ * @param player The player model instance.
+ * @param dx     The delta x value for the move.
+ * @param dy     The delta y value for the move.
+ * @return True if the move is valid, false otherwise.
  */
-public interface IMazeService {
-    //检查玩家是否走的是通路
-    public boolean isValidMove(IPlayerModel player, int dx, int dy);
-    //检查玩家是否在迷宫边界内
-    public boolean isWithinBounds(int x, int y);
-    //检查当前位置是否是墙
-    public boolean isPath(int X,int Y);
-    //检查玩家是否通关
-    public boolean hasReachedGoal(IPlayerModel player);
-    //重置迷宫
-    public void reset();
-    IMazeModel getMaze();
-    //提示路线
-    public List<int[]> getPath(int x, int y);
+boolean isValidMove(IPlayerModel player, int dx, int dy);
+
+/**
+ * Checks if the specified coordinates (x, y) are within the maze boundaries.
+ *
+ * @param x The x coordinate to check.
+ * @param y The y coordinate to check.
+ * @return True if the coordinates are within bounds, false otherwise.
+ */
+boolean isWithinBounds(int x, int y);
+
+/**
+ * Checks if the specified coordinates (X, Y) are a path and not a wall.
+ *
+ * @param X The x coordinate to check.
+ * @param Y The y coordinate to check.
+ * @return True if the coordinates represent a path, false otherwise.
+ */
+boolean isPath(int X, int Y);
+
+/**
+ * Checks if the player has reached the goal position in the maze.
+ *
+ * @param player The player model instance.
+ * @return True if the player has reached the goal, false otherwise.
+ */
+boolean hasReachedGoal(IPlayerModel player);
+
+/**
+ * Resets the maze to its initial state.
+ */
+void reset();
+
+/**
+ * Gets the current maze model instance.
+ *
+ * @return The maze model instance.
+ */
+IMazeModel getMaze();
+
+/**
+ * Gets the path from the current position (x, y) to the goal as a list of coordinate pairs.
+ *
+ * @param x The starting x coordinate.
+ * @param y The starting y coordinate.
+ * @return The list of coordinate pairs representing the path.
+ */
+List<int[]> getPath(int x, int y);
 }
 ```
 
-**具体实现类**
-
-这里我们使用DFS算法来实现寻路的算法逻辑
-
-```java
-public class MazeService implements IMazeService {
-  private IMazeModel maze;
-
-  // 使用依赖注入的方法构造
-  public MazeService(IMazeModel mazeModel) {
-    this.maze = mazeModel;
-  }
-
-  /*
-  使用DFS算法来提示迷宫路线
-   */
-  @Override
-  public List<int[]> getPath(int x, int y) {
-        /*
-        path.get(i)[0]:纵坐标
-        path.get(i)[1]:横坐标
-         */
-    List<int[]> path = new ArrayList<>();
-    boolean[][] visited = new boolean[getMaze().getRows()][getMaze().getCols()];
-    int startX = getMaze().getStartX();
-    int startY = getMaze().getStartY();
-    if (dfs(path, visited, startX, startY)) {
-      path.add(new int[]{getMaze().getGoalX(), getMaze().getGoalY()});
-    }
-    return path;
-  }
-
-  private boolean dfs(List<int[]> path, boolean[][] visited, int x, int y) {
-    // 如果越界或已经访问过或是墙，则返回 false
-    if (x < 0 || x >= getMaze().getCols() || y < 0 || y >= getMaze().getRows() || visited[y][x] || getMaze().getMaze()[y][x] == 1) {
-      return false;
-    }
-
-    // 标记为已访问
-    visited[y][x] = true;
-
-    // 添加当前点到路径
-    path.add(new int[]{y, x});
-
-    // 如果到达目标点，则返回 true
-    if (x == getMaze().getGoalX() && y == getMaze().getGoalY()) {
-      return true;
-    }
-
-    // 尝试四个方向的递归调用
-    if (dfs(path, visited, x - 1, y) || dfs(path, visited, x + 1, y) || dfs(path, visited, x, y - 1) || dfs(path, visited, x, y + 1)) {
-      return true;
-    }
-
-    // 如果没有找到路径，回溯并从路径中移除当前点
-    path.remove(path.size() - 1);
-    return false;
-  }
-  @Override
-  public boolean isValidMove(IPlayerModel player, int dx, int dy) {
-    //获取新的坐标
-    int newX=(int) (player.getX()+dx);
-    int newY=(int) (player.getY()+dy);
-
-    // 检查新的坐标是否在边界内以及是否是通路
-    boolean isInBounds = isWithinBounds(newX, newY);
-    if (isInBounds) {
-      System.out.println("Maze cell value at (" + newX + ", " + newY + "): " + maze.getMaze()[newY][newX]);
-    }
-    boolean isInMaze = isInBounds && isPath(newX,newY);
-
-    // 调试信息
-    System.out.println("Checking move to: (" + newX + ", " + newY + "), isInBounds: " + isInBounds + ", isInMaze: " + isInMaze);
-    System.out.println(maze.getRows()+" "+maze.getCols());
-    return isInBounds && isInMaze;
-  }
-
-  @Override
-  public boolean isPath(int x, int y) {
-    return maze.getMaze()[y][x] == 0;
-  }
-
-  @Override
-  public boolean isWithinBounds(int x, int y) {
-    return x >= 0 && x < maze.getCols() && y >= 0 && y < maze.getRows();
-  }
-
-  @Override
-  public boolean hasReachedGoal(IPlayerModel player) {
-    return player.getX() == maze.getGoalX() && player.getY() == maze.getGoalY();
-  }
-
-  @Override
-  public void reset() {
-    maze.generateMaze();
-  }
-
-  @Override
-  public IMazeModel getMaze() {
-    return maze;
-  }
-}
-```
 
 ### 3.3 PlayerService
 
@@ -517,63 +672,49 @@ public class MazeService implements IMazeService {
 
 **接口设计**
 ```java
+/**
+ * Interface for PlayerService.
+ * Specifies the methods that the PlayerService should implement.
+ */
 public interface IPlayerService {
-    //检查移动是否有效
-    public boolean movePlayer(int dx, int dy);
-    //检查是否通关
-    public boolean checkGoal();
-    //获取Player对象实例
-    public IPlayerModel getPlayer();
-    //重置玩家位置
-    public void reset();
-    //获取地图实例
+    /**
+     * Checks if the move is valid and moves the player.
+     *
+     * @param dx The delta x value for the move.
+     * @param dy The delta y value for the move.
+     * @return True if the move is valid and the player is moved, false otherwise.
+     */
+    boolean movePlayer(int dx, int dy);
+
+    /**
+     * Checks if the player has reached the goal.
+     *
+     * @return True if the player has reached the goal, false otherwise.
+     */
+    boolean checkGoal();
+
+    /**
+     * Gets the Player model instance.
+     *
+     * @return The Player model instance.
+     */
+    IPlayerModel getPlayer();
+
+    /**
+     * Resets the player's position to the starting point.
+     */
+    void reset();
+
+    /**
+     * Gets the maze model associated with the player.
+     *
+     * @return The maze model.
+     */
     IMazeModel getMaze();
 }
+
 ```
 
-**具体实现**
-```java
-public class PlayerService implements IPlayerService {
-  private IPlayerModel player;
-  private IMazeService mazeService;
-
-  // 依赖注入
-  public PlayerService(IMazeService maze, IPlayerModel playerModel) {
-    this.player = playerModel;
-    this.mazeService = maze;
-  }
-
-  @Override
-  public boolean movePlayer(int dx, int dy) {
-    if (mazeService.isValidMove(player, dx, dy)) {
-      player.move(dx, dy);
-      System.out.println("X: " + player.getX() + " Y: " + player.getY());
-      return checkGoal(); // 返回是否到达终点
-    }
-    return false; // 移动无效
-  }
-
-  @Override
-  public boolean checkGoal() {
-    return mazeService.hasReachedGoal(player);
-  }
-
-  @Override
-  public IPlayerModel getPlayer() {
-    return player;
-  }
-
-  @Override
-  public void reset() {
-    player.setPosition(player.getStartX(), player.getStartY());
-  }
-
-  @Override
-  public IMazeModel getMaze() {
-    return mazeService.getMaze();
-  }
-}
-```
 ---
 
 ## 4. Controller层设计
@@ -582,218 +723,105 @@ public class PlayerService implements IPlayerService {
 
 **接口设计**
 ```java
-package com.edu.xmum.cst206.Controller;
 
 /*
-Control层用于接收View层的请求并与通过Service层处理相关逻辑
+Control layer is used to receive requests from the View layer and process related logic through the Service layer.
 
-GameController是Control层的主类
-包含：
-View层的主类gameView
-Service层的主类gameService
+GameController is the main class of the Control layer.
+Contains:
+- The main class of the View layer: gameView
+- The main class of the Service layer: gameService
 
-用于处理前端交互的请求并将后端的响应返回
+Used to process requests for front-end interactions and return back-end responses.
 */
-
-import com.edu.xmum.cst206.Service.Interface.IGameService;
-import com.edu.xmum.cst206.View.Interface.IGameView;
-
 public interface IGameController {
-    void startGame();
-    void resetGame();
-    void setDifficulty(String difficulty);
-    void handleKeyPress(String key);
-    void showSelectionView();
-    void showPrepareView();
-    void showRunView();
-    void showVictoryView();
-    void showHint();
-    void setGameView(IGameView gameView);
-    String getDiffculty();
-    IGameService getGameService();
-}
-```
 
-**具体实现**
-
-这里为了解决依赖的问题，我们选择使用setter注入的方法。
-
-```java
-public class GameController implements IGameController {
-    private IGameService gameService;
-    private IGameView gameView;
-    private Difficulty diff;
-    public GameController(IGameService gameService) {
-        this.gameService = gameService;
-    }
-    /*
-    改用setter注入，
-    private void setupEventHandlers() {
-        if (gameView == null) {
-            throw new NullPointerException("gameView is null in setupEventHandlers");
-        }
-        gameView.getWelcomeView().getStartButton().setOnAction(event -> showSelectionView());
-        gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
-        gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
-        gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
-        gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
-        gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
-        gameView.getRunView().getHintButton().setOnAction(event -> showHint());
-
-        gameView.getRunView().getNode().setOnKeyPressed(event -> {
-            handleKeyPress(event.getText());
-        });
-    }
+    /**
+     * Starts the game by initializing necessary components and setting up the initial state.
      */
-    /*
-    private void handleVictory() {
-        System.out.println("Victory!");
-        gameView.showVictoryView();
-    }
-    */
-    @Override
-    public void startGame() {
-        gameService.resetGame();
-        showRunView();
-    }
+    void startGame();
 
-    @Override
-    public void resetGame() {
-        // 重置玩家和迷宫的状态
-        gameService.resetGame();
-        //调整尺寸并重新绘图
-        gameView.getRunView().adjustLayout();
-    }
+    /**
+     * Resets the game to its initial state.
+     */
+    void resetGame();
 
-    @Override
-    public void setDifficulty(String difficulty) {
-        switch (difficulty.toUpperCase()) {
-            case "EASY":
-                diff = Difficulty.EASY;
-                break;
-            case "MEDIUM":
-                diff = MEDIUM;
-                break;
-            case "HARD":
-                diff = Difficulty.HARD;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown difficulty: " + difficulty);
-        }
-        //调整尺寸，设计定难度
-        gameService.setDifficulty(diff);
-        showPrepareView();
-    }
-    public String getDiffculty(){
-        switch (diff){
-            case EASY -> {
-                return "Easy";
-            }
-            case MEDIUM -> {
-                return "Medium";
-            }
-            case HARD -> {
-                return "HARD";
-            }
-        }
-        return null;
-    }
-    private void adjustCellSize() {
-        double cellWidth = Config.SCENE_WIDTH / gameService.getMazeService().getMaze().getCols();
-        double cellLength = Config.SCENE_HEIGHT / gameService.getMazeService().getMaze().getRows();
-        int cellSize = (int) Math.min(cellLength, cellWidth);
-        gameView.getRunView().getPlayerView().setCellSize(cellSize);
-        gameView.getRunView().getMazeView().setCellSize(cellSize);
-    }
+    /**
+     * Sets the difficulty level of the game.
+     *
+     * @param difficulty The difficulty level to set (e.g., Easy, Medium, Hard).
+     */
+    void setDifficulty(String difficulty);
 
-    @Override
-    public void handleKeyPress(String key) {
-        Direction direction;
-        switch (key.toUpperCase()) {
-            case "W":
-                direction = Direction.UP;
-                break;
-            case "A":
-                direction = Direction.LEFT;
-                break;
-            case "S":
-                direction = Direction.DOWN;
-                break;
-            case "D":
-                direction = Direction.RIGHT;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown key: " + key);
-        }
-        boolean reachedGoal = movePlayer(direction);
-        if (reachedGoal) {
-            showVictoryView();
-        }
-    }
+    /**
+     * Handles key press events to control game actions.
+     *
+     * @param key The key pressed by the user.
+     */
+    void handleKeyPress(String key);
 
-    private boolean movePlayer(Direction direction) {
-        boolean hasWon = gameService.movePlayer(direction);
-        gameView.getRunView().getPlayerView().draw();
-        return hasWon;
-    }
+    /**
+     * Displays the selection view where users can choose game settings.
+     */
+    void showSelectionView();
 
-    @Override
-    public void showSelectionView() {
-        gameView.setSelectionView(new SelectionViewNew());
-        gameView.getSelectionView().getEasyButton().setOnAction(event -> setDifficulty("Easy"));
-        gameView.getSelectionView().getMediumButton().setOnAction(event -> setDifficulty("Medium"));
-        gameView.getSelectionView().getHardButton().setOnAction(event -> setDifficulty("Hard"));
-        gameView.showSelectionView();
-    }
+    /**
+     * Displays the preparation view before starting the game.
+     */
+    void showPrepareView();
 
-    @Override
-    public void showPrepareView() {
-        gameView.setPrepareView(new PrepareViewNew());
-        gameView.getPrepareView().getStartGameButton().setOnAction(event -> startGame());
-        gameView.showPrepareView();
-    }
+    /**
+     * Displays the main game view where the game is played.
+     */
+    void showRunView();
 
-    @Override
-    public void showRunView() {
-        gameView.setRunView(new RunView(this));
-        adjustCellSize();
-        gameView.getRunView().reSetView();
-        gameView.getRunView().getResetButton().setOnAction(event -> resetGame());
-        gameView.getRunView().getHintButton().setOnAction(event -> showHint());
-        gameView.getRunView().getNode().setOnKeyPressed(event -> {
-            handleKeyPress(event.getText());
-        });
-        gameView.showRunView();
-    }
+    /**
+     * Displays the victory view when the player wins the game.
+     *
+     * @param winner The winner of the game.
+     */
+    void showVictoryView(String winner);
 
-    @Override
-    public void showVictoryView() {
-        gameView.setVictoryView(new VictoryViewNew());
-        gameView.showVictoryView();
-    }
+    /**
+     * Displays a hint to the player during the game.
+     */
+    void showHint();
 
-    @Override
-    public void showHint() {
-        // 提示功能可以在这里实现
-        gameView.getRunView().showHint(gameService.getHint());
-    }
+    /**
+     * Displays the failure view when the player loses the game.
+     */
+    void showFailureView();
 
-    @Override
-    public void setGameView(IGameView gameView) {
-        this.gameView = gameView;
-        gameView.getWelcomeView().getStartButton().setOnAction(event -> showSelectionView());
-        //setupEventHandlers();
-    }
+    /**
+     * Sets the game view, which is responsible for the user interface.
+     *
+     * @param gameView The game view to set.
+     */
+    void setGameView(IGameView gameView);
 
-    public IGameService getGameService() {
-        return gameService;
-    }
+    /**
+     * Gets the current difficulty level of the game.
+     *
+     * @return The current difficulty level.
+     */
+    String getDifficulty();
 
-    public IGameView getGameView() {
-        return gameView;
-    }
+    /**
+     * Gets the game service, which handles game logic and operations.
+     *
+     * @return The game service.
+     */
+    IGameService getGameService();
+
+    /**
+     * Starts the AI movement in the game.
+     */
+    void startAiMovement();
 }
+
 ```
+
+
 
 ---
 
@@ -842,105 +870,6 @@ public interface IGameView {
 }
 ```
 
-**具体实现**
-
-这里初始化选择使用setter注入的方法
-
-```java
-public class GameView extends BorderPane implements IGameView {
-    IWelcomeView welcomeView;
-    ISelectionView selectionView;
-    IPrepareView prepareView;
-    IRunView runView;
-    IVictoryView victoryView;
-    IGameController gameController;
-
-    public GameView(IGameController gameController) {
-        this.gameController = gameController;
-        welcomeView = new WelcomeViewNew();
-        /*
-        selectionView = new SelectionView();
-        prepareView = new PrepareView();
-        runView = new RunView(gameController);
-        victoryView = new VictoryView();
-         */
-        setCenter(welcomeView.getNode());
-    }
-
-    @Override
-    public void setGameController(IGameController gameController) {
-        this.gameController = gameController;
-    }
-
-    @Override
-    public IWelcomeView getWelcomeView() {
-        return welcomeView;
-    }
-
-    @Override
-    public ISelectionView getSelectionView() {
-        return selectionView;
-    }
-
-    @Override
-    public IPrepareView getPrepareView() {
-        return prepareView;
-    }
-
-    @Override
-    public IRunView getRunView() {
-        return runView;
-    }
-
-    @Override
-    public BorderPane getView() {
-        return this;
-    }
-
-    @Override
-    public void showVictoryView() {
-        setCenter(victoryView.getNode());
-    }
-
-    @Override
-    public void showSelectionView() {
-        setCenter(selectionView.getNode());
-    }
-
-    @Override
-    public void showPrepareView() {
-        setCenter(prepareView.getNode());
-    }
-
-    @Override
-    public void showRunView() {
-        setCenter(runView.getNode());
-    }
-    //set注入
-
-    public void setWelcomeView(IWelcomeView welcomeView) {
-        this.welcomeView = welcomeView;
-    }
-
-    public void setSelectionView(ISelectionView selectionView) {
-        this.selectionView = selectionView;
-    }
-
-    public void setPrepareView(IPrepareView prepareView) {
-        this.prepareView = prepareView;
-    }
-
-    public void setRunView(IRunView runView) {
-        this.runView = runView;
-    }
-
-    public void setVictoryView(IVictoryView victoryView) {
-        this.victoryView = victoryView;
-    }
-}
-
-```
-
 ### 5.2 WelcomeView
 
 **WelcomeView** 负责绘制游戏的初始进入页面,使用**VBox**作为布局容器自上而下的布局。
@@ -949,57 +878,28 @@ public class GameView extends BorderPane implements IGameView {
 
 **接口设计**
 ```java
+/**
+ * Interface for WelcomeView.
+ * Specifies the methods that the WelcomeView should implement.
+ */
 public interface IWelcomeView {
-  Button getStartButton();
-  VBox getNode();
+
+    /**
+     * Gets the start button in the WelcomeView.
+     *
+     * @return The start button.
+     */
+    Button getStartButton();
+
+    /**
+     * Gets the root node of the WelcomeView.
+     *
+     * @return The root node.
+     */
+    Node getNode();
 }
 ```
 
-**具体实现**
-
-```java
-public class WelcomeViewNew extends VBox implements IWelcomeView {
-  private final Button startButton = new Button("开始游戏");
-
-  public WelcomeViewNew() {
-    // 设置对齐方式和间距
-    setAlignment(Pos.CENTER);
-    setSpacing(20);
-    setPadding(new Insets(40));
-
-    // 设置背景颜色
-    setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-
-    // 添加标题
-    Label titleLabel = new Label("欢迎来到迷宫游戏");
-    titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 36));
-    titleLabel.setTextAlignment(TextAlignment.CENTER);
-    titleLabel.setTextFill(Color.DARKBLUE);
-
-    // 美化开始按钮
-    startButton.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-    startButton.setTextFill(Color.WHITE);
-    startButton.setStyle("-fx-background-color: #FF6347; -fx-background-radius: 10;");
-
-    // 鼠标悬停样式
-    startButton.setOnMouseEntered(e -> startButton.setStyle("-fx-background-color: #FF4500; -fx-background-radius: 10;"));
-    startButton.setOnMouseExited(e -> startButton.setStyle("-fx-background-color: #FF6347; -fx-background-radius: 10;"));
-
-    // 添加组件到VBox
-    getChildren().addAll(titleLabel, startButton);
-  }
-
-  @Override
-  public Button getStartButton() {
-    return startButton;
-  }
-
-  @Override
-  public VBox getNode() {
-    return this;
-  }
-}
-```
 ### 5.3 SelectionView
 
 **SelectionView** 负责绘制游戏的难度页面，使用**VBox**作为布局容器自上而下的布局。
@@ -1008,131 +908,74 @@ public class WelcomeViewNew extends VBox implements IWelcomeView {
 
 **接口设计**
 ```java
+package com.edu.xmum.cst206.View.Interface;
+
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+
+/**
+ * Interface for SelectionView.
+ * Specifies the methods that the SelectionView should implement.
+ */
 public interface ISelectionView {
+
+    /**
+     * Gets the easy button in the SelectionView.
+     *
+     * @return The easy button.
+     */
     Button getEasyButton();
 
+    /**
+     * Gets the medium button in the SelectionView.
+     *
+     * @return The medium button.
+     */
     Button getMediumButton();
 
+    /**
+     * Gets the hard button in the SelectionView.
+     *
+     * @return The hard button.
+     */
     Button getHardButton();
+
+    /**
+     * Gets the root node of the SelectionView.
+     *
+     * @return The VBox root node.
+     */
     VBox getNode();
 }
 ```
 
-**具体实现**
-```java
-public class SelectionViewNew extends VBox implements ISelectionView {
-  private Button easyButton = new Button("Easy");
-  private Button mediumButton = new Button("Medium");
-  private Button hardButton = new Button("Hard");
-
-  public SelectionViewNew() {
-    super();
-    setAlignment(Pos.CENTER);
-    setSpacing(20);
-    setPadding(new Insets(40));
-
-    // 设置背景颜色
-    setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-
-    // 添加标题
-    Label difficultyLabel = new Label("选择难度");
-    difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-    difficultyLabel.setTextFill(Color.DARKBLUE);
-
-    // 美化按钮
-    styleButton(easyButton, "#32CD32", "#228B22");
-    styleButton(mediumButton, "#FFA500", "#FF8C00");
-    styleButton(hardButton, "#FF6347", "#FF4500");
-
-    // 添加组件到VBox
-    getChildren().addAll(difficultyLabel, easyButton, mediumButton, hardButton);
-  }
-
-  private void styleButton(Button button, String bgColor, String hoverColor) {
-    button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-    button.setTextFill(Color.WHITE);
-    button.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 10;");
-    button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: " + hoverColor + "; -fx-background-radius: 10;"));
-    button.setOnMouseExited(e -> button.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 10;"));
-  }
-
-  @Override
-  public Button getEasyButton() {
-    return easyButton;
-  }
-
-  @Override
-  public Button getMediumButton() {
-    return mediumButton;
-  }
-
-  @Override
-  public Button getHardButton() {
-    return hardButton;
-  }
-
-  @Override
-  public VBox getNode() {
-    return this;
-  }
-}
-```
 ### 5.4 PrepareView
 
 **PrepareView** 负责游戏准备页面的设计，使用**VBox**作为布局容器自上而下的布局。
 ![img.png](img.png)
 **接口设计**
 ```java
+/**
+ * Interface for PrepareView.
+ * Specifies the methods that the PrepareView should implement.
+ */
 public interface IPrepareView {
+
+    /**
+     * Gets the start game button in the PrepareView.
+     *
+     * @return The start game button.
+     */
     Button getStartGameButton();
+
+    /**
+     * Gets the root node of the PrepareView.
+     *
+     * @return The VBox root node.
+     */
     VBox getNode();
 }
-```
 
-**具体实现**
-```java
-public class PrepareViewNew extends VBox implements IPrepareView {
-  private final Button startGameButton = new Button("开始游戏");
-
-  public PrepareViewNew() {
-    super();
-    setAlignment(Pos.CENTER);
-    setSpacing(20);
-    setPadding(new Insets(40));
-
-    // 设置背景颜色
-    setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-    setStyle("-fx-background-color: rgba(71,249,255,0.63); -fx-text-fill: white; -fx-font-size: 14px;");
-    // 添加标题
-    Label prepareLabel = new Label("准备好开始游戏!");
-    prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-    prepareLabel.setTextFill(Color.DARKBLUE);
-
-    // 美化开始游戏按钮
-    styleButton(startGameButton, "#FF6347", "#FF4500");
-
-    // 添加组件到VBox
-    getChildren().addAll(prepareLabel, startGameButton);
-  }
-
-  private void styleButton(Button button, String bgColor, String hoverColor) {
-    button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-    button.setTextFill(Color.WHITE);
-    button.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 10;");
-    button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: " + hoverColor + "; -fx-background-radius: 10;"));
-    button.setOnMouseExited(e -> button.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 10;"));
-  }
-
-  @Override
-  public Button getStartGameButton() {
-    return startGameButton;
-  }
-
-  @Override
-  public VBox getNode() {
-    return this;
-  }
-}
 ```
 
 ### 5.5 RunView
@@ -1143,175 +986,89 @@ public class PrepareViewNew extends VBox implements IPrepareView {
 
 **接口设计**
 ```java
+package com.edu.xmum.cst206.View.Interface;
+
+import javafx.animation.Timeline;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+
+import java.util.List;
+import java.util.Timer;
+
+/**
+ * Interface for RunView.
+ * Specifies the methods that the RunView should implement.
+ */
 public interface IRunView {
+
+    /**
+     * Gets the reset button in the RunView.
+     *
+     * @return The reset button.
+     */
     Button getResetButton();
 
+    /**
+     * Gets the hint button in the RunView.
+     *
+     * @return The hint button.
+     */
     Button getHintButton();
 
+    /**
+     * Gets the root node of the RunView.
+     *
+     * @return The BorderPane root node.
+     */
     BorderPane getNode();
 
+    /**
+     * Gets the player view in the RunView.
+     *
+     * @return The player view.
+     */
     IPlayerView getPlayerView();
+
+    /**
+     * Gets the maze view in the RunView.
+     *
+     * @return The maze view.
+     */
     IMazeView getMazeView();
 
-    void reSetView();
-    public void adjustLayout();
-    public void showHint(List<int[]> path);
-}
-```
-
-**具体实现**
-```java
-public class RunView extends BorderPane implements IRunView {
-    private IPlayerView playerView;
-    private IMazeView mazeView;
-    private Label currentDifficulty;
-    private Button resetButton;
-    private Button hintButton;
-    private IGameController gameController;
-
-    public RunView(IGameController gameController) {
-        // 初始化组件
-        this.gameController = gameController;
-        currentDifficulty = new Label("难度:"+gameController.getDiffculty());
-        mazeView = new MazeViewSimple(gameController.getGameService().getMazeService().getMaze());
-        playerView = new PlayerViewSimple(gameController.getGameService().getPlayerService().getPlayer());
-        resetButton = new Button("重置游戏");
-        hintButton = new Button("提示");
-
-        // 设置按钮样式
-        resetButton.setStyle("-fx-background-color: #FF6347; -fx-text-fill: white; -fx-font-size: 14px;");
-        hintButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-size: 14px;");
-        // 设置字体和颜色
-        currentDifficulty.setFont(new Font("Arial", 16));
-        //currentDifficulty.setStyle("-fx-background-color: #ff4747; -fx-text-fill: white; -fx-font-size: 14px;");
-
-        // 设置提示信息样式
-        HBox infoBox = new HBox(20,  currentDifficulty);
-        infoBox.setAlignment(Pos.CENTER);
-        infoBox.setPadding(new Insets(10, 10, 10, 10));
-        infoBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        infoBox.setStyle("-fx-background-color: #ffa347; -fx-text-fill: white; -fx-font-size: 14px;");
-        // 设置控制面板样式
-        HBox controlBox = new HBox(20, resetButton, hintButton);
-        controlBox.setAlignment(Pos.CENTER);
-        controlBox.setPadding(new Insets(10, 10, 10, 10));
-        controlBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        controlBox.setStyle("-fx-background-color: #ffa947; -fx-text-fill: white; -fx-font-size: 14px;");
-        // 设置游戏面板样式
-        StackPane gamePane = new StackPane();
-        gamePane.setAlignment(Pos.CENTER);
-        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode());
-        gamePane.setStyle("-fx-background-color: white; -fx-border-color: #A9A9A9; -fx-border-width: 1px;");
-        // 控制排版
-        setTop(infoBox);
-        setCenter(gamePane);
-        setBottom(controlBox);
-
-        // 确保游戏面板可以获得焦点
-        gamePane.setFocusTraversable(true);
-        setOnMouseClicked(event -> requestFocus());
-
-        // 添加监听器调整组件大小
-        gamePane.widthProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
-        gamePane.heightProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
-
-        // 设置主边框
-        setStyle("-fx-background-color: #F5F5F5;");
-    }
-
-    @Override
-    public Button getResetButton() {
-        return resetButton;
-    }
-
-    @Override
-    public Button getHintButton() {
-        return hintButton;
-    }
-
-    @Override
-    public BorderPane getNode() {
-        return this;
-    }
-
-    @Override
-    public IPlayerView getPlayerView() {
-        return playerView;
-    }
-
-    @Override
-    public IMazeView getMazeView() {
-        return mazeView;
-    }
-
-    @Override
-    public void reSetView() {
-        playerView.reDraw();
-        mazeView.reDraw();
-    }
-
-    @Override
-    public void adjustLayout() {
-        double cellWidth = getWidth() / gameController.getGameService().getMazeService().getMaze().getCols();
-        double cellHeight = (getHeight() - getTop().getLayoutBounds().getHeight() - getBottom().getLayoutBounds().getHeight()) /
-                gameController.getGameService().getMazeService().getMaze().getRows();
-        int cellSize = (int) Math.min(cellWidth, cellHeight);
-        playerView.setCellSize(cellSize);
-        mazeView.setCellSize(cellSize);
-        reSetView();
-        // 居中调整
-        double mazeWidth = cellSize * gameController.getGameService().getMazeService().getMaze().getCols();
-        double mazeHeight = cellSize * gameController.getGameService().getMazeService().getMaze().getRows();
-        double offsetX = (getWidth() - mazeWidth) / 2;
-        double offsetY = (getHeight() - ((HBox)getTop()).getHeight() - ((HBox)getBottom()).getHeight() - mazeHeight) / 2;
-
-        mazeView.getNode().setTranslateX(offsetX);
-        mazeView.getNode().setTranslateY(offsetY);
-        playerView.getNode().setTranslateX(offsetX);
-        playerView.getNode().setTranslateY(offsetY);
-    }
-
-    /*
-    绘制DFS搜索出来的路径
+    /**
+     * Gets the AI view in the RunView.
+     *
+     * @return The AI view.
      */
-    @Override
-    public void showHint(List<int[]> path) {
-        int cellSize = mazeView.getCellSize();
-        // 清除之前的提示
-        mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
-        // 动态显示提示路径
-        Timeline timeline = new Timeline();
-        // 用于存储当前显示的矩形，以便逐步删除
-        List<Rectangle> currentRects = new ArrayList<>();
+    IPlayerView getAiView();
 
-        for (int i = 0; i < path.size(); i++) {
-            int[] point = path.get(i);
+    /**
+     * Gets the second player view in the RunView.
+     *
+     * @return The second player view.
+     */
+    IPlayerView getSecondPlayerView();
 
-            // 创建一个新的矩形，用于高亮当前路径点
-            Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
-            rect.setFill(Color.GRAY);
-            rect.setUserData("highlight");
+    /**
+     * Resets the view, updating any changes.
+     */
+    void reSetView();
 
-            // 将绘制和删除操作封装在 KeyFrame 中
-            KeyFrame keyFrame = new KeyFrame(Duration.seconds(i * 0.5), event -> {
-                // 移除前一个高亮的矩形（如果有）
-                if (!currentRects.isEmpty()) {
-                    mazeView.getNode().getChildren().remove(currentRects.remove(0));
-                }
-                // 添加当前高亮的矩形
-                mazeView.getNode().getChildren().add(rect);
-                currentRects.add(rect);
-            });
+    /**
+     * Adjusts the layout of the RunView.
+     */
+    void adjustLayout();
 
-            timeline.getKeyFrames().add(keyFrame);
-        }
-
-        timeline.play();
-    }
-
+    /**
+     * Displays the hint path in the RunView.
+     *
+     * @param path The path to show as a hint.
+     */
+    void showHint(List<int[]> path);
 }
-
 ```
+
 ### 5.6 VictoryView
 
 **VictoryView** 用来显示游戏胜利的页面，使用 **VBox** 作为主控局容器
@@ -1320,37 +1077,301 @@ public class RunView extends BorderPane implements IRunView {
 
 **接口设计**
 ```java
+package com.edu.xmum.cst206.View.Interface;
+
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+
+/**
+ * Interface for VictoryView.
+ * Specifies the methods that the VictoryView should implement.
+ */
 public interface IVictoryView {
-        VBox getNode();
+
+    /**
+     * Gets the back button in the VictoryView.
+     *
+     * @return The back button.
+     */
+    Button getBackButton();
+
+    /**
+     * Gets the root node of the VictoryView.
+     *
+     * @return The VBox root node.
+     */
+    VBox getNode();
+
+    /**
+     * Sets the winner's name to be displayed in the VictoryView.
+     *
+     * @param winner The name of the winner.
+     */
+    void setWinner(String winner);
 }
 ```
-**具体实现**
+### 5.7 FailView
+
+**FailView** 用来显示游戏胜利的页面，使用 **VBox** 作为主控局容器
+
+**接口设计**
 ```java
-public class VictoryView extends VBox implements IVictoryView {
-  public VictoryView() {
-    setAlignment(Pos.CENTER);
-    setSpacing(20);
-    Label victoryLabel = new Label("恭喜通关!");
-    victoryLabel.setFont(new Font(24));
-    getChildren().add(victoryLabel);
-  }
+/**
+ * Interface for FailView.
+ * Specifies the methods that the FailView should implement.
+ */
+public interface IFailView {
 
-  @Override
-  public VBox getNode() {
-    return this;
-  }
+    /**
+     * Gets the root node of the FailView.
+     *
+     * @return The VBox root node.
+     */
+    VBox getNode();
+
+    /**
+     * Gets the back button in the FailView.
+     *
+     * @return The back button.
+     */
+    Button getBackButton();
 }
-
 ```
 ---
+## 6.组件美化
+由于JavaFx使用外部css绑定样式并不好用，这里我使用**外观模式**封装了用来绑定CSS样式美化类，**View**层只需要调用 **Styler** 就可以完成美化组件
 
-## 6.皮肤选择功能的改进
+**以 PrepareViewStyler 为例子，这个类就是模拟了CSS，View层的布局就是在模拟Html**
+
+```java
+package com.edu.xmum.cst206.View.Styler;
+
+import Constant.Skin;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
+
+/**
+ * Beautification of PrepareView based on Appearance Pattern Design.
+ * Applies styles to the VBox, Label, and Button based on the selected skin.
+ */
+public class PrepareViewStyler {
+
+    /**
+     * Styles the VBox based on the specified skin.
+     *
+     * @param skin The skin to apply to the VBox.
+     * @param vBox The VBox to style.
+     */
+    public static void VboxStyle(Skin skin, VBox vBox) {
+        if (vBox == null) return;
+        switch (skin) {
+            case V1 -> {
+                vBox.setAlignment(Pos.CENTER);
+                vBox.setSpacing(20);
+                vBox.setPadding(new Insets(40));
+                vBox.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom right, #f7f8fa, #e2e2e2); " +
+                                "-fx-padding: 20px; " +
+                                "-fx-border-radius: 10; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);"
+                );
+            }
+            case V2 -> {
+                vBox.setAlignment(Pos.CENTER);
+                vBox.setSpacing(20);
+                vBox.setPadding(new Insets(40));
+                vBox.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom right, #a1c4fd, #c2e9fb); " +
+                                "-fx-padding: 20px; " +
+                                "-fx-border-radius: 10; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);"
+                );
+            }
+            case V3 -> {
+                vBox.setAlignment(Pos.CENTER);
+                vBox.setSpacing(20);
+                vBox.setPadding(new Insets(40));
+                vBox.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom right, #ffecd2, #fcb69f); " +
+                                "-fx-padding: 20px; " +
+                                "-fx-border-radius: 10; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);"
+                );
+            }
+        }
+    }
+
+    /**
+     * Styles the Label based on the specified skin.
+     *
+     * @param skin         The skin to apply to the Label.
+     * @param prepareLabel The Label to style.
+     */
+    public static void LabelStyle(Skin skin, Label prepareLabel) {
+        if (prepareLabel == null) return;
+        switch (skin) {
+            case V1 -> {
+                prepareLabel.setFont(new Font(18));
+                prepareLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
+            }
+            case V2 -> {
+                prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+                prepareLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #444;");
+            }
+            case V3 -> {
+                prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+                prepareLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #222;");
+            }
+        }
+        // Adds floating animation to the label
+        addTextFloatingAnimation(prepareLabel);
+    }
+
+    /**
+     * Styles the Button based on the specified skin.
+     *
+     * @param skin   The skin to apply to the Button.
+     * @param button The Button to style.
+     */
+    public static void ButtonStyle(Skin skin, Button button) {
+        if (button == null) return;
+        switch (skin) {
+            case V1 -> {
+                button.setStyle(
+                        "-fx-background-color: #4CAF50; " +
+                                "-fx-text-fill: white; " +
+                                "-fx-font-size: 16px; " +
+                                "-fx-padding: 10px 20px; " +
+                                "-fx-border-radius: 5; " +
+                                "-fx-cursor: hand;"
+                );
+                addButtonAnimation(button, "#4CAF50", "#45a049", "#3e8e41");
+            }
+            case V2 -> {
+                button.setStyle(
+                        "-fx-background-color: #007BFF; " +
+                                "-fx-text-fill: white; " +
+                                "-fx-font-size: 16px; " +
+                                "-fx-padding: 10px 20px; " +
+                                "-fx-border-radius: 5; " +
+                                "-fx-cursor: hand;"
+                );
+                addButtonAnimation(button, "#007BFF", "#0056b3", "#004085");
+            }
+            case V3 -> {
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setTextFill(Color.WHITE);
+                button.setStyle(
+                        "-fx-background-color: #FF5722; " +
+                                "-fx-background-radius: 10; " +
+                                "-fx-padding: 10px 20px; " +
+                                "-fx-cursor: hand;"
+                );
+                addButtonAnimation(button, "#FF5722", "#E64A19", "#D84315");
+            }
+        }
+    }
+
+    /**
+     * Adds floating animation to the specified Label.
+     *
+     * @param label The Label to animate.
+     */
+    private static void addTextFloatingAnimation(Label label) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
+        translateTransition.setFromY(0);
+        translateTransition.setToY(-10);
+        translateTransition.setAutoReverse(true);
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition.play();
+    }
+
+    /**
+     * Adds hover and press animations to the specified Button.
+     *
+     * @param button       The Button to animate.
+     * @param normalColor  The normal background color of the Button.
+     * @param hoverColor   The background color of the Button when hovered.
+     * @param pressedColor The background color of the Button when pressed.
+     */
+    private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
+        button.setOnMouseEntered(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        button.setOnMouseExited(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + normalColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+
+        button.setOnMousePressed(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + pressedColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(2);
+            tt.play();
+        });
+
+        button.setOnMouseReleased(event -> {
+            button.setStyle(
+                    "-fx-background-color: " + hoverColor + "; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-padding: 10px 20px; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-cursor: hand;"
+            );
+            TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
+            tt.setByY(-2);
+            tt.play();
+        });
+    }
+}
+```
+
+## 7.皮肤选择功能的改进
 
 这里我选择使用 **抽象工厂模式** 来设计皮肤的选择功能
 
 抽象工厂模式提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。通过使用抽象工厂模式，可以在游戏中灵活地切换不同的视图皮肤，增强用户的体验。
 
-### 6.1 抽象工厂父类的设计
+### 7.1 抽象工厂父类的设计
 
 这个游戏中的视图层我们设计了许多不同的版本，这里使用抽象工厂来与用户交互选择皮肤
 
@@ -1419,7 +1440,7 @@ public abstract class AbstractFactory {
 
 ```
 
-### 6.2 工厂生产者
+### 7.2 工厂生产者
 
 工厂生产者用于简化工厂的创建过程，根据用户的选择返回相应的工厂实例。
 
@@ -1445,52 +1466,59 @@ public class FactoryProducer {
 }
 ```
 
-### 6.3 具体工厂
+### 7.3 具体工厂
 
 具体工厂类用于创建不同类型的视图对象。 每个具体工厂类负责创建其对应类型的视图对象，并且每个具体工厂可以创建不同版本或风格的视图对象。这样做可以将视图对象的创建逻辑集中到具体工厂类中，简化客户端代码，并提高代码的可维护性和可扩展性。
 
-**这里以PrePareView的具体工厂实现为例**
+**这里以GameModel的具体工厂实现为例**
 ```java
-public class PrepareViewFactory extends AbstractFactory {
+/**
+ * GameModelFactory is responsible for creating instances of game models, player models, and maze models.
+ */
+public class GameModelFactory extends AbstractFactory {
+
+    /**
+     * Creates and returns an instance of IGameModel based on the specified skin.
+     * @param playerModel The skin enumeration that determines which game model to create.
+     * @return An instance of IGameModel.
+     */
     @Override
-    public IMazeView getMazeView(String maze, IMazeModel mazeModel) {
-        return null;
+    public IGameModel getGameModel(Skin playerModel) {
+        if (playerModel.getSkin().equals("V3")) {
+            return new GameModelVs();
+        } else {
+            return new GameModel();
+        }
     }
 
+    /**
+     * Creates and returns an instance of IPlayerModel based on the specified player type and maze model.
+     * @param player The type of player ("Player" or "AI").
+     * @param mazeModel The maze model associated with the player.
+     * @return An instance of IPlayerModel.
+     */
     @Override
-    public IPlayerView getPlayerView(String player, IPlayerModel playerModel) {
-        return null;
-    }
-
-    @Override
-    public IPrepareView getPrepareView(String prepareView) {
-        if (prepareView.equals("V1")) {
-            return new PrepareViewV1();
-        } else if (prepareView.equals("V2")) {
-            return new PrepareViewV2();
+    public IPlayerModel getPlayerModel(String player, IMazeModel mazeModel) {
+        if (player.equals("Player")) {
+            return new PlayerModel(mazeModel);
+        } else if (player.equals("AI")) {
+            return new AiModel(mazeModel);
         }
         return null;
     }
 
+    /**
+     * Creates and returns an instance of IMazeModel based on the specified maze type.
+     * @param maze The type of maze.
+     * @return An instance of IMazeModel.
+     */
     @Override
-    public IRunView getRunView(String runView, IGameController gameController) {
-        return null;
-    }
-
-
-    @Override
-    public ISelectionView getSelectionView(String selectionView) {
-        return null;
-    }
-
-    @Override
-    public IVictoryView getVictoryView(String victoryView) {
-        return null;
-    }
-
-    @Override
-    public IWelcomeView getWelcomeView(String welcomeVIew) {
+    public IMazeModel getMazeModel(String maze) {
+        if (maze.equals("Maze")) {
+            return new MazeModel(Config.ROWS, Config.COLS);
+        }
         return null;
     }
 }
+
 ```
