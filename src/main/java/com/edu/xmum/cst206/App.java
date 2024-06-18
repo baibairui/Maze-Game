@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import static Constant.Config.SCENE_HEIGHT;
 import static Constant.Config.SCENE_WIDTH;
 
+/**
+ * Main application class for the Maze Game.
+ */
 public class App extends Application {
     private IGameController gameController;
     private IGameView gameView;
@@ -31,6 +34,10 @@ public class App extends Application {
         showSkinSelectionView(primaryStage);
     }
 
+    /**
+     * Displays the skin selection view where the user can choose a skin for the game.
+     * @param primaryStage The primary stage of the application.
+     */
     private void showSkinSelectionView(Stage primaryStage) {
         ISkinSelectionView skinSelectionView = new SkinSelectionView();
         ArrayList<Button> buttons = skinSelectionView.getButtons();
@@ -39,7 +46,7 @@ public class App extends Application {
             buttons.get(i).setOnAction(actionEvent -> {
                 Config.skin = Skin.valueOf("V" + (finalI + 1));
                 initLayer();
-                //Setting up the main scene and displaying it
+                // Setting up the main scene and displaying it
                 Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
                 primaryStage.setScene(scene);
                 primaryStage.setTitle("Maze Game");
@@ -52,14 +59,17 @@ public class App extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Initializes the layers of the game (model, service, controller, view) based on the selected skin.
+     */
     private void initLayer() {
-        // initialisation
+        // Initialization
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView();
 
-        // dependency injection
+        // Dependency injection
         gameController.setGameView(gameView);
     }
 }
