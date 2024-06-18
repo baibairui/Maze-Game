@@ -24,7 +24,7 @@ public class PlayerViewStyler {
             }
             //Setting up the player skin for V2
             case V2 -> {
-                Image playImg = new Image("com/edu/xmum/cst206/player/皮卡丘" + playerDir + ".gif");
+                Image playImg = new Image("com/edu/xmum/cst206/player/hhh.gif");
                 playerView.setImage(playImg);
                 playerView.setFitHeight(cellSize);
                 playerView.setFitWidth(cellSize);

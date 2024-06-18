@@ -22,7 +22,7 @@ public class PlayerViewV2 extends Pane implements IPlayerView {
     public void draw() {
         //Setting the Player View
         ImageView playerView = new ImageView();
-        PlayerViewStyler.playerViewStyle(Skin.V1, playerView, cellSize, player, direction.toString());
+        PlayerViewStyler.playerViewStyle(Skin.V2, playerView, cellSize, player, direction.toString());
         getChildren().clear();
         getChildren().add(playerView);
     }
