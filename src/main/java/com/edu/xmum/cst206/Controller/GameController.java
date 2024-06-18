@@ -51,6 +51,7 @@ public class GameController implements IGameController {
         if (isAiEnabled) {
             startAiMovement(); // Start AI movement
         }
+
         gameView.getRunView().adjustLayout(); // Adjust the layout
     }
 

@@ -35,6 +35,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
     private final Button resetButton;
     private final Button hintButton;
     private final IGameController gameController;
+    private Timeline hintTimeline = new Timeline();
 
     /**
      * Constructor to initialize the RunViewV1 components.
@@ -142,6 +143,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         playerView.reDraw();
         mazeView.reDraw();
         aiView.reDraw(); // Redrawing the AI view
+        hintTimeline.stop();
     }
 
     /**
@@ -181,41 +183,46 @@ public class RunViewV1 extends BorderPane implements IRunView {
     @Override
     public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
-        // Clear the previous hint
+        // Clear previous hints
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
 
-        // Dynamic display of cue paths
-        Timeline timeline = new Timeline();
-        // Used to store the currently displayed rectangle for progressive deletion
+        // 如果存在旧的 Timeline，停止它
+        if (hintTimeline != null) {
+            hintTimeline.stop();
+        }
+
+        // 新建一个 Timeline
+        hintTimeline = new Timeline();
+
+        // Used to store the currently displayed rectangles for progressive deletion
         List<Rectangle> currentRects = new ArrayList<>();
 
-        // Show correct path
         for (int i = 0; i < path.size(); i++) {
             int[] point = path.get(i);
 
-            // Creates a new rectangle for highlighting the current path point
+            // Create a new rectangle for highlighting the current path point
             Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
-            rect.setFill(Color.BLUE);
+            rect.setFill(Color.GRAY);
             rect.setUserData("highlight");
 
-            // Setting the transparency animation for a trailing effect
-            KeyFrame addRect = new KeyFrame(Duration.seconds(i * 0.3), event -> {
+            // Encapsulate drawing and deleting operations in KeyFrame
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(i * 0.2), event -> {
+                // Add the current highlight rectangle to the canvas
                 mazeView.getNode().getChildren().add(rect);
                 currentRects.add(rect);
+
+                // Create a new Timeline for each rectangle to gradually fade out the color
+                Timeline fadeTimeline = new Timeline();
+                KeyFrame fadeKeyFrame = new KeyFrame(Duration.seconds(2), new KeyValue(rect.fillProperty(), Color.TRANSPARENT));
+                fadeTimeline.getKeyFrames().add(fadeKeyFrame);
+                fadeTimeline.setOnFinished(e -> mazeView.getNode().getChildren().remove(rect));
+                fadeTimeline.play();
             });
 
-            KeyFrame fadeOut = new KeyFrame(Duration.seconds((i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0.3)); // Set path more clear
-
-            timeline.getKeyFrames().addAll(addRect, fadeOut);
+            hintTimeline.getKeyFrames().add(keyFrame);
         }
 
-        // Add a final keyframe to remove all highlighted rectangles
-        KeyFrame finalKeyFrame = new KeyFrame(Duration.seconds((path.size()) * 0.3 + 0.2), event -> {
-            mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
-        });
-
-        timeline.getKeyFrames().add(finalKeyFrame);
-        timeline.play();
+        hintTimeline.play();
     }
 
     /**

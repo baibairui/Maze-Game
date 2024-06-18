@@ -32,6 +32,7 @@ public class RunViewV2 extends BorderPane implements IRunView {
     private final IMazeView mazeView;
     private final Label currentDifficulty;
     private final Button resetButton;
+    private Timeline hintTimeline = new Timeline();
     private final Button hintButton;
     private final IGameController gameController;
 
@@ -163,6 +164,7 @@ public class RunViewV2 extends BorderPane implements IRunView {
     public void reSetView() {
         playerView.reDraw();
         mazeView.reDraw();
+        hintTimeline.stop();
     }
 
     /**
@@ -200,8 +202,15 @@ public class RunViewV2 extends BorderPane implements IRunView {
         int cellSize = mazeView.getCellSize();
         // Clear previous hints
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
-        // Dynamically display hint path
-        Timeline timeline = new Timeline();
+
+        // 如果存在旧的 Timeline，停止它
+        if (hintTimeline != null) {
+            hintTimeline.stop();
+        }
+
+        // 新建一个 Timeline
+        hintTimeline = new Timeline();
+
         // Used to store the currently displayed rectangles for progressive deletion
         List<Rectangle> currentRects = new ArrayList<>();
 
@@ -227,9 +236,10 @@ public class RunViewV2 extends BorderPane implements IRunView {
                 fadeTimeline.play();
             });
 
-            timeline.getKeyFrames().add(keyFrame);
+            hintTimeline.getKeyFrames().add(keyFrame);
         }
 
-        timeline.play();
+        hintTimeline.play();
     }
+
 }

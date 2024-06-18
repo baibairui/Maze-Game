@@ -7,6 +7,8 @@ public class Config {
     public static Difficulty diff = Difficulty.EASY;
     public static Skin skin = Skin.V3;
 
+    public static String hint="hint";
+
     // Define min and max speeds
     public static final double MIN_SPEED = 0.5; // Fastest
     public static final double MAX_SPEED = 1.0; // Slowest

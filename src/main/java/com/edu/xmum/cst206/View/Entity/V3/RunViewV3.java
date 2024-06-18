@@ -8,6 +8,7 @@ import com.edu.xmum.cst206.View.Interface.IPlayerView;
 import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Styler.RunViewStyler;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Implementation of the run view for version 3.
@@ -34,6 +36,7 @@ public class RunViewV3 extends BorderPane implements IRunView {
     private final Button resetButton;
     private final Button hintButton;
     private final IGameController gameController;
+    private Timeline hintTimeline = new Timeline();
 
     /**
      * Constructor to initialize the RunViewV3 components.
@@ -117,6 +120,7 @@ public class RunViewV3 extends BorderPane implements IRunView {
         playerView.reDraw();
         secondPlayerView.reDraw();
         mazeView.reDraw();
+        hintTimeline.stop();
     }
 
     @Override
@@ -152,28 +156,46 @@ public class RunViewV3 extends BorderPane implements IRunView {
     @Override
     public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
-        // Clear the previous hint
+        // Clear previous hints
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
-        Timeline timeline = new Timeline();
+
+        // 如果存在旧的 Timeline，停止它
+        if (hintTimeline != null) {
+            hintTimeline.stop();
+        }
+
+        // 新建一个 Timeline
+        hintTimeline = new Timeline();
+
+        // Used to store the currently displayed rectangles for progressive deletion
         List<Rectangle> currentRects = new ArrayList<>();
 
         for (int i = 0; i < path.size(); i++) {
             int[] point = path.get(i);
+
+            // Create a new rectangle for highlighting the current path point
             Rectangle rect = new Rectangle(point[1] * cellSize, point[0] * cellSize, cellSize, cellSize);
             rect.setFill(Color.GRAY);
             rect.setUserData("highlight");
 
-            KeyFrame keyFrame = new KeyFrame(Duration.seconds(i * 0.5), event -> {
-                if (!currentRects.isEmpty()) {
-                    mazeView.getNode().getChildren().remove(currentRects.remove(0));
-                }
+            // Encapsulate drawing and deleting operations in KeyFrame
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(i * 0.2), event -> {
+                // Add the current highlight rectangle to the canvas
                 mazeView.getNode().getChildren().add(rect);
                 currentRects.add(rect);
+
+                // Create a new Timeline for each rectangle to gradually fade out the color
+                Timeline fadeTimeline = new Timeline();
+                KeyFrame fadeKeyFrame = new KeyFrame(Duration.seconds(2), new KeyValue(rect.fillProperty(), Color.TRANSPARENT));
+                fadeTimeline.getKeyFrames().add(fadeKeyFrame);
+                fadeTimeline.setOnFinished(e -> mazeView.getNode().getChildren().remove(rect));
+                fadeTimeline.play();
             });
 
-            timeline.getKeyFrames().add(keyFrame);
+            hintTimeline.getKeyFrames().add(keyFrame);
         }
 
-        timeline.play();
+        hintTimeline.play();
     }
+
 }
