@@ -9,90 +9,119 @@ import com.edu.xmum.cst206.View.Entity.V2.*;
 import com.edu.xmum.cst206.View.Entity.V3.*;
 import com.edu.xmum.cst206.View.Interface.*;
 
+/**
+ * GameViewFactory is responsible for creating instances of different views (Victory, Maze, Run, Player, Prepare, Welcome, and Selection)
+ * based on the specified skin.
+ */
 public class GameViewFactory extends AbstractFactory {
+
+    /**
+     * Creates and returns an instance of IVictoryView based on the specified skin.
+     * @param victoryView The skin enumeration that determines which victory view to create.
+     * @return An instance of IVictoryView.
+     */
     @Override
     public IVictoryView getVictoryView(Skin victoryView) {
-        if (victoryView.getSkin().equals("V1")) {
-            return new VictoryViewV1();
-        } else if (victoryView.getSkin().equals("V2")) {
-            return new VictoryViewV2();
-        } else if (victoryView.getSkin().equals("V3")) {
-            return new VictoryViewV3();
-        }
-        return null;
+        return switch (victoryView.getSkin()) {
+            case "V1" -> new VictoryViewV1();
+            case "V2" -> new VictoryViewV2();
+            case "V3" -> new VictoryViewV3();
+            default -> null;
+        };
     }
 
+    /**
+     * Creates and returns an instance of IMazeView based on the specified skin and maze model.
+     * @param maze The skin enumeration that determines which maze view to create.
+     * @param mazeModel The maze model associated with the maze view.
+     * @return An instance of IMazeView.
+     */
     @Override
     public IMazeView getMazeView(Skin maze, IMazeModel mazeModel) {
-        if (maze.getSkin().equals("V1")) {
-            return new MazeViewV1(mazeModel);
-        } else if (maze.getSkin().equals("V2")) {
-            return new MazeViewV1(mazeModel);
-        } else if (maze.getSkin().equals("V3")) {
-            return new MazeViewV3(mazeModel);
-        }
-        return null;
+        return switch (maze.getSkin()) {
+            case "V1" -> new MazeViewV1(mazeModel);
+            case "V2" -> new MazeViewV2(mazeModel);
+            case "V3" -> new MazeViewV3(mazeModel);
+            default -> null;
+        };
     }
 
+    /**
+     * Creates and returns an instance of IRunView based on the specified skin and game controller.
+     * @param runView The skin enumeration that determines which run view to create.
+     * @param gameController The game controller associated with the run view.
+     * @return An instance of IRunView.
+     */
+    @Override
     public IRunView getRunView(Skin runView, IGameController gameController) {
-        if (runView.getSkin().equals("V1")) {
-            return new RunViewV1(gameController);
-        } else if (runView.getSkin().equals("V2")) {
-            return new RunViewV2(gameController);
-        } else if (runView.getSkin().equals("V3")) {
-            return new RunViewV3(gameController);
-        }
-        return null;
+        return switch (runView.getSkin()) {
+            case "V1" -> new RunViewV1(gameController);
+            case "V2" -> new RunViewV2(gameController);
+            case "V3" -> new RunViewV3(gameController);
+            default -> null;
+        };
     }
 
+    /**
+     * Creates and returns an instance of IPlayerView based on the specified skin and player model.
+     * @param player The skin enumeration that determines which player view to create.
+     * @param playerModel The player model associated with the player view.
+     * @return An instance of IPlayerView.
+     */
     @Override
     public IPlayerView getPlayerView(Skin player, IPlayerModel playerModel) {
-        if (player.getSkin().equals("V1")) {
-            return new PlayerViewV1(playerModel);
-        } else if (player.getSkin().equals("V2")) {
-            return new PlayerViewV2(playerModel);
-        } else if (player.getSkin().equals("V3")) {
-            return new PlayerViewV3(playerModel);
-        } else if (player.getSkin().equals("Vs")) {
-            return new SecondPlayerViewV3(playerModel);
-        } else if (player.getSkin().equals("AI")) {
-            return new AiView(playerModel);
-        }
-        return null;
+        return switch (player.getSkin()) {
+            case "V1" -> new PlayerViewV1(playerModel);
+            case "V2" -> new PlayerViewV2(playerModel);
+            case "V3" -> new PlayerViewV3(playerModel);
+            case "Vs" -> new SecondPlayerViewV3(playerModel);
+            case "AI" -> new AiView(playerModel);
+            default -> null;
+        };
     }
 
-    public IPrepareView getPrepareView(Skin prepareView) {
-        if (prepareView.getSkin().equals("V1")) {
-            return new PrepareViewV1();
-        } else if (prepareView.getSkin().equals("V2")) {
-            return new PrepareViewV2();
-        } else if (prepareView.getSkin().equals("V3")) {
-            return new PrepareViewV3();
-        }
-        return null;
-    }
-
+    /**
+     * Creates and returns an instance of IPrepareView based on the specified skin.
+     * @param prepareView The skin enumeration that determines which prepare view to create.
+     * @return An instance of IPrepareView.
+     */
     @Override
-    public IWelcomeView getWelcomeView(Skin welcomeVIew) {
-        if (welcomeVIew.getSkin().equals("V1")) {
-            return new WelComeViewV1();
-        } else if (welcomeVIew.getSkin().equals("V2")) {
-            return new WelcomeViewV2();
-        } else if (welcomeVIew.getSkin().equals("V3")) {
-            return new WelcomeViewV3();
-        }
-        return null;
+    public IPrepareView getPrepareView(Skin prepareView) {
+        return switch (prepareView.getSkin()) {
+            case "V1" -> new PrepareViewV1();
+            case "V2" -> new PrepareViewV2();
+            case "V3" -> new PrepareViewV3();
+            default -> null;
+        };
     }
 
+    /**
+     * Creates and returns an instance of IWelcomeView based on the specified skin.
+     * @param welcomeView The skin enumeration that determines which welcome view to create.
+     * @return An instance of IWelcomeView.
+     */
+    @Override
+    public IWelcomeView getWelcomeView(Skin welcomeView) {
+        return switch (welcomeView.getSkin()) {
+            case "V1" -> new WelComeViewV1();
+            case "V2" -> new WelcomeViewV2();
+            case "V3" -> new WelcomeViewV3();
+            default -> null;
+        };
+    }
+
+    /**
+     * Creates and returns an instance of ISelectionView based on the specified skin.
+     * @param selectionView The skin enumeration that determines which selection view to create.
+     * @return An instance of ISelectionView.
+     */
     @Override
     public ISelectionView getSelectionView(Skin selectionView) {
-        if (selectionView.getSkin().equals("V1")) {
-            return new SelectionViewV1();
-        } else if (selectionView.getSkin().equals("V2")) {
-            return new SelectionViewV2();
-        } else if (selectionView.getSkin().equals("V3")) {
-            return new SelectionViewV3();
-        }
-        return null;
+        return switch (selectionView.getSkin()) {
+            case "V1" -> new SelectionViewV1();
+            case "V2" -> new SelectionViewV2();
+            case "V3" -> new SelectionViewV3();
+            default -> null;
+        };
     }
 }

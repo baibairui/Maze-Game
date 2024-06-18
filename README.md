@@ -1356,14 +1356,67 @@ public class VictoryView extends VBox implements IVictoryView {
 
 ```java
 public abstract class AbstractFactory {
-    public abstract IMazeView getMazeView(String maze, IMazeModel mazeModel);
-    public abstract IPlayerView getPlayerView(String player, IPlayerModel playerModel);
-    public abstract IPrepareView getPrepareView(String prepareView);
-    public abstract IRunView getRunView(String runView, IGameController gameController);
-    public abstract ISelectionView getSelectionView(String selectionView);
-    public abstract IVictoryView getVictoryView(String victoryView);
-    public abstract IWelcomeView getWelcomeView(String welcomeVIew);
+    public IMazeView getMazeView(Skin maze, IMazeModel mazeModel) {
+        return null;
+    }
+
+    public IPlayerView getPlayerView(Skin player, IPlayerModel playerModel) {
+        return null;
+    }
+
+    public IPrepareView getPrepareView(Skin prepareView) {
+        return null;
+    }
+
+    public IRunView getRunView(Skin runView, IGameController gameController) {
+        return null;
+    }
+
+    public ISelectionView getSelectionView(Skin selectionView) {
+        return null;
+    }
+
+    public IVictoryView getVictoryView(Skin victoryView) {
+        return null;
+    }
+
+    public IWelcomeView getWelcomeView(Skin welcomeVIew) {
+        return null;
+    }
+
+    public IGameModel getGameModel(Skin playerModel) {
+        return null;
+    }
+
+    public IGameService getGameService(Skin gameService, IGameModel gameModel) {
+        return null;
+    }
+
+    public IGameController getGameController(Skin gameController, IGameService gameService) {
+        return null;
+    }
+
+    public IMazeModel getMazeModel(String maze) {
+        return null;
+    }
+
+    public IPlayerModel getPlayerModel(String player, IMazeModel mazeModel) {
+        return null;
+    }
+
+    public IPlayerService getPlayerService(String vision, IPlayerModel mazeModel, IMazeService mazeService) {
+        return null;
+    }
+
+    public IMazeService getMazeService(String vision, IMazeModel mazeModel) {
+        return null;
+    }
+
+    public IAiService getAiService(String vision, IMazeService mazeService, IPlayerModel playModel, IPlayerModel aiModel) {
+        return null;
+    }
 }
+
 ```
 
 ### 6.2 工厂生产者
@@ -1373,18 +1426,21 @@ public abstract class AbstractFactory {
 ```java
 public class FactoryProducer {
     private static final Map<String, AbstractFactory> factoryMap = new HashMap<>();
+    private static final int size = 3;//Number of skins
 
     static {
-        factoryMap.put("Maze", new MazeViewFactory());
-        factoryMap.put("Player", new PlayerViewFactory());
-        factoryMap.put("Prepare", new PrepareViewFactory());
-        factoryMap.put("Run", new RunViewFactory());
-        factoryMap.put("Select", new SelectionViewFactory());
-        factoryMap.put("Victory", new VictoryViewFactory());
+        factoryMap.put("GameView", new GameViewFactory());
+        factoryMap.put("GameModel", new GameModelFactory());
+        factoryMap.put("GameService", new GameServiceFactory());
+        factoryMap.put("GameController", new GameControllerFactory());
     }
 
     public static AbstractFactory getFactory(String choice) {
         return factoryMap.get(choice);
+    }
+
+    public static int getSkinSize() {
+        return size;
     }
 }
 ```
