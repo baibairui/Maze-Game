@@ -11,6 +11,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import static Constant.Config.AI_SPEED;
+
 public class GameController implements IGameController {
     private IGameService gameService;
     private IGameView gameView;
@@ -176,7 +178,7 @@ public class GameController implements IGameController {
             aiTimeline.stop();
         }
 
-        aiTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        aiTimeline = new Timeline(new KeyFrame(Duration.seconds(AI_SPEED), event -> {
             gameService.getAiService().moveAi();
             gameView.getRunView().getAiView().draw(); // Redrawing the AI view
             gameView.getRunView().getPlayerView().draw();
