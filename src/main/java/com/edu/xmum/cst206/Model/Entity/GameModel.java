@@ -4,37 +4,61 @@ import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
-import com.edu.xmum.cst206.Service.Interface.IAiService;
 
+/**
+ * GameModel class that implements IGameModel.
+ * This class combines different sub-models such as the player model, maze model, and AI model.
+ */
 public class GameModel implements IGameModel {
-    //Combining subModels
-    private IPlayerModel playerModel;
-    private IMazeModel mazeModel;
-    private IPlayerModel aiModel;
+    // Combining sub-models
+    private final IPlayerModel playerModel;
+    private final IMazeModel mazeModel;
+    private final IPlayerModel aiModel;
 
+    /**
+     * Constructor to initialize the GameModel with player, maze, and AI models.
+     */
     public GameModel() {
         this.mazeModel = FactoryProducer.getFactory("GameModel").getMazeModel("Maze");
-        this.playerModel = FactoryProducer.getFactory("GameModel").getPlayerModel("Player",mazeModel);
-        this.aiModel =FactoryProducer.getFactory("GameModel").getPlayerModel("AI",mazeModel);
+        this.playerModel = FactoryProducer.getFactory("GameModel").getPlayerModel("Player", mazeModel);
+        this.aiModel = FactoryProducer.getFactory("GameModel").getPlayerModel("AI", mazeModel);
     }
 
-    //Get playerModel and MazeModel
+    /**
+     * Gets the player model.
+     *
+     * @return The player model.
+     */
     @Override
     public IPlayerModel getPlayModel() {
         return playerModel;
     }
 
+    /**
+     * Gets the maze model.
+     *
+     * @return The maze model.
+     */
     @Override
     public IMazeModel getMazeModel() {
         return mazeModel;
     }
 
+    /**
+     * Gets the AI model.
+     *
+     * @return The AI model.
+     */
     @Override
     public IPlayerModel getAiModel() {
         return aiModel;
     }
 
-    //not need in this version
+    /**
+     * This method is not needed in this version and returns null.
+     *
+     * @return Null.
+     */
     @Override
     public IPlayerModel getSecondPlayModel() {
         return null;

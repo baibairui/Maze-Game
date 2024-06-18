@@ -20,109 +20,65 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the run view for version 1.
+ * This class is responsible for displaying the main game interface, including the maze,
+ * player, and AI views, and handling interactions such as reset and hint buttons.
+ */
 public class RunViewV1 extends BorderPane implements IRunView {
-    private IPlayerView playerView;
-    private IPlayerView aiView;
-    private IMazeView mazeView;
-    private Label currentDifficulty;
-    private Button resetButton;
-    private Button hintButton;
-    private IGameController gameController;
+    private final IPlayerView playerView;
+    private final IPlayerView aiView;
+    private final IMazeView mazeView;
+    private final Label currentDifficulty;
+    private final Button resetButton;
+    private final Button hintButton;
+    private final IGameController gameController;
 
+    /**
+     * Constructor to initialize the RunViewV1 components.
+     * @param gameController The game controller to manage game logic.
+     */
     public RunViewV1(IGameController gameController) {
-        // Initialising components
+        // Initializing components
         this.gameController = gameController;
-        currentDifficulty = new Label("Difficulty:" + gameController.getDiffculty());
+        currentDifficulty = new Label("Difficulty:" + gameController.getDifficulty());
         mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V1, gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V1, gameController.getGameService().getPlayerService().getPlayer());
         aiView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.AI, gameController.getGameService().getAiService().getAiModel());
         resetButton = new Button("Restart");
         hintButton = new Button("Tip");
 
-        /*
-        Call style for beautification
-         */
-        // Setting the button style
+        // Apply styling to components
         RunViewStyler.resetButtonStyle(Skin.V1, resetButton);
         RunViewStyler.hintButtonStyle(Skin.V1, hintButton);
-
-        // Setting fonts and colours
         RunViewStyler.diffcultyTitleStyle(Skin.V1, currentDifficulty);
 
-        // Setting the prompt message style
+        // Setup info box with current difficulty label
         HBox infoBox = new HBox(20, currentDifficulty);
         RunViewStyler.infoBoxStyle(Skin.V1, infoBox);
 
-        // Setting the control panel style
+        // Setup control box with reset and hint buttons
         HBox controlBox = new HBox(20, resetButton, hintButton);
         RunViewStyler.controlBoxStyle(Skin.V1, controlBox);
 
-        // Setting the game panel style
+        // Setup game panel with maze, player, and AI views
         StackPane gamePane = new StackPane();
-        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), aiView.getNode()); // Adding an AI view
+        gamePane.getChildren().addAll(mazeView.getNode(), playerView.getNode(), aiView.getNode());
         RunViewStyler.gameBoxStyle(Skin.V1, gamePane);
 
-
-        // Ensure that the game panel can gain focus
+        // Ensure game panel can gain focus for key events
         gamePane.setFocusTraversable(true);
         setOnMouseClicked(event -> requestFocus());
 
-        // Adding a listener to resize a component
+        // Add listeners to adjust layout on resize
         gamePane.widthProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
         gamePane.heightProperty().addListener((obs, oldVal, newVal) -> adjustLayout());
 
-        // Setting the main border
+        // Set the main border layout
         setTop(infoBox);
         setCenter(gamePane);
         setBottom(controlBox);
         RunViewStyler.BoxStyle(Skin.V1, this);
-    }
-
-    private void setButtonStyle(Button button, String backgroundColor) {
-        button.setStyle(
-                "-fx-background-color: " + backgroundColor + "; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        );
-
-        button.setOnMouseEntered(event -> button.setStyle(
-                "-fx-background-color: #005bb5; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        button.setOnMouseExited(event -> button.setStyle(
-                "-fx-background-color: " + backgroundColor + "; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        button.setOnMousePressed(event -> button.setStyle(
-                "-fx-background-color: #003d80; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        button.setOnMouseReleased(event -> button.setStyle(
-                "-fx-background-color: #005bb5; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-cursor: hand;"
-        ));
     }
 
     @Override
@@ -159,6 +115,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
 
     @Override
     public void adjustLayout() {
+        // Adjust the layout and cell sizes based on the window dimensions
         double cellWidth = getWidth() / gameController.getGameService().getMazeService().getMaze().getCols();
         double cellHeight = (getHeight() - getTop().getLayoutBounds().getHeight() - getBottom().getLayoutBounds().getHeight()) /
                 gameController.getGameService().getMazeService().getMaze().getRows();
@@ -167,7 +124,8 @@ public class RunViewV1 extends BorderPane implements IRunView {
         mazeView.setCellSize(cellSize);
         aiView.setCellSize(cellSize);
         reSetView();
-        // 居中调整
+
+        // Center the maze within the game pane
         double mazeWidth = cellSize * gameController.getGameService().getMazeService().getMaze().getCols();
         double mazeHeight = cellSize * gameController.getGameService().getMazeService().getMaze().getRows();
         double offsetX = (getWidth() - mazeWidth) / 2;
@@ -184,7 +142,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
     @Override
     public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
-        // Clear the previous tip
+        // Clear the previous hint
         mazeView.getNode().getChildren().removeIf(node -> node.getUserData() != null && node.getUserData().equals("highlight"));
 
         // Dynamic display of cue paths
@@ -207,7 +165,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
                 currentRects.add(rect);
             });
 
-            KeyFrame fadeOut = new KeyFrame(Duration.seconds((i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0.3)); // 使路径更清晰
+            KeyFrame fadeOut = new KeyFrame(Duration.seconds((i + 1) * 0.3), new KeyValue(rect.opacityProperty(), 0.3)); // Set path more clear
 
             timeline.getKeyFrames().addAll(addRect, fadeOut);
         }
@@ -226,7 +184,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         return aiView;
     }
 
-    //V1 not required
+    // V1 not required
     @Override
     public IPlayerView getSecondPlayerView() {
         return null;

@@ -1,6 +1,5 @@
 package com.edu.xmum.cst206.Model.Entity;
 
-
 import com.edu.xmum.cst206.Model.AbstractClass.GameObject;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 
@@ -8,25 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/*
-The concrete implementation class of the maze object
-Attributes:
-rows: indicates the number of rows
-cols: indicates the number of columns
-maze: a two-dimensional array to represent the maze, [y][x]
-goal:target position
-start: start position
+/**
+ * Concrete implementation class of the maze object.
+ * This class represents a maze and provides methods to generate it using the stochastic Prim's algorithm.
+ *
+ * Attributes:
+ * - rows: number of rows in the maze
+ * - cols: number of columns in the maze
+ * - maze: a two-dimensional array to represent the maze, [y][x]
+ * - goalX, goalY: target position coordinates
+ * - startX, startY: start position coordinates
  */
 public class MazeModel extends GameObject implements IMazeModel {
     private int rows;
     private int cols;
-    private int[][] maze;
+    private final int[][] maze;
     private int goalX;
     private int goalY;
     private int startX;
     private int startY;
 
-    // Define the class of the edge
+    /**
+     * Inner class representing an edge in the maze.
+     */
     private static class Edge {
         int x1, y1, x2, y2;
 
@@ -38,6 +41,12 @@ public class MazeModel extends GameObject implements IMazeModel {
         }
     }
 
+    /**
+     * Constructor to initialize the maze with the specified number of rows and columns.
+     *
+     * @param rows The number of rows in the maze.
+     * @param cols The number of columns in the maze.
+     */
     public MazeModel(int rows, int cols) {
         super(0, 0);
         this.rows = rows;
@@ -47,45 +56,46 @@ public class MazeModel extends GameObject implements IMazeModel {
         this.maze = new int[rows][cols];
     }
 
-    /*Maze generation based on stochastic prim algorithm
-        1. First, initialise all two-dimensional arrays used to represent the maze to 1
-        2. Set the entrance position to 0
-        3. Initialise a list of adjacency edges to store candidate edges
-        4. Add candidate edges from the current position.
-        5. Randomly select the pathway in the list of candidate edges
-        6. Cycle through the selection of pathways until the list is empty.
-         */
+    /**
+     * Generates the maze using the stochastic Prim's algorithm.
+     * 1. Initialize all cells in the maze to 1 (wall).
+     * 2. Set the entrance position to 0 (path).
+     * 3. Initialize a list of adjacent edges to store candidate edges.
+     * 4. Add candidate edges from the current position.
+     * 5. Randomly select a pathway from the list of candidate edges.
+     * 6. Repeat until the list of candidate edges is empty.
+     */
     public void generateMaze() {
-        this.goalX = cols - 1; // Initialised maze endpoint coordinates (cols-1, rows-2)
+        this.goalX = cols - 1; // Initialize maze endpoint coordinates (cols-1, rows-2)
         this.goalY = rows - 2;
         Random random = new Random();
         for (int y = 0; y < maze.length; y++) {
             for (int x = 0; x < maze[0].length; x++) {
-                maze[y][x] = 1; // Initialise the 2D array of the maze to 1 (wall)
+                maze[y][x] = 1; // Initialize the 2D array of the maze to 1 (wall)
             }
         }
         maze[startY][startX] = 0; // Setting up the entrance
-        //Initialise a list of edges for storing candidate pathways
+        // Initialize a list of edges for storing candidate pathways
         List<Edge> edges = new ArrayList<>();
-        //Initialising candidate pathways
+        // Initialize candidate pathways
         addEdges(startX, startY, edges);
 
-        //Cycle through the candidate pathways until a pathway to the endpoint is generated
+        // Cycle through the candidate pathways until a pathway to the endpoint is generated
         while (!edges.isEmpty()) {
             // Randomly select an edge and remove it
-            Edge edge = edges.remove(random.nextInt(edges.size()));//Generate a pathway by randomly selecting an edge among the candidate edges
-            //If the location is a wall then it has not been visited
+            Edge edge = edges.remove(random.nextInt(edges.size())); // Generate a pathway by randomly selecting an edge among the candidate edges
+            // If the location is a wall, then it has not been visited
             if (maze[edge.x2][edge.y2] == 1) {
-                //Setting up a pathway
+                // Set up a pathway
                 maze[edge.x1][edge.y1] = 0;
                 maze[edge.x2][edge.y2] = 0;
-                //Add new candidate edge
+                // Add new candidate edges
                 addEdges(edge.x2, edge.y2, edges);
             }
         }
-        maze[goalY][goalX] = 0; // Setting up an outlet
+        maze[goalY][goalX] = 0; // Set up an outlet
 
-        // Print Labyrinth Structure
+        // Print the maze structure
         System.out.println("Maze structure:");
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -95,16 +105,22 @@ public class MazeModel extends GameObject implements IMazeModel {
         }
     }
 
-    //Methods for adding candidate edges
+    /**
+     * Adds candidate edges to the list for a given position in the maze.
+     *
+     * @param x The x-coordinate of the current position.
+     * @param y The y-coordinate of the current position.
+     * @param edges The list of candidate edges.
+     */
     private void addEdges(int x, int y, List<Edge> edges) {
-        // Limit edges to ensure that added candidate edges do not cross boundaries
+        // Ensure that added candidate edges do not cross boundaries
         if (x > 1 && maze[x - 2][y] == 1) edges.add(new Edge(x - 1, y, x - 2, y));
         if (y > 1 && maze[x][y - 2] == 1) edges.add(new Edge(x, y - 1, x, y - 2));
         if (x < rows - 2 && maze[x + 2][y] == 1) edges.add(new Edge(x + 1, y, x + 2, y));
         if (y < cols - 2 && maze[x][y + 2] == 1) edges.add(new Edge(x, y + 1, x, y + 2));
     }
 
-    // Getters
+    // Getters and Setters
     @Override
     public int getRows() {
         return rows;

@@ -17,8 +17,18 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+/**
+ * Beautification of WelcomeView based on Appearance Pattern Design.
+ * Applies styles to various components based on the selected skin.
+ */
 public class WelcomeViewStyler {
-    // For landscaping containers
+
+    /**
+     * Styles the VBox based on the specified skin.
+     *
+     * @param skin The skin to apply to the VBox.
+     * @param box The VBox to style.
+     */
     public static void styleVbox(Skin skin, VBox box) {
         if (box == null) return;
         switch (skin) {
@@ -46,7 +56,12 @@ public class WelcomeViewStyler {
         }
     }
 
-    // Used to embellish text
+    /**
+     * Styles the title label based on the specified skin.
+     *
+     * @param skin The skin to apply to the title label.
+     * @param label The title label to style.
+     */
     public static void styleTitleLabel(Skin skin, Label label) {
         if (label == null) return;
         switch (skin) {
@@ -74,7 +89,12 @@ public class WelcomeViewStyler {
         addTextFloatingAnimation(label);
     }
 
-    // Used to beautify buttons
+    /**
+     * Styles the start button based on the specified skin.
+     *
+     * @param skin The skin to apply to the start button.
+     * @param button The start button to style.
+     */
     public static void styleStartButton(Skin skin, Button button) {
         if (button == null) return;
         switch (skin) {
@@ -104,6 +124,11 @@ public class WelcomeViewStyler {
         }
     }
 
+    /**
+     * Adds a floating animation to the specified label.
+     *
+     * @param label The label to animate.
+     */
     private static void addTextFloatingAnimation(Label label) {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
         translateTransition.setFromY(0);
@@ -113,6 +138,14 @@ public class WelcomeViewStyler {
         translateTransition.play();
     }
 
+    /**
+     * Adds hover and press effects to the specified button.
+     *
+     * @param button The button to apply effects to.
+     * @param normalColor The normal background color of the button.
+     * @param hoverColor The background color of the button when hovered.
+     * @param pressedColor The background color of the button when pressed.
+     */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
         button.setOnMouseEntered(event -> {
             button.setStyle(

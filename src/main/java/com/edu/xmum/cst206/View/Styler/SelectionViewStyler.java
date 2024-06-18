@@ -13,8 +13,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+/**
+ * Beautification of SelectionView based on Appearance Pattern Design.
+ * Applies styles to various components based on the selected skin.
+ */
 public class SelectionViewStyler {
-    // For landscaping containers
+
+    /**
+     * Styles the VBox based on the specified skin.
+     *
+     * @param skin The skin to apply to the VBox.
+     * @param box The VBox to style.
+     */
     public static void styleVBox(Skin skin, VBox box) {
         if (box == null) return;
         switch (skin) {
@@ -42,6 +52,12 @@ public class SelectionViewStyler {
         }
     }
 
+    /**
+     * Styles the title label based on the specified skin.
+     *
+     * @param skin The skin to apply to the title label.
+     * @param difficultyLabel The title label to style.
+     */
     public static void styleTitleLabel(Skin skin, Label difficultyLabel) {
         if (difficultyLabel == null) return;
         switch (skin) {
@@ -68,6 +84,12 @@ public class SelectionViewStyler {
         addTextFloatingAnimation(difficultyLabel);
     }
 
+    /**
+     * Styles the button based on the specified skin.
+     *
+     * @param skin The skin to apply to the button.
+     * @param button The button to style.
+     */
     public static void styleButton(Skin skin, Button button) {
         if (button == null) return;
         switch (skin) {
@@ -106,6 +128,14 @@ public class SelectionViewStyler {
         }
     }
 
+    /**
+     * Adds animation to the button for hover and press effects.
+     *
+     * @param button The button to animate.
+     * @param normalColor The normal background color of the button.
+     * @param hoverColor The background color of the button when hovered.
+     * @param pressedColor The background color of the button when pressed.
+     */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
         button.setOnMouseEntered(event -> {
             button.setStyle(
@@ -174,6 +204,11 @@ public class SelectionViewStyler {
         });
     }
 
+    /**
+     * Adds a floating animation to the specified label.
+     *
+     * @param label The label to animate.
+     */
     private static void addTextFloatingAnimation(Label label) {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
         translateTransition.setFromY(0);

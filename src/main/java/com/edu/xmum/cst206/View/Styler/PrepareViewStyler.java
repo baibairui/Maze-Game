@@ -13,7 +13,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+/**
+ * Beautification of PrepareView based on Appearance Pattern Design.
+ * Applies styles to the VBox, Label, and Button based on the selected skin.
+ */
 public class PrepareViewStyler {
+
+    /**
+     * Styles the VBox based on the specified skin.
+     *
+     * @param skin The skin to apply to the VBox.
+     * @param vBox The VBox to style.
+     */
     public static void VboxStyle(Skin skin, VBox vBox) {
         if (vBox == null) return;
         switch (skin) {
@@ -53,6 +64,12 @@ public class PrepareViewStyler {
         }
     }
 
+    /**
+     * Styles the Label based on the specified skin.
+     *
+     * @param skin The skin to apply to the Label.
+     * @param prepareLabel The Label to style.
+     */
     public static void LabelStyle(Skin skin, Label prepareLabel) {
         if (prepareLabel == null) return;
         switch (skin) {
@@ -69,10 +86,16 @@ public class PrepareViewStyler {
                 prepareLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #222;");
             }
         }
-        // 添加上下浮动动画
+        // Adds floating animation to the label
         addTextFloatingAnimation(prepareLabel);
     }
 
+    /**
+     * Styles the Button based on the specified skin.
+     *
+     * @param skin The skin to apply to the Button.
+     * @param button The Button to style.
+     */
     public static void ButtonStyle(Skin skin, Button button) {
         if (button == null) return;
         switch (skin) {
@@ -85,7 +108,6 @@ public class PrepareViewStyler {
                                 "-fx-border-radius: 5; " +
                                 "-fx-cursor: hand;"
                 );
-
                 addButtonAnimation(button, "#4CAF50", "#45a049", "#3e8e41");
             }
             case V2 -> {
@@ -97,7 +119,6 @@ public class PrepareViewStyler {
                                 "-fx-border-radius: 5; " +
                                 "-fx-cursor: hand;"
                 );
-
                 addButtonAnimation(button, "#007BFF", "#0056b3", "#004085");
             }
             case V3 -> {
@@ -109,12 +130,16 @@ public class PrepareViewStyler {
                                 "-fx-padding: 10px 20px; " +
                                 "-fx-cursor: hand;"
                 );
-
                 addButtonAnimation(button, "#FF5722", "#E64A19", "#D84315");
             }
         }
     }
 
+    /**
+     * Adds floating animation to the specified Label.
+     *
+     * @param label The Label to animate.
+     */
     private static void addTextFloatingAnimation(Label label) {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), label);
         translateTransition.setFromY(0);
@@ -124,6 +149,14 @@ public class PrepareViewStyler {
         translateTransition.play();
     }
 
+    /**
+     * Adds hover and press animations to the specified Button.
+     *
+     * @param button The Button to animate.
+     * @param normalColor The normal background color of the Button.
+     * @param hoverColor The background color of the Button when hovered.
+     * @param pressedColor The background color of the Button when pressed.
+     */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {
         button.setOnMouseEntered(event -> {
             button.setStyle(
@@ -134,7 +167,6 @@ public class PrepareViewStyler {
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
             );
-
             ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
             st.setToX(1.1);
             st.setToY(1.1);
@@ -150,7 +182,6 @@ public class PrepareViewStyler {
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
             );
-
             ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
             st.setToX(1.0);
             st.setToY(1.0);
@@ -166,7 +197,6 @@ public class PrepareViewStyler {
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
             );
-
             TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
             tt.setByY(2);
             tt.play();
@@ -181,7 +211,6 @@ public class PrepareViewStyler {
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
             );
-
             TranslateTransition tt = new TranslateTransition(Duration.millis(100), button);
             tt.setByY(-2);
             tt.play();

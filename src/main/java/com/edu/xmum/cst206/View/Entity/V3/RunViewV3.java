@@ -31,7 +31,7 @@ public class RunViewV3 extends BorderPane implements IRunView {
     public RunViewV3(IGameController gameController) {
         // Initialising components
         this.gameController = gameController;
-        currentDifficulty = new Label("Difficulty:" + gameController.getDiffculty());
+        currentDifficulty = new Label("Difficulty:" + gameController.getDifficulty());
         mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V3, gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V3, gameController.getGameService().getPlayerService().getPlayer());
         secondPlayerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.Vs, gameController.getGameService().getSecondPlayerService().getPlayer());

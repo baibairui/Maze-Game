@@ -12,7 +12,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+/**
+ * Beautification of RunView based on Appearance Pattern Design.
+ * Applies styles to various components based on the selected skin.
+ */
 public class RunViewStyler {
+
+    /**
+     * Styles the reset button based on the specified skin.
+     *
+     * @param skin The skin to apply to the reset button.
+     * @param resetButton The reset button to style.
+     */
     public static void resetButtonStyle(Skin skin, Button resetButton) {
         if (resetButton == null) return;
         switch (skin) {
@@ -31,6 +42,12 @@ public class RunViewStyler {
         }
     }
 
+    /**
+     * Styles the hint button based on the specified skin.
+     *
+     * @param skin The skin to apply to the hint button.
+     * @param hintButton The hint button to style.
+     */
     public static void hintButtonStyle(Skin skin, Button hintButton) {
         if (hintButton == null) return;
         switch (skin) {
@@ -49,6 +66,12 @@ public class RunViewStyler {
         }
     }
 
+    /**
+     * Styles the difficulty title label based on the specified skin.
+     *
+     * @param skin The skin to apply to the difficulty title label.
+     * @param currentDifficulty The difficulty title label to style.
+     */
     public static void diffcultyTitleStyle(Skin skin, Label currentDifficulty) {
         if (currentDifficulty == null) return;
         switch (skin) {
@@ -67,6 +90,12 @@ public class RunViewStyler {
         }
     }
 
+    /**
+     * Styles the info box based on the specified skin.
+     *
+     * @param skin The skin to apply to the info box.
+     * @param infoBox The info box to style.
+     */
     public static void infoBoxStyle(Skin skin, HBox infoBox) {
         if (infoBox == null) return;
         switch (skin) {
@@ -91,6 +120,12 @@ public class RunViewStyler {
         }
     }
 
+    /**
+     * Styles the control box based on the specified skin.
+     *
+     * @param skin The skin to apply to the control box.
+     * @param controlBox The control box to style.
+     */
     public static void controlBoxStyle(Skin skin, HBox controlBox) {
         if (controlBox == null) return;
         switch (skin) {
@@ -113,6 +148,12 @@ public class RunViewStyler {
         }
     }
 
+    /**
+     * Styles the game box based on the specified skin.
+     *
+     * @param skin The skin to apply to the game box.
+     * @param gamePane The game box to style.
+     */
     public static void gameBoxStyle(Skin skin, StackPane gamePane) {
         if (gamePane == null) return;
         switch (skin) {
@@ -131,7 +172,12 @@ public class RunViewStyler {
         }
     }
 
-    // Overall box landscaping
+    /**
+     * Styles the main BorderPane based on the specified skin.
+     *
+     * @param skin The skin to apply to the BorderPane.
+     * @param pane The BorderPane to style.
+     */
     public static void BoxStyle(Skin skin, BorderPane pane) {
         if (pane == null) return;
         switch (skin) {
@@ -150,6 +196,14 @@ public class RunViewStyler {
         }
     }
 
+    /**
+     * Applies hover and press effects to the specified button.
+     *
+     * @param button The button to apply effects to.
+     * @param normalColor The normal background color of the button.
+     * @param hoverColor The background color of the button when hovered.
+     * @param activeColor The background color of the button when pressed.
+     */
     private static void applyButtonEffects(Button button, String normalColor, String hoverColor, String activeColor) {
         button.setStyle("-fx-background-color: " + normalColor + "; -fx-text-fill: white; -fx-font-size: 14px;");
 
@@ -165,6 +219,12 @@ public class RunViewStyler {
         button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: 14px;"));
     }
 
+    /**
+     * Adds a scale animation to the specified button.
+     *
+     * @param button The button to animate.
+     * @param scaleTo The scale factor to animate to.
+     */
     private static void addScaleAnimation(Button button, double scaleTo) {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), button);
         scaleTransition.setToX(scaleTo);

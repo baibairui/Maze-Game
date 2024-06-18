@@ -5,13 +5,28 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+/**
+ * Implementation of the A* algorithm for pathfinding in a maze.
+ * This class uses the A* algorithm to find the shortest path from the starting position to the goal position.
+ */
 public class AstarStrategy implements IFindPathStrategy {
 
+    /**
+     * Inner class representing a node in the A* algorithm.
+     */
     public static class Node implements Comparable<Node> {
-        int x, y; // coordinate
+        int x, y; // Coordinate
         int g; // The cost of moving from the starting point to the current coordinates
         int h; // The estimated cost of moving to the target point, the heuristic function
 
+        /**
+         * Constructor to initialize a node.
+         *
+         * @param x The x-coordinate of the node.
+         * @param y The y-coordinate of the node.
+         * @param g The cost from the start to this node.
+         * @param h The estimated cost from this node to the goal.
+         */
         public Node(int x, int y, int g, int h) {
             this.x = x;
             this.y = y;
@@ -19,18 +34,32 @@ public class AstarStrategy implements IFindPathStrategy {
             this.h = h;
         }
 
-        // Criteria used for evaluation
+        /**
+         * Calculates the f value (total cost) for this node.
+         *
+         * @return The total cost.
+         */
         int f() {
             return g + h;
         }
 
-        // Used to compare the size of the cost
+        /**
+         * Compares this node to another node based on their f values.
+         *
+         * @param o The other node to compare to.
+         * @return The comparison result.
+         */
         @Override
         public int compareTo(@NotNull Node o) {
             return Integer.compare(this.f(), o.f());
         }
 
-        // For set de-duplication
+        /**
+         * Checks if this node is equal to another object.
+         *
+         * @param o The object to compare to.
+         * @return True if the objects are equal, false otherwise.
+         */
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -39,19 +68,36 @@ public class AstarStrategy implements IFindPathStrategy {
             return x == node.x && y == node.y;
         }
 
+        /**
+         * Generates a hash code for this node.
+         *
+         * @return The hash code.
+         */
         @Override
         public int hashCode() {
             return Objects.hash(x, y);
         }
     }
 
+    /**
+     * Finds a path using the A* algorithm.
+     *
+     * @param mazeModel The maze model containing the maze structure.
+     * @param path A list to store the path found from start to goal.
+     * @param visited A 2D boolean array to keep track of visited positions in the maze.
+     * @param x The x-coordinate of the current position.
+     * @param y The y-coordinate of the current position.
+     * @param goalX The x-coordinate of the goal position.
+     * @param goalY The y-coordinate of the goal position.
+     * @return True if a path is found, false otherwise.
+     */
     @Override
     public boolean findPath(IMazeModel mazeModel, List<int[]> path, boolean[][] visited, int x, int y, int goalX, int goalY) {
-        // Priority queue to ensure that the node with the smallest f value is processed every time
+        // Priority queue to ensure that the node with the smallest f value is processed first
         PriorityQueue<Node> openList = new PriorityQueue<>();
-        // Used to store nodes that have already been processed to prevent duplication
+        // Set to store nodes that have already been processed to prevent duplication
         Set<Node> closedList = new HashSet<>();
-        // A container used to record paths, each time placing the point with the smallest cost from the goal into the container
+        // Map to record paths, placing the point with the smallest cost from the goal into the map
         Map<Node, Node> pathRecord = new HashMap<>();
 
         Node startNode = new Node(x, y, 0, heuristic(x, y, goalX, goalY));
@@ -86,12 +132,26 @@ public class AstarStrategy implements IFindPathStrategy {
         return false;
     }
 
-    // heuristic function
+    /**
+     * Heuristic function to estimate the cost from the current position to the goal.
+     *
+     * @param x The x-coordinate of the current position.
+     * @param y The y-coordinate of the current position.
+     * @param goalX The x-coordinate of the goal position.
+     * @param goalY The y-coordinate of the goal position.
+     * @return The estimated cost.
+     */
     private int heuristic(int x, int y, int goalX, int goalY) {
         return Math.abs(x - goalX) + Math.abs(y - goalY);
     }
 
-    //Retrospective construction routes
+    /**
+     * Builds the path from the end node to the start node by backtracking.
+     *
+     * @param endNode The end node of the path.
+     * @param record The map containing the path record.
+     * @return The list of coordinates representing the path.
+     */
     private List<int[]> buildPath(Node endNode, Map<Node, Node> record) {
         List<int[]> path = new ArrayList<>();
         Node curr = endNode;
