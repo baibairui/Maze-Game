@@ -15,8 +15,8 @@ public interface IMazeService {
      * Checks if the player's move to the specified direction (dx, dy) is valid within the maze.
      *
      * @param player The player model instance.
-     * @param dx The delta x value for the move.
-     * @param dy The delta y value for the move.
+     * @param dx     The delta x value for the move.
+     * @param dy     The delta y value for the move.
      * @return True if the move is valid, false otherwise.
      */
     boolean isValidMove(IPlayerModel player, int dx, int dy);

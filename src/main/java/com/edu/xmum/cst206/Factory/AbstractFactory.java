@@ -1,10 +1,10 @@
 package com.edu.xmum.cst206.Factory;
 
+import Constant.Skin;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
-import Constant.Skin;
 import com.edu.xmum.cst206.Service.Interface.IAiService;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.Service.Interface.IMazeService;
@@ -51,9 +51,24 @@ public abstract class AbstractFactory {
     public IGameController getGameController(Skin gameController, IGameService gameService) {
         return null;
     }
-    public IMazeModel getMazeModel(String maze){ return null;}
-    public IPlayerModel getPlayerModel(String player,IMazeModel mazeModel){return null;}
-    public IPlayerService getPlayerService(String vision,IPlayerModel mazeModel,IMazeService mazeService){return null;}
-    public IMazeService getMazeService(String vision,IMazeModel mazeModel){return null;}
-    public IAiService getAiService(String vision,IMazeService mazeService,IPlayerModel playModel,IPlayerModel aiModel){return null;}
+
+    public IMazeModel getMazeModel(String maze) {
+        return null;
+    }
+
+    public IPlayerModel getPlayerModel(String player, IMazeModel mazeModel) {
+        return null;
+    }
+
+    public IPlayerService getPlayerService(String vision, IPlayerModel mazeModel, IMazeService mazeService) {
+        return null;
+    }
+
+    public IMazeService getMazeService(String vision, IMazeModel mazeModel) {
+        return null;
+    }
+
+    public IAiService getAiService(String vision, IMazeService mazeService, IPlayerModel playModel, IPlayerModel aiModel) {
+        return null;
+    }
 }

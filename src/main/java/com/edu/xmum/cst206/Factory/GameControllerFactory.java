@@ -1,9 +1,9 @@
 package com.edu.xmum.cst206.Factory;
 
+import Constant.Skin;
 import com.edu.xmum.cst206.Controller.GameController;
 import com.edu.xmum.cst206.Controller.GameControllerVs;
 import com.edu.xmum.cst206.Controller.IGameController;
-import Constant.Skin;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 
 public class GameControllerFactory extends AbstractFactory {

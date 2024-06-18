@@ -9,30 +9,50 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * Implementation of the skin selection view.
+ * This class is responsible for displaying the skin selection interface to the user.
+ */
 public class SkinSelectionView extends VBox implements ISkinSelectionView {
-    ArrayList<Button> Buttons = new ArrayList<>();
-    private final Label label = new Label("Choose the your skin!");
+    private final ArrayList<Button> buttons = new ArrayList<>();
+    private final Label label = new Label("Choose your skin!");
 
+    /**
+     * Constructor to initialize the SkinSelectionView components.
+     */
     public SkinSelectionView() {
         super();
+        // Apply styles to the VBox and Label
         SkinSelectionViewStyler.VBoxStyle(this);
         SkinSelectionViewStyler.LabelStyle(label);
-        //添加按钮
+
+        // Add buttons for each available skin
         for (int i = 0; i < FactoryProducer.getSkinSize(); i++) {
             Button button = new Button("V" + (i + 1));
             SkinSelectionViewStyler.ButtonStyle(button);
-            Buttons.add(button);
+            buttons.add(button);
         }
-        //添加组件
+
+        // Add components to the VBox
         getChildren().add(label);
-        getChildren().addAll(Buttons);
+        getChildren().addAll(buttons);
     }
 
+    /**
+     * Gets the list of buttons for skin selection.
+     *
+     * @return The list of buttons.
+     */
     @Override
     public ArrayList<Button> getButtons() {
-        return Buttons;
+        return buttons;
     }
 
+    /**
+     * Gets the root node of the SkinSelectionView.
+     *
+     * @return The VBox root node.
+     */
     @Override
     public VBox getNode() {
         return this;

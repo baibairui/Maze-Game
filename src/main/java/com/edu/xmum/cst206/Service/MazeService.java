@@ -14,7 +14,7 @@ import java.util.List;
  * Provides methods to handle maze-related logic.
  */
 public class MazeService implements IMazeService {
-    private IMazeModel maze;
+    private final IMazeModel maze;
 
     /**
      * Constructor for MazeService.
@@ -54,15 +54,15 @@ public class MazeService implements IMazeService {
      * Checks if the player's move to the specified direction (dx, dy) is valid within the maze.
      *
      * @param player The player model instance.
-     * @param dx The delta x value for the move.
-     * @param dy The delta y value for the move.
+     * @param dx     The delta x value for the move.
+     * @param dy     The delta y value for the move.
      * @return True if the move is valid, false otherwise.
      */
     @Override
     public boolean isValidMove(IPlayerModel player, int dx, int dy) {
         // Get new coordinates
-        int newX = (int) (player.getX() + dx);
-        int newY = (int) (player.getY() + dy);
+        int newX =  player.getX() + dx;
+        int newY =  player.getY() + dy;
 
         // Checks if the new coordinates are within the boundary and if it is a pathway
         boolean isInBounds = isWithinBounds(newX, newY);

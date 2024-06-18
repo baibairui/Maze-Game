@@ -15,9 +15,10 @@ public class AstarStrategy implements IFindPathStrategy {
      * Inner class representing a node in the A* algorithm.
      */
     public static class Node implements Comparable<Node> {
-        int x, y; // Coordinate
-        int g; // The cost of moving from the starting point to the current coordinates
-        int h; // The estimated cost of moving to the target point, the heuristic function
+        final int x;
+        final int y; // Coordinate
+        final int g; // The cost of moving from the starting point to the current coordinates
+        final int h; // The estimated cost of moving to the target point, the heuristic function
 
         /**
          * Constructor to initialize a node.
@@ -83,12 +84,12 @@ public class AstarStrategy implements IFindPathStrategy {
      * Finds a path using the A* algorithm.
      *
      * @param mazeModel The maze model containing the maze structure.
-     * @param path A list to store the path found from start to goal.
-     * @param visited A 2D boolean array to keep track of visited positions in the maze.
-     * @param x The x-coordinate of the current position.
-     * @param y The y-coordinate of the current position.
-     * @param goalX The x-coordinate of the goal position.
-     * @param goalY The y-coordinate of the goal position.
+     * @param path      A list to store the path found from start to goal.
+     * @param visited   A 2D boolean array to keep track of visited positions in the maze.
+     * @param x         The x-coordinate of the current position.
+     * @param y         The y-coordinate of the current position.
+     * @param goalX     The x-coordinate of the goal position.
+     * @param goalY     The y-coordinate of the goal position.
      * @return True if a path is found, false otherwise.
      */
     @Override
@@ -135,8 +136,8 @@ public class AstarStrategy implements IFindPathStrategy {
     /**
      * Heuristic function to estimate the cost from the current position to the goal.
      *
-     * @param x The x-coordinate of the current position.
-     * @param y The y-coordinate of the current position.
+     * @param x     The x-coordinate of the current position.
+     * @param y     The y-coordinate of the current position.
      * @param goalX The x-coordinate of the goal position.
      * @param goalY The y-coordinate of the goal position.
      * @return The estimated cost.
@@ -149,7 +150,7 @@ public class AstarStrategy implements IFindPathStrategy {
      * Builds the path from the end node to the start node by backtracking.
      *
      * @param endNode The end node of the path.
-     * @param record The map containing the path record.
+     * @param record  The map containing the path record.
      * @return The list of coordinates representing the path.
      */
     private List<int[]> buildPath(Node endNode, Map<Node, Node> record) {

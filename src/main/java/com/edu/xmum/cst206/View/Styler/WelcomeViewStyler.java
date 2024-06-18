@@ -27,7 +27,7 @@ public class WelcomeViewStyler {
      * Styles the VBox based on the specified skin.
      *
      * @param skin The skin to apply to the VBox.
-     * @param box The VBox to style.
+     * @param box  The VBox to style.
      */
     public static void styleVbox(Skin skin, VBox box) {
         if (box == null) return;
@@ -59,7 +59,7 @@ public class WelcomeViewStyler {
     /**
      * Styles the title label based on the specified skin.
      *
-     * @param skin The skin to apply to the title label.
+     * @param skin  The skin to apply to the title label.
      * @param label The title label to style.
      */
     public static void styleTitleLabel(Skin skin, Label label) {
@@ -92,7 +92,7 @@ public class WelcomeViewStyler {
     /**
      * Styles the start button based on the specified skin.
      *
-     * @param skin The skin to apply to the start button.
+     * @param skin   The skin to apply to the start button.
      * @param button The start button to style.
      */
     public static void styleStartButton(Skin skin, Button button) {
@@ -141,9 +141,9 @@ public class WelcomeViewStyler {
     /**
      * Adds hover and press effects to the specified button.
      *
-     * @param button The button to apply effects to.
-     * @param normalColor The normal background color of the button.
-     * @param hoverColor The background color of the button when hovered.
+     * @param button       The button to apply effects to.
+     * @param normalColor  The normal background color of the button.
+     * @param hoverColor   The background color of the button when hovered.
      * @param pressedColor The background color of the button when pressed.
      */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {

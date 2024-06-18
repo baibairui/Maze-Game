@@ -2,7 +2,6 @@ package com.edu.xmum.cst206.Service;
 
 import Constant.Difficulty;
 import Constant.Direction;
-import Constant.Skin;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Service.Interface.IAiService;
@@ -17,10 +16,10 @@ import java.util.List;
  * Provides methods to manage and control the game state and its components.
  */
 public class GameService implements IGameService {
-    IGameModel gameModel;
-    IMazeService mazeService;
-    IPlayerService playerService;
-    IAiService aiService;
+    final IGameModel gameModel;
+    final IMazeService mazeService;
+    final IPlayerService playerService;
+    final IAiService aiService;
 
     /**
      * Constructor for GameService.
@@ -30,9 +29,9 @@ public class GameService implements IGameService {
      */
     public GameService(IGameModel gameModel) {
         this.gameModel = gameModel;
-        mazeService = FactoryProducer.getFactory("GameService").getMazeService("Maze",gameModel.getMazeModel());
-        playerService = FactoryProducer.getFactory("GameService").getPlayerService("Player",gameModel.getPlayModel(),mazeService);
-        aiService = FactoryProducer.getFactory("GameService").getAiService("AI",mazeService,gameModel.getPlayModel(),gameModel.getAiModel());
+        mazeService = FactoryProducer.getFactory("GameService").getMazeService("Maze", gameModel.getMazeModel());
+        playerService = FactoryProducer.getFactory("GameService").getPlayerService("Player", gameModel.getPlayModel(), mazeService);
+        aiService = FactoryProducer.getFactory("GameService").getAiService("AI", mazeService, gameModel.getPlayModel(), gameModel.getAiModel());
     }
 
     /**

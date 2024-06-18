@@ -28,12 +28,14 @@ public interface IGameController {
 
     /**
      * Sets the difficulty level of the game.
+     *
      * @param difficulty The difficulty level to set (e.g., Easy, Medium, Hard).
      */
     void setDifficulty(String difficulty);
 
     /**
      * Handles key press events to control game actions.
+     *
      * @param key The key pressed by the user.
      */
     void handleKeyPress(String key);
@@ -55,6 +57,7 @@ public interface IGameController {
 
     /**
      * Displays the victory view when the player wins the game.
+     *
      * @param winner The winner of the game.
      */
     void showVictoryView(String winner);
@@ -71,18 +74,21 @@ public interface IGameController {
 
     /**
      * Sets the game view, which is responsible for the user interface.
+     *
      * @param gameView The game view to set.
      */
     void setGameView(IGameView gameView);
 
     /**
      * Gets the current difficulty level of the game.
+     *
      * @return The current difficulty level.
      */
     String getDifficulty();
 
     /**
      * Gets the game service, which handles game logic and operations.
+     *
      * @return The game service.
      */
     IGameService getGameService();

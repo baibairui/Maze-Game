@@ -1,7 +1,7 @@
 package com.edu.xmum.cst206.Factory;
 
-import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import Constant.Skin;
+import com.edu.xmum.cst206.Model.Interface.IGameModel;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import com.edu.xmum.cst206.Service.*;
@@ -19,24 +19,28 @@ public class GameServiceFactory extends AbstractFactory {
             return new GameService(gameModel);
         }
     }
+
     @Override
-    public IPlayerService getPlayerService(String vision, IPlayerModel playerModel, IMazeService mazeService){
-        if(vision.equals("Player")){
-            return new PlayerService(mazeService,playerModel);
+    public IPlayerService getPlayerService(String vision, IPlayerModel playerModel, IMazeService mazeService) {
+        if (vision.equals("Player")) {
+            return new PlayerService(mazeService, playerModel);
         }
         return null;
     }
+
     @Override
-    public IAiService getAiService(String vision, IMazeService mazeService, IPlayerModel playModel, IPlayerModel aiModel){
-        if(vision.equals("AI")){
-            return new AiService(mazeService,playModel,aiModel);
+    public IAiService getAiService(String vision, IMazeService mazeService, IPlayerModel playModel, IPlayerModel aiModel) {
+        if (vision.equals("AI")) {
+            return new AiService(mazeService, playModel, aiModel);
         }
         return null;
     }
+
     @Override
-    public IMazeService getMazeService(String vision,IMazeModel mazeModel){
-        if(vision.equals("Maze")){
+    public IMazeService getMazeService(String vision, IMazeModel mazeModel) {
+        if (vision.equals("Maze")) {
             return new MazeService(mazeModel);
         }
-        return null;}
+        return null;
+    }
 }

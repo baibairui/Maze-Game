@@ -16,10 +16,10 @@ import java.util.List;
  * Provides methods to manage and control the game state and its components.
  */
 public class GameServiceVs implements IGameService {
-    IGameModel gameModel;
-    IMazeService mazeService;
-    IPlayerService playerService;
-    IPlayerService secondPlayerService;
+    final IGameModel gameModel;
+    final IMazeService mazeService;
+    final IPlayerService playerService;
+    final IPlayerService secondPlayerService;
 
     /**
      * Constructor for GameServiceVs.
@@ -29,9 +29,9 @@ public class GameServiceVs implements IGameService {
      */
     public GameServiceVs(IGameModel gameModel) {
         this.gameModel = gameModel;
-        mazeService = FactoryProducer.getFactory("GameService").getMazeService("Maze",gameModel.getMazeModel());
-        playerService = FactoryProducer.getFactory("GameService").getPlayerService("Player",gameModel.getPlayModel(),mazeService);
-        secondPlayerService = FactoryProducer.getFactory("GameService").getPlayerService("Player",gameModel.getSecondPlayModel(),mazeService);
+        mazeService = FactoryProducer.getFactory("GameService").getMazeService("Maze", gameModel.getMazeModel());
+        playerService = FactoryProducer.getFactory("GameService").getPlayerService("Player", gameModel.getPlayModel(), mazeService);
+        secondPlayerService = FactoryProducer.getFactory("GameService").getPlayerService("Player", gameModel.getSecondPlayModel(), mazeService);
     }
 
     /**

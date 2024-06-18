@@ -7,7 +7,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -23,7 +26,7 @@ public class SelectionViewStyler {
      * Styles the VBox based on the specified skin.
      *
      * @param skin The skin to apply to the VBox.
-     * @param box The VBox to style.
+     * @param box  The VBox to style.
      */
     public static void styleVBox(Skin skin, VBox box) {
         if (box == null) return;
@@ -55,7 +58,7 @@ public class SelectionViewStyler {
     /**
      * Styles the title label based on the specified skin.
      *
-     * @param skin The skin to apply to the title label.
+     * @param skin            The skin to apply to the title label.
      * @param difficultyLabel The title label to style.
      */
     public static void styleTitleLabel(Skin skin, Label difficultyLabel) {
@@ -87,7 +90,7 @@ public class SelectionViewStyler {
     /**
      * Styles the button based on the specified skin.
      *
-     * @param skin The skin to apply to the button.
+     * @param skin   The skin to apply to the button.
      * @param button The button to style.
      */
     public static void styleButton(Skin skin, Button button) {
@@ -131,9 +134,9 @@ public class SelectionViewStyler {
     /**
      * Adds animation to the button for hover and press effects.
      *
-     * @param button The button to animate.
-     * @param normalColor The normal background color of the button.
-     * @param hoverColor The background color of the button when hovered.
+     * @param button       The button to animate.
+     * @param normalColor  The normal background color of the button.
+     * @param hoverColor   The background color of the button when hovered.
      * @param pressedColor The background color of the button when pressed.
      */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {

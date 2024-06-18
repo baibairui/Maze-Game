@@ -1,7 +1,7 @@
 package com.edu.xmum.cst206.View.Styler;
 
-import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import Constant.Skin;
+import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -14,11 +14,11 @@ public class PlayerViewStyler {
     /**
      * Styles the player view based on the specified skin.
      *
-     * @param skin The skin to apply to the player view.
+     * @param skin       The skin to apply to the player view.
      * @param playerView The ImageView representing the player.
-     * @param cellSize The size of each cell in the maze.
-     * @param player The player model instance.
-     * @param playerDir The direction the player is facing.
+     * @param cellSize   The size of each cell in the maze.
+     * @param player     The player model instance.
+     * @param playerDir  The direction the player is facing.
      */
     public static void playerViewStyle(Skin skin, ImageView playerView, int cellSize, IPlayerModel player, String playerDir) {
         if (playerView == null) return;

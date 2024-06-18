@@ -1,18 +1,20 @@
 package com.edu.xmum.cst206.View.Entity.V1;
 
+import Constant.Skin;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
-import Constant.Skin;
 import com.edu.xmum.cst206.View.Interface.IMazeView;
-import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Interface.IPlayerView;
+import com.edu.xmum.cst206.View.Interface.IRunView;
 import com.edu.xmum.cst206.View.Styler.RunViewStyler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -36,12 +38,13 @@ public class RunViewV1 extends BorderPane implements IRunView {
 
     /**
      * Constructor to initialize the RunViewV1 components.
+     *
      * @param gameController The game controller to manage game logic.
      */
     public RunViewV1(IGameController gameController) {
         // Initializing components
         this.gameController = gameController;
-        currentDifficulty = new Label("Difficulty:" + gameController.getDifficulty());
+        currentDifficulty = new Label("Difficulty: " + gameController.getDifficulty());
         mazeView = FactoryProducer.getFactory("GameView").getMazeView(Skin.V1, gameController.getGameService().getMazeService().getMaze());
         playerView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.V1, gameController.getGameService().getPlayerService().getPlayer());
         aiView = FactoryProducer.getFactory("GameView").getPlayerView(Skin.AI, gameController.getGameService().getAiService().getAiModel());
@@ -51,7 +54,7 @@ public class RunViewV1 extends BorderPane implements IRunView {
         // Apply styling to components
         RunViewStyler.resetButtonStyle(Skin.V1, resetButton);
         RunViewStyler.hintButtonStyle(Skin.V1, hintButton);
-        RunViewStyler.diffcultyTitleStyle(Skin.V1, currentDifficulty);
+        RunViewStyler.difficultyTitleStyle(Skin.V1, currentDifficulty);
 
         // Setup info box with current difficulty label
         HBox infoBox = new HBox(20, currentDifficulty);
@@ -81,31 +84,59 @@ public class RunViewV1 extends BorderPane implements IRunView {
         RunViewStyler.BoxStyle(Skin.V1, this);
     }
 
+    /**
+     * Gets the reset button in the RunView.
+     *
+     * @return The reset button.
+     */
     @Override
     public Button getResetButton() {
         return resetButton;
     }
 
+    /**
+     * Gets the hint button in the RunView.
+     *
+     * @return The hint button.
+     */
     @Override
     public Button getHintButton() {
         return hintButton;
     }
 
+    /**
+     * Gets the root node of the RunView.
+     *
+     * @return The BorderPane root node.
+     */
     @Override
     public BorderPane getNode() {
         return this;
     }
 
+    /**
+     * Gets the player view in the RunView.
+     *
+     * @return The player view.
+     */
     @Override
     public IPlayerView getPlayerView() {
         return playerView;
     }
 
+    /**
+     * Gets the maze view in the RunView.
+     *
+     * @return The maze view.
+     */
     @Override
     public IMazeView getMazeView() {
         return mazeView;
     }
 
+    /**
+     * Redraws the RunView, updating the player, maze, and AI views.
+     */
     @Override
     public void reSetView() {
         playerView.reDraw();
@@ -113,6 +144,9 @@ public class RunViewV1 extends BorderPane implements IRunView {
         aiView.reDraw(); // Redrawing the AI view
     }
 
+    /**
+     * Adjusts the layout and cell sizes based on the window dimensions.
+     */
     @Override
     public void adjustLayout() {
         // Adjust the layout and cell sizes based on the window dimensions
@@ -139,6 +173,11 @@ public class RunViewV1 extends BorderPane implements IRunView {
         aiView.getNode().setTranslateY(offsetY);
     }
 
+    /**
+     * Displays the hint path in the RunView.
+     *
+     * @param path The path to show as a hint.
+     */
     @Override
     public void showHint(List<int[]> path) {
         int cellSize = mazeView.getCellSize();
@@ -179,12 +218,22 @@ public class RunViewV1 extends BorderPane implements IRunView {
         timeline.play();
     }
 
+    /**
+     * Gets the AI view in the RunView.
+     *
+     * @return The AI view.
+     */
     @Override
     public IPlayerView getAiView() {
         return aiView;
     }
 
-    // V1 not required
+    /**
+     * Gets the second player view in the RunView.
+     * V1 does not support second player view, returns null.
+     *
+     * @return null.
+     */
     @Override
     public IPlayerView getSecondPlayerView() {
         return null;

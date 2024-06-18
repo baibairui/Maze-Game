@@ -1,7 +1,5 @@
 package com.edu.xmum.cst206.View.Interface;
 
-import com.edu.xmum.cst206.Controller.IGameController;
-import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -9,14 +7,6 @@ import javafx.scene.layout.BorderPane;
  * Specifies the methods that the GameView should implement.
  */
 public interface IGameView {
-
-    /**
-     * Sets the game controller for the GameView.
-     *
-     * @param gameController The game controller to set.
-     */
-    void setGameController(IGameController gameController);
-
     /**
      * Gets the welcome view.
      *

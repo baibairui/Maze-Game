@@ -21,7 +21,7 @@ public class RunViewStyler {
     /**
      * Styles the reset button based on the specified skin.
      *
-     * @param skin The skin to apply to the reset button.
+     * @param skin        The skin to apply to the reset button.
      * @param resetButton The reset button to style.
      */
     public static void resetButtonStyle(Skin skin, Button resetButton) {
@@ -45,7 +45,7 @@ public class RunViewStyler {
     /**
      * Styles the hint button based on the specified skin.
      *
-     * @param skin The skin to apply to the hint button.
+     * @param skin       The skin to apply to the hint button.
      * @param hintButton The hint button to style.
      */
     public static void hintButtonStyle(Skin skin, Button hintButton) {
@@ -69,10 +69,10 @@ public class RunViewStyler {
     /**
      * Styles the difficulty title label based on the specified skin.
      *
-     * @param skin The skin to apply to the difficulty title label.
+     * @param skin              The skin to apply to the difficulty title label.
      * @param currentDifficulty The difficulty title label to style.
      */
-    public static void diffcultyTitleStyle(Skin skin, Label currentDifficulty) {
+    public static void difficultyTitleStyle(Skin skin, Label currentDifficulty) {
         if (currentDifficulty == null) return;
         switch (skin) {
             case V1 -> {
@@ -93,7 +93,7 @@ public class RunViewStyler {
     /**
      * Styles the info box based on the specified skin.
      *
-     * @param skin The skin to apply to the info box.
+     * @param skin    The skin to apply to the info box.
      * @param infoBox The info box to style.
      */
     public static void infoBoxStyle(Skin skin, HBox infoBox) {
@@ -123,7 +123,7 @@ public class RunViewStyler {
     /**
      * Styles the control box based on the specified skin.
      *
-     * @param skin The skin to apply to the control box.
+     * @param skin       The skin to apply to the control box.
      * @param controlBox The control box to style.
      */
     public static void controlBoxStyle(Skin skin, HBox controlBox) {
@@ -151,7 +151,7 @@ public class RunViewStyler {
     /**
      * Styles the game box based on the specified skin.
      *
-     * @param skin The skin to apply to the game box.
+     * @param skin     The skin to apply to the game box.
      * @param gamePane The game box to style.
      */
     public static void gameBoxStyle(Skin skin, StackPane gamePane) {
@@ -199,9 +199,9 @@ public class RunViewStyler {
     /**
      * Applies hover and press effects to the specified button.
      *
-     * @param button The button to apply effects to.
+     * @param button      The button to apply effects to.
      * @param normalColor The normal background color of the button.
-     * @param hoverColor The background color of the button when hovered.
+     * @param hoverColor  The background color of the button when hovered.
      * @param activeColor The background color of the button when pressed.
      */
     private static void applyButtonEffects(Button button, String normalColor, String hoverColor, String activeColor) {
@@ -222,7 +222,7 @@ public class RunViewStyler {
     /**
      * Adds a scale animation to the specified button.
      *
-     * @param button The button to animate.
+     * @param button  The button to animate.
      * @param scaleTo The scale factor to animate to.
      */
     private static void addScaleAnimation(Button button, double scaleTo) {

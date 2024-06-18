@@ -9,8 +9,8 @@ import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
  * This class extends the GameObject class and implements the IPlayerModel interface.
  */
 public class PlayerModel extends GameObject implements IPlayerModel {
-    private int startX;
-    private int startY;
+    private final int startX;
+    private final int startY;
 
     /**
      * Constructor to initialize the PlayerModel with the starting position based on the maze model.

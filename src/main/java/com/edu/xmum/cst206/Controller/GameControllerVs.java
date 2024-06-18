@@ -1,9 +1,9 @@
 package com.edu.xmum.cst206.Controller;
 
 import Constant.Config;
-import com.edu.xmum.cst206.Factory.FactoryProducer;
 import Constant.Difficulty;
 import Constant.Direction;
+import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.View.Entity.V1.FailView;
 import com.edu.xmum.cst206.View.Interface.IGameView;
@@ -19,6 +19,7 @@ public class GameControllerVs implements IGameController {
 
     /**
      * Constructor to initialize the game service.
+     *
      * @param gameService The game service managing game logic.
      */
     public GameControllerVs(IGameService gameService) {

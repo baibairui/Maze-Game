@@ -5,7 +5,7 @@ package com.edu.xmum.cst206.Model.AbstractClass;
  * Specifies properties that all game objects should have:
  * 1. Horizontal coordinate: x
  * 2. Vertical coordinate: y
- *
+ * <p>
  * Specifies the methods that all game objects should have:
  * 1. Getter and setter methods for x and y coordinates
  */

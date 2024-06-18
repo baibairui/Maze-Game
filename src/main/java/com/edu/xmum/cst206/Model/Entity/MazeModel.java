@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Concrete implementation class of the maze object.
  * This class represents a maze and provides methods to generate it using the stochastic Prim's algorithm.
- *
+ * <p>
  * Attributes:
  * - rows: number of rows in the maze
  * - cols: number of columns in the maze
@@ -24,14 +24,17 @@ public class MazeModel extends GameObject implements IMazeModel {
     private final int[][] maze;
     private int goalX;
     private int goalY;
-    private int startX;
-    private int startY;
+    private final int startX;
+    private final int startY;
 
     /**
      * Inner class representing an edge in the maze.
      */
     private static class Edge {
-        int x1, y1, x2, y2;
+        final int x1;
+        final int y1;
+        final int x2;
+        final int y2;
 
         Edge(int x1, int y1, int x2, int y2) {
             this.x1 = x1;
@@ -108,8 +111,8 @@ public class MazeModel extends GameObject implements IMazeModel {
     /**
      * Adds candidate edges to the list for a given position in the maze.
      *
-     * @param x The x-coordinate of the current position.
-     * @param y The y-coordinate of the current position.
+     * @param x     The x-coordinate of the current position.
+     * @param y     The y-coordinate of the current position.
      * @param edges The list of candidate edges.
      */
     private void addEdges(int x, int y, List<Edge> edges) {

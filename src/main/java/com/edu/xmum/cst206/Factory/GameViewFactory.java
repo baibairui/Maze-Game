@@ -9,7 +9,7 @@ import com.edu.xmum.cst206.View.Entity.V2.*;
 import com.edu.xmum.cst206.View.Entity.V3.*;
 import com.edu.xmum.cst206.View.Interface.*;
 
-public class GameViewFactory extends AbstractFactory{
+public class GameViewFactory extends AbstractFactory {
     @Override
     public IVictoryView getVictoryView(Skin victoryView) {
         if (victoryView.getSkin().equals("V1")) {
@@ -21,6 +21,7 @@ public class GameViewFactory extends AbstractFactory{
         }
         return null;
     }
+
     @Override
     public IMazeView getMazeView(Skin maze, IMazeModel mazeModel) {
         if (maze.getSkin().equals("V1")) {
@@ -32,6 +33,7 @@ public class GameViewFactory extends AbstractFactory{
         }
         return null;
     }
+
     public IRunView getRunView(Skin runView, IGameController gameController) {
         if (runView.getSkin().equals("V1")) {
             return new RunViewV1(gameController);
@@ -42,6 +44,7 @@ public class GameViewFactory extends AbstractFactory{
         }
         return null;
     }
+
     @Override
     public IPlayerView getPlayerView(Skin player, IPlayerModel playerModel) {
         if (player.getSkin().equals("V1")) {
@@ -57,6 +60,7 @@ public class GameViewFactory extends AbstractFactory{
         }
         return null;
     }
+
     public IPrepareView getPrepareView(Skin prepareView) {
         if (prepareView.getSkin().equals("V1")) {
             return new PrepareViewV1();
@@ -67,6 +71,7 @@ public class GameViewFactory extends AbstractFactory{
         }
         return null;
     }
+
     @Override
     public IWelcomeView getWelcomeView(Skin welcomeVIew) {
         if (welcomeVIew.getSkin().equals("V1")) {
@@ -78,6 +83,7 @@ public class GameViewFactory extends AbstractFactory{
         }
         return null;
     }
+
     @Override
     public ISelectionView getSelectionView(Skin selectionView) {
         if (selectionView.getSkin().equals("V1")) {

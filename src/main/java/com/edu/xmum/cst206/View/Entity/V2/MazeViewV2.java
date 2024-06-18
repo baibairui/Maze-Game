@@ -6,26 +6,49 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Implementation of the maze view for version 2.
+ * This class is responsible for displaying the maze using simple colored rectangles.
+ */
 public class MazeViewV2 extends Pane implements IMazeView {
     private int cellSize;
-    private IMazeModel maze;
+    private final IMazeModel maze;
 
+    /**
+     * Constructs the MazeViewV2 with the specified maze model.
+     *
+     * @param maze The maze model to use.
+     */
     public MazeViewV2(IMazeModel maze) {
         super();
         this.maze = maze;
-        this.cellSize = 20; // Default initialisation is 20
+        this.cellSize = 20; // Default initialization is 20
     }
 
+    /**
+     * Sets the cell size for the maze view.
+     *
+     * @param cellSize The size of each cell in the view.
+     */
     @Override
     public void setCellSize(int cellSize) {
         this.cellSize = cellSize;
     }
 
+    /**
+     * Gets the root node of the maze view.
+     *
+     * @return The Pane root node.
+     */
     @Override
     public Pane getNode() {
         return this;
     }
 
+    /**
+     * Draws the maze view for the first time.
+     * Uses colored rectangles to represent the maze cells.
+     */
     @Override
     public void draw() {
         for (int y = 0; y < maze.getRows(); y++) {
@@ -38,14 +61,22 @@ public class MazeViewV2 extends Pane implements IMazeView {
         }
     }
 
+    /**
+     * Gets the cell size for the maze view.
+     *
+     * @return The size of each cell in the view.
+     */
+    @Override
     public int getCellSize() {
         return this.cellSize;
     }
 
+    /**
+     * Redraws the maze view, updating any changes.
+     */
     @Override
     public void reDraw() {
         getChildren().clear();
         draw();
     }
-
 }

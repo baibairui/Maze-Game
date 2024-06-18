@@ -1,10 +1,10 @@
 package com.edu.xmum.cst206;
 
 import Constant.Config;
+import Constant.Skin;
 import com.edu.xmum.cst206.Controller.IGameController;
 import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.Model.Interface.IGameModel;
-import Constant.Skin;
 import com.edu.xmum.cst206.Service.Interface.IGameService;
 import com.edu.xmum.cst206.View.Entity.GameView;
 import com.edu.xmum.cst206.View.Entity.SkinSelectionView;
@@ -57,7 +57,7 @@ public class App extends Application {
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
-        gameView = new GameView(gameController);
+        gameView = new GameView();
 
         // dependency injection
         gameController.setGameView(gameView);

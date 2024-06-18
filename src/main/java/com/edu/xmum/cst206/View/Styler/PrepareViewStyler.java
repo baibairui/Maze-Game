@@ -67,7 +67,7 @@ public class PrepareViewStyler {
     /**
      * Styles the Label based on the specified skin.
      *
-     * @param skin The skin to apply to the Label.
+     * @param skin         The skin to apply to the Label.
      * @param prepareLabel The Label to style.
      */
     public static void LabelStyle(Skin skin, Label prepareLabel) {
@@ -93,7 +93,7 @@ public class PrepareViewStyler {
     /**
      * Styles the Button based on the specified skin.
      *
-     * @param skin The skin to apply to the Button.
+     * @param skin   The skin to apply to the Button.
      * @param button The Button to style.
      */
     public static void ButtonStyle(Skin skin, Button button) {
@@ -152,9 +152,9 @@ public class PrepareViewStyler {
     /**
      * Adds hover and press animations to the specified Button.
      *
-     * @param button The Button to animate.
-     * @param normalColor The normal background color of the Button.
-     * @param hoverColor The background color of the Button when hovered.
+     * @param button       The Button to animate.
+     * @param normalColor  The normal background color of the Button.
+     * @param hoverColor   The background color of the Button when hovered.
      * @param pressedColor The background color of the Button when pressed.
      */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {

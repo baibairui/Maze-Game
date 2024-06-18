@@ -1,23 +1,23 @@
 package com.edu.xmum.cst206.Service;
 
-import com.edu.xmum.cst206.Service.Interface.IMazeService;
-import com.edu.xmum.cst206.Service.Interface.IPlayerService;
 import com.edu.xmum.cst206.Model.Interface.IMazeModel;
 import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
+import com.edu.xmum.cst206.Service.Interface.IMazeService;
+import com.edu.xmum.cst206.Service.Interface.IPlayerService;
 
 /**
  * Implementation of the IPlayerService interface.
  * Provides methods for player-related operations within the maze.
  */
 public class PlayerService implements IPlayerService {
-    private IPlayerModel player;
-    private IMazeService mazeService;
+    private final IPlayerModel player;
+    private final IMazeService mazeService;
 
     /**
      * Constructor for PlayerService.
      * Uses dependency injection to initialize the player and maze services.
      *
-     * @param maze The maze service instance.
+     * @param maze        The maze service instance.
      * @param playerModel The player model instance.
      */
     public PlayerService(IMazeService maze, IPlayerModel playerModel) {
@@ -37,7 +37,7 @@ public class PlayerService implements IPlayerService {
         if (mazeService.isValidMove(player, dx, dy)) {
             player.move(dx, dy);
             System.out.println("X: " + player.getX() + " Y: " + player.getY());
-            return checkGoal(); // Returns whether or not the end point has been reached
+            return checkGoal(); // Returns whether the end point has been reached
         }
         return false; // Invalid move
     }

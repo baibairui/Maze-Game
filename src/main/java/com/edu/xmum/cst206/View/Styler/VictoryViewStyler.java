@@ -26,7 +26,7 @@ public class VictoryViewStyler {
      * Styles the VBox based on the specified skin.
      *
      * @param skin The skin to apply to the VBox.
-     * @param box The VBox to style.
+     * @param box  The VBox to style.
      */
     public static void VboxStyle(Skin skin, VBox box) {
         if (box == null) return;
@@ -58,7 +58,7 @@ public class VictoryViewStyler {
     /**
      * Styles the victory label based on the specified skin.
      *
-     * @param skin The skin to apply to the victory label.
+     * @param skin         The skin to apply to the victory label.
      * @param victoryLabel The victory label to style.
      */
     public static void LabelStyle(Skin skin, Label victoryLabel) {
@@ -88,7 +88,7 @@ public class VictoryViewStyler {
     /**
      * Styles the button based on the specified skin.
      *
-     * @param skin The skin to apply to the button.
+     * @param skin   The skin to apply to the button.
      * @param button The button to style.
      */
     public static void ButtonStyle(Skin skin, Button button) {
@@ -121,9 +121,9 @@ public class VictoryViewStyler {
     /**
      * Adds hover and press effects to the specified button.
      *
-     * @param button The button to apply effects to.
-     * @param normalColor The normal background color of the button.
-     * @param hoverColor The background color of the button when hovered.
+     * @param button       The button to apply effects to.
+     * @param normalColor  The normal background color of the button.
+     * @param hoverColor   The background color of the button when hovered.
      * @param pressedColor The background color of the button when pressed.
      */
     private static void addButtonAnimation(Button button, String normalColor, String hoverColor, String pressedColor) {

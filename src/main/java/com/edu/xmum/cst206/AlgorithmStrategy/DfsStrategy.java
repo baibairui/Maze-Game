@@ -14,12 +14,12 @@ public class DfsStrategy implements IFindPathStrategy {
      * Finds a path using DFS without recording the backtracking process.
      *
      * @param mazeModel The maze model containing the maze structure.
-     * @param path A list to store the path found from start to goal.
-     * @param visited A 2D boolean array to keep track of visited positions in the maze.
-     * @param x The x-coordinate of the current position.
-     * @param y The y-coordinate of the current position.
-     * @param goalX The x-coordinate of the goal position.
-     * @param goalY The y-coordinate of the goal position.
+     * @param path      A list to store the path found from start to goal.
+     * @param visited   A 2D boolean array to keep track of visited positions in the maze.
+     * @param x         The x-coordinate of the current position.
+     * @param y         The y-coordinate of the current position.
+     * @param goalX     The x-coordinate of the goal position.
+     * @param goalY     The y-coordinate of the goal position.
      * @return True if a path is found, false otherwise.
      */
     @Override

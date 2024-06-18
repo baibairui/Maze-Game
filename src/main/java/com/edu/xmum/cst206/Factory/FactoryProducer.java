@@ -8,7 +8,7 @@ public class FactoryProducer {
     private static final int size = 3;//Number of skins
 
     static {
-        factoryMap.put("GameView",new GameViewFactory());
+        factoryMap.put("GameView", new GameViewFactory());
         factoryMap.put("GameModel", new GameModelFactory());
         factoryMap.put("GameService", new GameServiceFactory());
         factoryMap.put("GameController", new GameControllerFactory());
