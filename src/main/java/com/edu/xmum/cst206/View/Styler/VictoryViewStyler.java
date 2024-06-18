@@ -7,10 +7,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -35,8 +33,17 @@ public class VictoryViewStyler {
                 box.setAlignment(Pos.CENTER);
                 box.setSpacing(20);
                 box.setPadding(new Insets(20));
-                box.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
+
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/sun.gif");
+                BackgroundImage bgImage = new BackgroundImage(
+                        backgroundImage,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER,
+                        new BackgroundSize(100, 100, true, true, false, true)
+                );
+                box.setBackground(new Background(bgImage));
             }
             case V2 -> {
                 box.setAlignment(Pos.CENTER);
@@ -65,19 +72,19 @@ public class VictoryViewStyler {
         if (victoryLabel == null) return;
         switch (skin) {
             case V1 -> {
-                victoryLabel.setFont(new Font(24));
-                victoryLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0073e6; " +
+                victoryLabel.setFont(new Font(48));
+                victoryLabel.setStyle("-fx-font-size: 48px; -fx-font-weight: bold; -fx-text-fill: #0073e6; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
                 addFloatingLabelAnimation(victoryLabel);
             }
             case V2 -> {
-                victoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+                victoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
                 victoryLabel.setTextFill(Color.DARKGREEN);
                 victoryLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
                 addFloatingLabelAnimation(victoryLabel);
             }
             case V3 -> {
-                victoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+                victoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
                 victoryLabel.setTextFill(Color.DEEPPINK);
                 victoryLabel.setStyle("-fx-background-color: #FF69B4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
                 addFloatingLabelAnimation(victoryLabel);
@@ -95,21 +102,21 @@ public class VictoryViewStyler {
         if (button == null) return;
         switch (skin) {
             case V1 -> {
-                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #FF6347; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
 
                 addButtonAnimation(button, "#FF6347", "#FF4500", "#CD5C5C");
             }
             case V2 -> {
-                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #32CD32; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
 
                 addButtonAnimation(button, "#32CD32", "#2E8B57", "#228B22");
             }
             case V3 -> {
-                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #FF69B4; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
 
@@ -131,7 +138,7 @@ public class VictoryViewStyler {
             button.setStyle(
                     "-fx-background-color: " + hoverColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 18px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 10; " +
                             "-fx-cursor: hand;" +
@@ -148,7 +155,7 @@ public class VictoryViewStyler {
             button.setStyle(
                     "-fx-background-color: " + normalColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 18px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 10; " +
                             "-fx-cursor: hand;" +
@@ -165,7 +172,7 @@ public class VictoryViewStyler {
             button.setStyle(
                     "-fx-background-color: " + pressedColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 18px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 10; " +
                             "-fx-cursor: hand;" +
@@ -181,7 +188,7 @@ public class VictoryViewStyler {
             button.setStyle(
                     "-fx-background-color: " + hoverColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 18px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 10; " +
                             "-fx-cursor: hand;" +

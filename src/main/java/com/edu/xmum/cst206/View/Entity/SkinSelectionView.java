@@ -26,6 +26,7 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
         SkinSelectionViewStyler.VBoxStyle(this);
         SkinSelectionViewStyler.LabelStyle(label);
 
+
         // Add buttons for each available skin
         for (int i = 0; i < FactoryProducer.getSkinSize(); i++) {
             Button button = new Button("V" + (i + 1));
@@ -36,6 +37,7 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
         // Add components to the VBox
         getChildren().add(label);
         getChildren().addAll(buttons);
+
     }
 
     /**

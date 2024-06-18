@@ -7,10 +7,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -37,6 +35,16 @@ public class SelectionViewStyler {
                 box.setPadding(new Insets(40));
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
+
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/Dave.jpg");
+                BackgroundImage bgImage = new BackgroundImage(
+                        backgroundImage,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER,
+                        new BackgroundSize(100, 100, true, true, false, true)
+                );
+                box.setBackground(new Background(bgImage));
             }
             case V2 -> {
                 box.setAlignment(Pos.CENTER);
@@ -66,19 +74,19 @@ public class SelectionViewStyler {
         switch (skin) {
             // Beautification of the V1 model
             case V1 -> {
-                difficultyLabel.setFont(new Font(24));
-                difficultyLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0073e6; " +
+                difficultyLabel.setFont(new Font(48));
+                difficultyLabel.setStyle("-fx-font-size: 48px; -fx-font-weight: bold; -fx-text-fill: #0073e6; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
             // Beautification of the V2 model
             case V2 -> {
-                difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+                difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
                 difficultyLabel.setTextFill(Color.DARKGREEN);
                 difficultyLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
             // Beautification of the V3 model
             case V3 -> {
-                difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+                difficultyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
                 difficultyLabel.setTextFill(Color.DEEPPINK);
                 difficultyLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
             }
@@ -101,7 +109,7 @@ public class SelectionViewStyler {
                 button.setStyle(
                         "-fx-background-color: #0073e6; " +
                                 "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
+                                "-fx-font-size: 24px; " +
                                 "-fx-padding: 10px 20px; " +
                                 "-fx-border-radius: 5; " +
                                 "-fx-cursor: hand;" +
@@ -112,7 +120,7 @@ public class SelectionViewStyler {
             }
             // Used to beautify V2
             case V2 -> {
-                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #32CD32; -fx-background-radius: 10; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
@@ -121,7 +129,7 @@ public class SelectionViewStyler {
             }
             // Used to beautify V3
             case V3 -> {
-                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
                 button.setTextFill(Color.WHITE);
                 button.setStyle("-fx-background-color: #FF69B4; -fx-background-radius: 10; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0.5, 0, 0);");
@@ -144,7 +152,7 @@ public class SelectionViewStyler {
             button.setStyle(
                     "-fx-background-color: " + hoverColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;" +
@@ -161,7 +169,7 @@ public class SelectionViewStyler {
             button.setStyle(
                     "-fx-background-color: " + normalColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;" +
@@ -178,7 +186,7 @@ public class SelectionViewStyler {
             button.setStyle(
                     "-fx-background-color: " + pressedColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;" +
@@ -194,7 +202,7 @@ public class SelectionViewStyler {
             button.setStyle(
                     "-fx-background-color: " + hoverColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;" +

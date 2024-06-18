@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+
 /**
  * Represents the MazeView for version 1.
  * Implements the IMazeView interface.

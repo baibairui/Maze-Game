@@ -3,7 +3,12 @@ package com.edu.xmum.cst206.View.Entity.V1;
 import com.edu.xmum.cst206.View.Interface.IFailView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -27,14 +32,20 @@ public class FailView implements IFailView {
      */
     private void initialize() {
         root = new VBox(20);
-        root.setAlignment(Pos.CENTER);
+        root.setAlignment(Pos.BOTTOM_CENTER);
 
-        Label failLabel = new Label("Game Over!");
-        failLabel.setFont(new Font("Arial", 24));
-        failLabel.setStyle("-fx-text-fill: red;");
+        Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/zombies.png");
+        BackgroundImage bgImage = new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, false, true)
+        );
+        root.setBackground(new Background(bgImage));
 
         backButton = new Button("Back to Main Menu");
-        backButton.setFont(new Font("Arial", 16));
+        backButton.setFont(new Font("Arial", 24));
         backButton.setStyle(
                 "-fx-background-color: #FF6347; " +
                         "-fx-text-fill: white; " +
@@ -59,7 +70,7 @@ public class FailView implements IFailView {
                         "-fx-cursor: hand;"
         ));
 
-        root.getChildren().addAll(failLabel, backButton);
+        root.getChildren().addAll(backButton);
     }
 
     /**
@@ -82,3 +93,6 @@ public class FailView implements IFailView {
         return backButton;
     }
 }
+
+
+

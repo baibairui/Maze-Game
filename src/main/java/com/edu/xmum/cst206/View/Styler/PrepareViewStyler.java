@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
+import javafx.scene.layout.*;
+import javafx.scene.image.Image;
 
 /**
  * Beautification of PrepareView based on Appearance Pattern Design.
@@ -32,12 +34,17 @@ public class PrepareViewStyler {
                 vBox.setAlignment(Pos.CENTER);
                 vBox.setSpacing(20);
                 vBox.setPadding(new Insets(40));
-                vBox.setStyle(
-                        "-fx-background-color: linear-gradient(to bottom right, #f7f8fa, #e2e2e2); " +
-                                "-fx-padding: 20px; " +
-                                "-fx-border-radius: 10; " +
-                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);"
+                vBox.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
+
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/植物背景3.gif");
+                BackgroundImage bgImage = new BackgroundImage(
+                        backgroundImage,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER,
+                        new BackgroundSize(100, 100, true, true, false, true)
                 );
+                vBox.setBackground(new Background(bgImage));
             }
             case V2 -> {
                 vBox.setAlignment(Pos.CENTER);
@@ -74,16 +81,16 @@ public class PrepareViewStyler {
         if (prepareLabel == null) return;
         switch (skin) {
             case V1 -> {
-                prepareLabel.setFont(new Font(18));
-                prepareLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
+                prepareLabel.setFont(new Font(48));
+                prepareLabel.setStyle("-fx-font-size: 48px; -fx-font-weight: bold; -fx-text-fill: #333;");
             }
             case V2 -> {
-                prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-                prepareLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #444;");
+                prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
+                prepareLabel.setStyle("-fx-font-size: 48px; -fx-text-fill: #444;");
             }
             case V3 -> {
-                prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-                prepareLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #222;");
+                prepareLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
+                prepareLabel.setStyle("-fx-font-size: 48px; -fx-text-fill: #222;");
             }
         }
         // Adds floating animation to the label
@@ -103,7 +110,7 @@ public class PrepareViewStyler {
                 button.setStyle(
                         "-fx-background-color: #4CAF50; " +
                                 "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
+                                "-fx-font-size: 36px; " +
                                 "-fx-padding: 10px 20px; " +
                                 "-fx-border-radius: 5; " +
                                 "-fx-cursor: hand;"
@@ -114,7 +121,7 @@ public class PrepareViewStyler {
                 button.setStyle(
                         "-fx-background-color: #007BFF; " +
                                 "-fx-text-fill: white; " +
-                                "-fx-font-size: 16px; " +
+                                "-fx-font-size: 36px; " +
                                 "-fx-padding: 10px 20px; " +
                                 "-fx-border-radius: 5; " +
                                 "-fx-cursor: hand;"
@@ -122,7 +129,7 @@ public class PrepareViewStyler {
                 addButtonAnimation(button, "#007BFF", "#0056b3", "#004085");
             }
             case V3 -> {
-                button.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+                button.setFont(Font.font("Arial", FontWeight.BOLD, 36));
                 button.setTextFill(Color.WHITE);
                 button.setStyle(
                         "-fx-background-color: #FF5722; " +
@@ -162,7 +169,7 @@ public class PrepareViewStyler {
             button.setStyle(
                     "-fx-background-color: " + hoverColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 30px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
@@ -177,7 +184,7 @@ public class PrepareViewStyler {
             button.setStyle(
                     "-fx-background-color: " + normalColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 30px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
@@ -192,7 +199,7 @@ public class PrepareViewStyler {
             button.setStyle(
                     "-fx-background-color: " + pressedColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 30px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
@@ -206,7 +213,7 @@ public class PrepareViewStyler {
             button.setStyle(
                     "-fx-background-color: " + hoverColor + "; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 16px; " +
+                            "-fx-font-size: 30px; " +
                             "-fx-padding: 10px 20px; " +
                             "-fx-border-radius: 5; " +
                             "-fx-cursor: hand;"
