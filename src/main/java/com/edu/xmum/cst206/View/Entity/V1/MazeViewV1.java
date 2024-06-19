@@ -12,8 +12,8 @@ import javafx.scene.layout.Pane;
  * Implements the IMazeView interface.
  */
 public class MazeViewV1 extends Pane implements IMazeView {
-    private int cellSize;
     private final IMazeModel maze;
+    private int cellSize;
 
     /**
      * Constructs the MazeViewV1 with the specified maze model.
@@ -24,16 +24,6 @@ public class MazeViewV1 extends Pane implements IMazeView {
         super();
         this.maze = maze;
         this.cellSize = 20; // Default initialization is 20
-    }
-
-    /**
-     * Sets the cell size for the maze view.
-     *
-     * @param cellSize The size of each cell in the view.
-     */
-    @Override
-    public void setCellSize(int cellSize) {
-        this.cellSize = cellSize;
     }
 
     /**
@@ -84,6 +74,16 @@ public class MazeViewV1 extends Pane implements IMazeView {
     @Override
     public int getCellSize() {
         return this.cellSize;
+    }
+
+    /**
+     * Sets the cell size for the maze view.
+     *
+     * @param cellSize The size of each cell in the view.
+     */
+    @Override
+    public void setCellSize(int cellSize) {
+        this.cellSize = cellSize;
     }
 
     /**

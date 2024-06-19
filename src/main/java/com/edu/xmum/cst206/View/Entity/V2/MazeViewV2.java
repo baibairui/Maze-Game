@@ -5,16 +5,14 @@ import com.edu.xmum.cst206.View.Interface.IMazeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * Implementation of the maze view for version 2.
  * This class is responsible for displaying the maze using simple colored rectangles.
  */
 public class MazeViewV2 extends Pane implements IMazeView {
-    private int cellSize;
     private final IMazeModel maze;
+    private int cellSize;
 
     /**
      * Constructs the MazeViewV2 with the specified maze model.
@@ -25,16 +23,6 @@ public class MazeViewV2 extends Pane implements IMazeView {
         super();
         this.maze = maze;
         this.cellSize = 20; // Default initialization is 20
-    }
-
-    /**
-     * Sets the cell size for the maze view.
-     *
-     * @param cellSize The size of each cell in the view.
-     */
-    @Override
-    public void setCellSize(int cellSize) {
-        this.cellSize = cellSize;
     }
 
     /**
@@ -85,6 +73,16 @@ public class MazeViewV2 extends Pane implements IMazeView {
     @Override
     public int getCellSize() {
         return this.cellSize;
+    }
+
+    /**
+     * Sets the cell size for the maze view.
+     *
+     * @param cellSize The size of each cell in the view.
+     */
+    @Override
+    public void setCellSize(int cellSize) {
+        this.cellSize = cellSize;
     }
 
     /**

@@ -8,13 +8,14 @@ import com.edu.xmum.cst206.View.Styler.PlayerViewStyler;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+
 /**
  * Represents the PlayerView for version 1.
  * Implements the IPlayerView interface.
  */
 public class PlayerViewV1 extends Pane implements IPlayerView {
-    private int cellSize;
     private final IPlayerModel player;
+    private int cellSize;
     private Direction direction;
 
     /**
@@ -35,7 +36,9 @@ public class PlayerViewV1 extends Pane implements IPlayerView {
     public void draw() {
         // Setting the Player View
         ImageView playerView = new ImageView();
+        // Setting style
         PlayerViewStyler.playerViewStyle(Skin.V1, playerView, cellSize, player, direction.toString());
+
         getChildren().clear();
         getChildren().add(playerView);
     }

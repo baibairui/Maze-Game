@@ -9,18 +9,18 @@ import javafx.scene.layout.Pane;
 public interface IMazeView {
 
     /**
-     * Sets the cell size for the maze view.
-     *
-     * @param cellSize The size of each cell in the view.
-     */
-    void setCellSize(int cellSize);
-
-    /**
      * Gets the cell size for the maze view.
      *
      * @return The size of each cell in the view.
      */
     int getCellSize();
+
+    /**
+     * Sets the cell size for the maze view.
+     *
+     * @param cellSize The size of each cell in the view.
+     */
+    void setCellSize(int cellSize);
 
     /**
      * Gets the main node of the maze view.

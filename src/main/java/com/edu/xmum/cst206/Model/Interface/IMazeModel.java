@@ -15,11 +15,25 @@ public interface IMazeModel {
     int getRows();
 
     /**
+     * Sets the number of rows in the maze.
+     *
+     * @param rows The number of rows to set.
+     */
+    void setRows(int rows);
+
+    /**
      * Gets the number of columns in the maze.
      *
      * @return The number of columns.
      */
     int getCols();
+
+    /**
+     * Sets the number of columns in the maze.
+     *
+     * @param cols The number of columns to set.
+     */
+    void setCols(int cols);
 
     /**
      * Gets the x-coordinate of the goal position in the maze.
@@ -56,20 +70,6 @@ public interface IMazeModel {
      * @return The maze structure.
      */
     int[][] getMaze();
-
-    /**
-     * Sets the number of rows in the maze.
-     *
-     * @param rows The number of rows to set.
-     */
-    void setRows(int rows);
-
-    /**
-     * Sets the number of columns in the maze.
-     *
-     * @param cols The number of columns to set.
-     */
-    void setCols(int cols);
 
     /**
      * Generates the maze using the randomized Prime's algorithm.

@@ -27,13 +27,6 @@ public interface IGameController {
     void resetGame();
 
     /**
-     * Sets the difficulty level of the game.
-     *
-     * @param difficulty The difficulty level to set (e.g., Easy, Medium, Hard).
-     */
-    void setDifficulty(String difficulty);
-
-    /**
      * Handles key press events to control game actions.
      *
      * @param key The key pressed by the user.
@@ -85,6 +78,13 @@ public interface IGameController {
      * @return The current difficulty level.
      */
     String getDifficulty();
+
+    /**
+     * Sets the difficulty level of the game.
+     *
+     * @param difficulty The difficulty level to set (e.g., Easy, Medium, Hard).
+     */
+    void setDifficulty(String difficulty);
 
     /**
      * Gets the game service, which handles game logic and operations.

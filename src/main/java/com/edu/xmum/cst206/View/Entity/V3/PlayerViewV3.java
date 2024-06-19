@@ -13,8 +13,8 @@ import javafx.scene.layout.Pane;
  * This class is responsible for displaying the player with graphical representations based on the chosen skin and direction.
  */
 public class PlayerViewV3 extends Pane implements IPlayerView {
-    private int cellSize;
     private final IPlayerModel player;
+    private int cellSize;
     private Direction direction;
 
     /**
@@ -33,7 +33,9 @@ public class PlayerViewV3 extends Pane implements IPlayerView {
     @Override
     public void draw() {
         ImageView playerView = new ImageView();
+        // Setting style
         PlayerViewStyler.playerViewStyle(Skin.V3, playerView, cellSize, player, direction.toString());
+
         getChildren().clear();
         getChildren().add(playerView);
     }

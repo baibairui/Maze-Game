@@ -17,6 +17,7 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IVictoryView based on the specified skin.
+     *
      * @param victoryView The skin enumeration that determines which victory view to create.
      * @return An instance of IVictoryView.
      */
@@ -32,7 +33,8 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IMazeView based on the specified skin and maze model.
-     * @param maze The skin enumeration that determines which maze view to create.
+     *
+     * @param maze      The skin enumeration that determines which maze view to create.
      * @param mazeModel The maze model associated with the maze view.
      * @return An instance of IMazeView.
      */
@@ -48,7 +50,8 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IRunView based on the specified skin and game controller.
-     * @param runView The skin enumeration that determines which run view to create.
+     *
+     * @param runView        The skin enumeration that determines which run view to create.
      * @param gameController The game controller associated with the run view.
      * @return An instance of IRunView.
      */
@@ -64,7 +67,8 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IPlayerView based on the specified skin and player model.
-     * @param player The skin enumeration that determines which player view to create.
+     *
+     * @param player      The skin enumeration that determines which player view to create.
      * @param playerModel The player model associated with the player view.
      * @return An instance of IPlayerView.
      */
@@ -82,6 +86,7 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IPrepareView based on the specified skin.
+     *
      * @param prepareView The skin enumeration that determines which prepare view to create.
      * @return An instance of IPrepareView.
      */
@@ -97,6 +102,7 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IWelcomeView based on the specified skin.
+     *
      * @param welcomeView The skin enumeration that determines which welcome view to create.
      * @return An instance of IWelcomeView.
      */
@@ -112,6 +118,7 @@ public class GameViewFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of ISelectionView based on the specified skin.
+     *
      * @param selectionView The skin enumeration that determines which selection view to create.
      * @return An instance of ISelectionView.
      */

@@ -14,6 +14,7 @@ public class GameModelFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IGameModel based on the specified skin.
+     *
      * @param playerModel The skin enumeration that determines which game model to create.
      * @return An instance of IGameModel.
      */
@@ -28,7 +29,8 @@ public class GameModelFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IPlayerModel based on the specified player type and maze model.
-     * @param player The type of player ("Player" or "AI").
+     *
+     * @param player    The type of player ("Player" or "AI").
      * @param mazeModel The maze model associated with the player.
      * @return An instance of IPlayerModel.
      */
@@ -44,6 +46,7 @@ public class GameModelFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IMazeModel based on the specified maze type.
+     *
      * @param maze The type of maze.
      * @return An instance of IMazeModel.
      */

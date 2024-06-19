@@ -20,18 +20,11 @@ public class FactoryProducer {
 
     /**
      * Returns the appropriate factory instance based on the choice provided.
+     *
      * @param choice the type of factory required.
      * @return the corresponding AbstractFactory instance.
      */
     public static AbstractFactory getFactory(String choice) {
         return factoryMap.get(choice);
-    }
-
-    /**
-     * Returns the number of skins available.
-     * @return the number of skins.
-     */
-    public static int getSkinSize() {
-        return size;
     }
 }

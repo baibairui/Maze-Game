@@ -13,8 +13,9 @@ public class GameControllerFactory extends AbstractFactory {
 
     /**
      * Creates and returns an instance of IGameController based on the specified skin.
+     *
      * @param gameController The skin enumeration that determines which controller to create.
-     * @param gameService The game service to be used by the controller.
+     * @param gameService    The game service to be used by the controller.
      * @return An instance of IGameController.
      */
     @Override

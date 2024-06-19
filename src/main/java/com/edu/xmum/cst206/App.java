@@ -17,8 +17,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-import static Constant.Config.SCENE_HEIGHT;
-import static Constant.Config.SCENE_WIDTH;
+import static Constant.Config.*;
 
 /**
  * Main application class for the Maze Game.
@@ -36,6 +35,7 @@ public class App extends Application {
 
     /**
      * Displays the skin selection view where the user can choose a skin for the game.
+     *
      * @param primaryStage The primary stage of the application.
      */
     private void showSkinSelectionView(Stage primaryStage) {
@@ -44,7 +44,13 @@ public class App extends Application {
         for (int i = 0; i < buttons.size(); i++) {
             int finalI = i;
             buttons.get(i).setOnAction(actionEvent -> {
-                Config.skin = Skin.valueOf("V" + (finalI + 1));
+                skin = Skin.valueOf("V" + (finalI + 1));
+                //Sequence Adjustment
+                if (skin.getSkin().equals("V1")) {
+                    skin = Skin.V2;
+                } else if (skin.getSkin().equals("V2")) {
+                    skin = Skin.V1;
+                }
                 initLayer();
                 // Setting up the main scene and displaying it
                 Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);

@@ -12,9 +12,9 @@ import javafx.scene.layout.Pane;
  * Implements the IPlayerView interface.
  */
 public class AiView extends Pane implements IPlayerView {
-    private int cellSize;
     private final IPlayerModel player;
-    private Direction direction;
+    private int cellSize;
+    private Direction direction;//this vision does not need
 
     /**
      * Constructs the AiView with the specified player model.

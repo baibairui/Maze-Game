@@ -61,8 +61,8 @@ public class MazeService implements IMazeService {
     @Override
     public boolean isValidMove(IPlayerModel player, int dx, int dy) {
         // Get new coordinates
-        int newX =  player.getX() + dx;
-        int newY =  player.getY() + dy;
+        int newX = player.getX() + dx;
+        int newY = player.getY() + dy;
 
         // Checks if the new coordinates are within the boundary and if it is a pathway
         boolean isInBounds = isWithinBounds(newX, newY);

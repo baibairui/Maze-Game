@@ -32,9 +32,9 @@ public class RunViewV2 extends BorderPane implements IRunView {
     private final IMazeView mazeView;
     private final Label currentDifficulty;
     private final Button resetButton;
-    private Timeline hintTimeline = new Timeline();
     private final Button hintButton;
     private final IGameController gameController;
+    private Timeline hintTimeline = new Timeline();
 
     /**
      * Constructor to initialize the RunViewV2 components.

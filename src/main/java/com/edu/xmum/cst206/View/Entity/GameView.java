@@ -30,9 +30,29 @@ public class GameView extends BorderPane implements IGameView {
         return welcomeView;
     }
 
+    /**
+     * Sets the welcome view.
+     *
+     * @param welcomeView The welcome view to set.
+     */
+    @Override
+    public void setWelcomeView(IWelcomeView welcomeView) {
+        this.welcomeView = welcomeView;
+    }
+
     @Override
     public ISelectionView getSelectionView() {
         return selectionView;
+    }
+
+    /**
+     * Sets the selection view.
+     *
+     * @param selectionView The selection view to set.
+     */
+    @Override
+    public void setSelectionView(ISelectionView selectionView) {
+        this.selectionView = selectionView;
     }
 
     @Override
@@ -40,14 +60,44 @@ public class GameView extends BorderPane implements IGameView {
         return prepareView;
     }
 
+    /**
+     * Sets the prepare view.
+     *
+     * @param prepareView The prepare view to set.
+     */
+    @Override
+    public void setPrepareView(IPrepareView prepareView) {
+        this.prepareView = prepareView;
+    }
+
     @Override
     public IRunView getRunView() {
         return runView;
     }
 
+    /**
+     * Sets the run view.
+     *
+     * @param runView The run view to set.
+     */
+    @Override
+    public void setRunView(IRunView runView) {
+        this.runView = runView;
+    }
+
     @Override
     public IVictoryView getVictoryView() {
         return victoryView;
+    }
+
+    /**
+     * Sets the victory view.
+     *
+     * @param victoryView The victory view to set.
+     */
+    @Override
+    public void setVictoryView(IVictoryView victoryView) {
+        this.victoryView = victoryView;
     }
 
     @Override
@@ -93,55 +143,5 @@ public class GameView extends BorderPane implements IGameView {
     @Override
     public void showFailView() {
         setCenter(failView.getNode());
-    }
-
-    /**
-     * Sets the welcome view.
-     *
-     * @param welcomeView The welcome view to set.
-     */
-    @Override
-    public void setWelcomeView(IWelcomeView welcomeView) {
-        this.welcomeView = welcomeView;
-    }
-
-    /**
-     * Sets the selection view.
-     *
-     * @param selectionView The selection view to set.
-     */
-    @Override
-    public void setSelectionView(ISelectionView selectionView) {
-        this.selectionView = selectionView;
-    }
-
-    /**
-     * Sets the prepare view.
-     *
-     * @param prepareView The prepare view to set.
-     */
-    @Override
-    public void setPrepareView(IPrepareView prepareView) {
-        this.prepareView = prepareView;
-    }
-
-    /**
-     * Sets the run view.
-     *
-     * @param runView The run view to set.
-     */
-    @Override
-    public void setRunView(IRunView runView) {
-        this.runView = runView;
-    }
-
-    /**
-     * Sets the victory view.
-     *
-     * @param victoryView The victory view to set.
-     */
-    @Override
-    public void setVictoryView(IVictoryView victoryView) {
-        this.victoryView = victoryView;
     }
 }

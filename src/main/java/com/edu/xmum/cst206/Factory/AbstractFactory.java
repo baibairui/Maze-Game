@@ -15,7 +15,8 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the maze view.
-     * @param maze Skin enumeration.
+     *
+     * @param maze      Skin enumeration.
      * @param mazeModel Maze model.
      * @return Maze view.
      */
@@ -25,7 +26,8 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the player view.
-     * @param player Skin enumeration.
+     *
+     * @param player      Skin enumeration.
      * @param playerModel Player model.
      * @return Player view.
      */
@@ -35,6 +37,7 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the prepare view.
+     *
      * @param prepareView Skin enumeration.
      * @return Prepare view.
      */
@@ -44,7 +47,8 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the run view.
-     * @param runView Skin enumeration.
+     *
+     * @param runView        Skin enumeration.
      * @param gameController Game controller.
      * @return Run view.
      */
@@ -54,6 +58,7 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the selection view.
+     *
      * @param selectionView Skin enumeration.
      * @return Selection view.
      */
@@ -63,6 +68,7 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the victory view.
+     *
      * @param victoryView Skin enumeration.
      * @return Victory view.
      */
@@ -72,6 +78,7 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the welcome view.
+     *
      * @param welcomeView Skin enumeration.
      * @return Welcome view.
      */
@@ -81,6 +88,7 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the game model.
+     *
      * @param playerModel Skin enumeration.
      * @return Game model.
      */
@@ -90,8 +98,9 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the game service.
+     *
      * @param gameService Skin enumeration.
-     * @param gameModel Game model.
+     * @param gameModel   Game model.
      * @return Game service.
      */
     public IGameService getGameService(Skin gameService, IGameModel gameModel) {
@@ -100,8 +109,9 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the game controller.
+     *
      * @param gameController Skin enumeration.
-     * @param gameService Game service.
+     * @param gameService    Game service.
      * @return Game controller.
      */
     public IGameController getGameController(Skin gameController, IGameService gameService) {
@@ -110,6 +120,7 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the maze model.
+     *
      * @param maze Maze identifier.
      * @return Maze model.
      */
@@ -119,7 +130,8 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the player model.
-     * @param player Player identifier.
+     *
+     * @param player    Player identifier.
      * @param mazeModel Maze model.
      * @return Player model.
      */
@@ -129,7 +141,8 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the player service.
-     * @param vision Vision identifier.
+     *
+     * @param vision      Vision identifier.
      * @param playerModel Player model.
      * @param mazeService Maze service.
      * @return Player service.
@@ -140,7 +153,8 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the maze service.
-     * @param vision Vision identifier.
+     *
+     * @param vision    Vision identifier.
      * @param mazeModel Maze model.
      * @return Maze service.
      */
@@ -150,10 +164,11 @@ public abstract class AbstractFactory {
 
     /**
      * Abstract method to get the AI service.
-     * @param vision Vision identifier.
+     *
+     * @param vision      Vision identifier.
      * @param mazeService Maze service.
      * @param playerModel Player model.
-     * @param aiModel AI model.
+     * @param aiModel     AI model.
      * @return AI service.
      */
     public IAiService getAiService(String vision, IMazeService mazeService, IPlayerModel playerModel, IPlayerModel aiModel) {

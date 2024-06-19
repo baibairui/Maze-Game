@@ -1,6 +1,5 @@
 package com.edu.xmum.cst206.View.Entity;
 
-import com.edu.xmum.cst206.Factory.FactoryProducer;
 import com.edu.xmum.cst206.View.Interface.ISkinSelectionView;
 import com.edu.xmum.cst206.View.Styler.SkinSelectionViewStyler;
 import javafx.scene.control.Button;
@@ -21,11 +20,6 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
     private final Label label = new Label("Choose your Game Mode!");
 
 
-    public static void LabelStyle(Label label) {
-        label.setFont(Font.font("Arial", FontWeight.BOLD, 20)); // 修改字体大小
-        label.setTextFill(Color.DARKBLUE);
-        label.setStyle("-fx-padding: 10px;"); // 可选：增加内边距
-    }
     /**
      * Constructor to initialize the SkinSelectionView components.
      */
@@ -50,11 +44,16 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
         buttons.add(button2);
 
 
-
         // Add components to the VBox
         getChildren().add(label);
         getChildren().addAll(buttons);
 
+    }
+
+    public static void LabelStyle(Label label) {
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 20)); // 修改字体大小
+        label.setTextFill(Color.DARKBLUE);
+        label.setStyle("-fx-padding: 10px;"); // 可选：增加内边距
     }
 
     /**

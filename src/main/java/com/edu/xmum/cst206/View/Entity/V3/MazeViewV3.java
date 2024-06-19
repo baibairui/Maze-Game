@@ -11,8 +11,8 @@ import javafx.scene.layout.Pane;
  * This class is responsible for displaying the maze with graphical representations of paths and walls.
  */
 public class MazeViewV3 extends Pane implements IMazeView {
-    private int cellSize;
     private final IMazeModel maze;
+    private int cellSize;
 
     /**
      * Constructor to initialize the MazeViewV3 components.
@@ -23,16 +23,6 @@ public class MazeViewV3 extends Pane implements IMazeView {
         super();
         this.maze = maze;
         this.cellSize = 20; // Default initialization is 20
-    }
-
-    /**
-     * Sets the size of each cell in the maze.
-     *
-     * @param cellSize The size of each cell.
-     */
-    @Override
-    public void setCellSize(int cellSize) {
-        this.cellSize = cellSize;
     }
 
     /**
@@ -81,6 +71,16 @@ public class MazeViewV3 extends Pane implements IMazeView {
      */
     public int getCellSize() {
         return this.cellSize;
+    }
+
+    /**
+     * Sets the size of each cell in the maze.
+     *
+     * @param cellSize The size of each cell.
+     */
+    @Override
+    public void setCellSize(int cellSize) {
+        this.cellSize = cellSize;
     }
 
     /**

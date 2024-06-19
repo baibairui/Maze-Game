@@ -5,6 +5,7 @@ import com.edu.xmum.cst206.Model.Interface.IPlayerModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+
 /**
  * Beautification of PlayerView based on Appearance Pattern Design.
  * Applies styles to the player view based on the selected skin.
@@ -62,4 +63,5 @@ public class PlayerViewStyler {
             }
         }
     }
+
 }

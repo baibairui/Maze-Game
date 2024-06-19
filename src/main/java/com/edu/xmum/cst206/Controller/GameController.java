@@ -56,6 +56,20 @@ public class GameController implements IGameController {
     }
 
     @Override
+    public String getDifficulty() {
+        // Get the current difficulty level
+        switch (Config.diff) {
+            case EASY:
+                return "Easy";
+            case MEDIUM:
+                return "Medium";
+            case HARD:
+                return "Hard";
+        }
+        return null;
+    }
+
+    @Override
     public void setDifficulty(String difficulty) {
         // Set the game difficulty
         switch (difficulty.toUpperCase()) {
@@ -73,20 +87,6 @@ public class GameController implements IGameController {
         }
         gameService.setDifficulty(Config.diff); // Apply the difficulty setting to the game service
         showPrepareView(); // Show the prepare view
-    }
-
-    @Override
-    public String getDifficulty() {
-        // Get the current difficulty level
-        switch (Config.diff) {
-            case EASY:
-                return "Easy";
-            case MEDIUM:
-                return "Medium";
-            case HARD:
-                return "Hard";
-        }
-        return null;
     }
 
     private void adjustCellSize() {
@@ -185,17 +185,6 @@ public class GameController implements IGameController {
     }
 
     @Override
-    public void setGameView(IGameView gameView) {
-        // Set the game view
-        this.gameView = gameView;
-        getGameView().setWelcomeView(FactoryProducer.getFactory("GameView").getWelcomeView(Config.skin));
-        gameView.getWelcomeView().getStartButton().setOnAction(actionEvent1 -> {
-            showSelectionView();
-        });
-        getGameView().showWelcomeView();
-    }
-
-    @Override
     public void startAiMovement() {
         // Start the AI movement logic
         if (aiTimeline != null) {
@@ -231,5 +220,16 @@ public class GameController implements IGameController {
 
     public IGameView getGameView() {
         return gameView;
+    }
+
+    @Override
+    public void setGameView(IGameView gameView) {
+        // Set the game view
+        this.gameView = gameView;
+        getGameView().setWelcomeView(FactoryProducer.getFactory("GameView").getWelcomeView(Config.skin));
+        gameView.getWelcomeView().getStartButton().setOnAction(actionEvent1 -> {
+            showSelectionView();
+        });
+        getGameView().showWelcomeView();
     }
 }

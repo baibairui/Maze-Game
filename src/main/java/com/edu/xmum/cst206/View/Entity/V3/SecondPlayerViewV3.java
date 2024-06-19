@@ -14,8 +14,8 @@ import javafx.scene.layout.Pane;
  * based on the chosen skin and direction.
  */
 public class SecondPlayerViewV3 extends Pane implements IPlayerView {
-    private int cellSize;
     private final IPlayerModel player;
+    private int cellSize;
     private Direction direction;
 
     /**

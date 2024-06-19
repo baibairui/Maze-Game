@@ -1,11 +1,9 @@
 package com.edu.xmum.cst206.View.Interface;
 
-import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Interface for RunView.

@@ -19,30 +19,13 @@ import java.util.Random;
  * - startX, startY: start position coordinates
  */
 public class MazeModel extends GameObject implements IMazeModel {
-    private int rows;
-    private int cols;
     private final int[][] maze;
-    private int goalX;
-    private int goalY;
     private final int startX;
     private final int startY;
-
-    /**
-     * Inner class representing an edge in the maze.
-     */
-    private static class Edge {
-        final int x1;
-        final int y1;
-        final int x2;
-        final int y2;
-
-        Edge(int x1, int y1, int x2, int y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-        }
-    }
+    private int rows;
+    private int cols;
+    private int goalX;
+    private int goalY;
 
     /**
      * Constructor to initialize the maze with the specified number of rows and columns.
@@ -130,23 +113,23 @@ public class MazeModel extends GameObject implements IMazeModel {
     }
 
     @Override
-    public int getCols() {
-        return cols;
-    }
-
-    @Override
-    public int[][] getMaze() {
-        return maze;
-    }
-
-    @Override
     public void setRows(int rows) {
         this.rows = rows;
     }
 
     @Override
+    public int getCols() {
+        return cols;
+    }
+
+    @Override
     public void setCols(int cols) {
         this.cols = cols;
+    }
+
+    @Override
+    public int[][] getMaze() {
+        return maze;
     }
 
     @Override
@@ -167,5 +150,22 @@ public class MazeModel extends GameObject implements IMazeModel {
     @Override
     public int getStartY() {
         return startY;
+    }
+
+    /**
+     * Inner class representing an edge in the maze.
+     */
+    private static class Edge {
+        final int x1;
+        final int y1;
+        final int x2;
+        final int y2;
+
+        Edge(int x1, int y1, int x2, int y2) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
+        }
     }
 }

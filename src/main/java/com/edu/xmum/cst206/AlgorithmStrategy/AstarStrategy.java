@@ -12,75 +12,6 @@ import java.util.*;
 public class AstarStrategy implements IFindPathStrategy {
 
     /**
-     * Inner class representing a node in the A* algorithm.
-     */
-    public static class Node implements Comparable<Node> {
-        final int x;
-        final int y; // Coordinate
-        final int g; // The cost of moving from the starting point to the current coordinates
-        final int h; // The estimated cost of moving to the target point, the heuristic function
-
-        /**
-         * Constructor to initialize a node.
-         *
-         * @param x The x-coordinate of the node.
-         * @param y The y-coordinate of the node.
-         * @param g The cost from the start to this node.
-         * @param h The estimated cost from this node to the goal.
-         */
-        public Node(int x, int y, int g, int h) {
-            this.x = x;
-            this.y = y;
-            this.g = g;
-            this.h = h;
-        }
-
-        /**
-         * Calculates the f value (total cost) for this node.
-         *
-         * @return The total cost.
-         */
-        int f() {
-            return g + h;
-        }
-
-        /**
-         * Compares this node to another node based on their f values.
-         *
-         * @param o The other node to compare to.
-         * @return The comparison result.
-         */
-        @Override
-        public int compareTo(@NotNull Node o) {
-            return Integer.compare(this.f(), o.f());
-        }
-
-        /**
-         * Checks if this node is equal to another object.
-         *
-         * @param o The object to compare to.
-         * @return True if the objects are equal, false otherwise.
-         */
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Node node = (Node) o;
-            return x == node.x && y == node.y;
-        }
-
-        /**
-         * Generates a hash code for this node.
-         *
-         * @return The hash code.
-         */
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
-    }
-
-    /**
      * Finds a path using the A* algorithm.
      *
      * @param mazeModel The maze model containing the maze structure.
@@ -162,5 +93,74 @@ public class AstarStrategy implements IFindPathStrategy {
         }
         Collections.reverse(path);
         return path;
+    }
+
+    /**
+     * Inner class representing a node in the A* algorithm.
+     */
+    public static class Node implements Comparable<Node> {
+        final int x;
+        final int y; // Coordinate
+        final int g; // The cost of moving from the starting point to the current coordinates
+        final int h; // The estimated cost of moving to the target point, the heuristic function
+
+        /**
+         * Constructor to initialize a node.
+         *
+         * @param x The x-coordinate of the node.
+         * @param y The y-coordinate of the node.
+         * @param g The cost from the start to this node.
+         * @param h The estimated cost from this node to the goal.
+         */
+        public Node(int x, int y, int g, int h) {
+            this.x = x;
+            this.y = y;
+            this.g = g;
+            this.h = h;
+        }
+
+        /**
+         * Calculates the f value (total cost) for this node.
+         *
+         * @return The total cost.
+         */
+        int f() {
+            return g + h;
+        }
+
+        /**
+         * Compares this node to another node based on their f values.
+         *
+         * @param o The other node to compare to.
+         * @return The comparison result.
+         */
+        @Override
+        public int compareTo(@NotNull Node o) {
+            return Integer.compare(this.f(), o.f());
+        }
+
+        /**
+         * Checks if this node is equal to another object.
+         *
+         * @param o The object to compare to.
+         * @return True if the objects are equal, false otherwise.
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node node = (Node) o;
+            return x == node.x && y == node.y;
+        }
+
+        /**
+         * Generates a hash code for this node.
+         *
+         * @return The hash code.
+         */
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
     }
 }
