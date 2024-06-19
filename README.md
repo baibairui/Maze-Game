@@ -6,7 +6,7 @@
 
 **具体API说明请见**
 
-[JavaDoc](https://github.com/baibairui/CST210-Game/blob/master/JavaDoc/index.html)
+[JavaDoc](htmlpreview.github.io/?https://github.com/baibairui/CST210-Game/blob/master/JavaDoc/index.html)
 
 
 ## 设计模式
