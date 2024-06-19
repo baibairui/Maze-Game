@@ -6,6 +6,9 @@ import com.edu.xmum.cst206.View.Styler.SkinSelectionViewStyler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 
@@ -15,8 +18,14 @@ import java.util.ArrayList;
  */
 public class SkinSelectionView extends VBox implements ISkinSelectionView {
     private final ArrayList<Button> buttons = new ArrayList<>();
-    private final Label label = new Label("Choose your skin!");
+    private final Label label = new Label("Choose your Game Mode!");
 
+
+    public static void LabelStyle(Label label) {
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 20)); // 修改字体大小
+        label.setTextFill(Color.DARKBLUE);
+        label.setStyle("-fx-padding: 10px;"); // 可选：增加内边距
+    }
     /**
      * Constructor to initialize the SkinSelectionView components.
      */
@@ -32,11 +41,11 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
         SkinSelectionViewStyler.ButtonStyle(button);
         buttons.add(button);
 
-        Button button1 = new Button("pursuit mode");
+        Button button1 = new Button("Pursuit mode");
         SkinSelectionViewStyler.ButtonStyle(button1);
         buttons.add(button1);
 
-        Button button2 = new Button("two players mode");
+        Button button2 = new Button("Two players mode");
         SkinSelectionViewStyler.ButtonStyle(button2);
         buttons.add(button2);
 
