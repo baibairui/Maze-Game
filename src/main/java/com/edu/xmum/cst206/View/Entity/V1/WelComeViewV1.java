@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
  */
 public class WelComeViewV1 extends VBox implements IWelcomeView {
     private final Button startButton = new Button("Start game");
-    private final Label titleLabel = new Label("Welcome to Labyrinth Games");
+    private final Label titleLabel = new Label("Welcome to Maze Games");
 
     /**
      * Constructor to initialize the WelComeViewV1 components.

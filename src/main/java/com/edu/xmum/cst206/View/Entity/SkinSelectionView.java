@@ -28,11 +28,19 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
 
 
         // Add buttons for each available skin
-        for (int i = 0; i < FactoryProducer.getSkinSize(); i++) {
-            Button button = new Button("V" + (i + 1));
-            SkinSelectionViewStyler.ButtonStyle(button);
-            buttons.add(button);
-        }
+        Button button = new Button("Single player Mode");
+        SkinSelectionViewStyler.ButtonStyle(button);
+        buttons.add(button);
+
+        Button button1 = new Button("pursuit mode");
+        SkinSelectionViewStyler.ButtonStyle(button1);
+        buttons.add(button1);
+
+        Button button2 = new Button("two players mode");
+        SkinSelectionViewStyler.ButtonStyle(button2);
+        buttons.add(button2);
+
+
 
         // Add components to the VBox
         getChildren().add(label);
