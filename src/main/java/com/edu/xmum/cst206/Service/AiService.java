@@ -13,7 +13,7 @@ import java.util.List;
  * Implementation of the IAiService interface.
  * Provides methods to handle AI-related logic within the maze.
  */
-public class AiService implements IAiService {
+public class  AiService implements IAiService {
     private final IMazeService mazeService;
     private final IPlayerModel player;
     private final IPlayerModel ai;

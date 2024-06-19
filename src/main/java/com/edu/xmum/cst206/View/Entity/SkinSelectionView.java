@@ -35,11 +35,11 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
         SkinSelectionViewStyler.ButtonStyle(button);
         buttons.add(button);
 
-        Button button1 = new Button("Pursuit mode");
+        Button button1 = new Button("Chase mode");
         SkinSelectionViewStyler.ButtonStyle(button1);
         buttons.add(button1);
 
-        Button button2 = new Button("Two players mode");
+        Button button2 = new Button("Two-player mode");
         SkinSelectionViewStyler.ButtonStyle(button2);
         buttons.add(button2);
 
@@ -51,9 +51,9 @@ public class SkinSelectionView extends VBox implements ISkinSelectionView {
     }
 
     public static void LabelStyle(Label label) {
-        label.setFont(Font.font("Arial", FontWeight.BOLD, 20)); // 修改字体大小
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         label.setTextFill(Color.DARKBLUE);
-        label.setStyle("-fx-padding: 10px;"); // 可选：增加内边距
+        label.setStyle("-fx-padding: 10px;");
     }
 
     /**
