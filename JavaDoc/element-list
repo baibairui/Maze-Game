@@ -1,0 +1,16 @@
+com.edu.xmum.cst206
+com.edu.xmum.cst206.AlgorithmStrategy
+com.edu.xmum.cst206.Controller
+com.edu.xmum.cst206.Factory
+com.edu.xmum.cst206.Model.AbstractClass
+com.edu.xmum.cst206.Model.Entity
+com.edu.xmum.cst206.Model.Interface
+com.edu.xmum.cst206.Service
+com.edu.xmum.cst206.Service.Interface
+com.edu.xmum.cst206.View.Entity
+com.edu.xmum.cst206.View.Entity.V1
+com.edu.xmum.cst206.View.Entity.V2
+com.edu.xmum.cst206.View.Entity.V3
+com.edu.xmum.cst206.View.Interface
+com.edu.xmum.cst206.View.Styler
+Constant
