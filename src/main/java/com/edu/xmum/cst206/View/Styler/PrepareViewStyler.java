@@ -35,7 +35,7 @@ public class PrepareViewStyler {
                 vBox.setPadding(new Insets(40));
                 vBox.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
 
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/植物背景3.gif");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/zombie3.gif");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,
@@ -50,7 +50,7 @@ public class PrepareViewStyler {
                 vBox.setSpacing(20);
                 vBox.setPadding(new Insets(40));
                 vBox.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/迷宫1.gif");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/maze3.gif");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,
@@ -65,7 +65,7 @@ public class PrepareViewStyler {
                 vBox.setSpacing(20);
                 vBox.setPadding(new Insets(40));
                 vBox.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/小黄人2.gif");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/pikachu3.gif");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,

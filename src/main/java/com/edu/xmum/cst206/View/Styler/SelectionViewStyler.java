@@ -36,7 +36,7 @@ public class SelectionViewStyler {
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
 
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/Dave.jpg");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/zombie2.jpg");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,
@@ -52,7 +52,7 @@ public class SelectionViewStyler {
                 box.setPadding(new Insets(40));
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(10), Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #32CD32; -fx-border-width: 2px; -fx-border-radius: 10;");
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/迷宫3.gif");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/maze2.gif");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,
@@ -68,7 +68,7 @@ public class SelectionViewStyler {
                 box.setPadding(new Insets(40));
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, new CornerRadii(10), Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #FF69B4; -fx-border-width: 2px; -fx-border-radius: 10;");
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/皮卡丘4.jpg");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/pikachu2.jpg");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,

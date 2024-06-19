@@ -26,7 +26,7 @@ public class PlayerViewStyler {
         switch (skin) {
             // Setting up V1 player skins
             case V1 -> {
-                Image playImg = new Image("com/edu/xmum/cst206/player/豌豆" + playerDir + ".gif");
+                Image playImg = new Image("com/edu/xmum/cst206/player/PeaShooter" + playerDir + ".gif");
                 playerView.setImage(playImg);
                 playerView.setFitHeight(cellSize);
                 playerView.setFitWidth(cellSize);
@@ -35,7 +35,7 @@ public class PlayerViewStyler {
             }
             // Setting up the player skin for V2
             case V2 -> {
-                Image playImg = new Image("com/edu/xmum/cst206/player/hhh.gif");
+                Image playImg = new Image("com/edu/xmum/cst206/player/happyFace.gif");
                 playerView.setImage(playImg);
                 playerView.setFitHeight(cellSize);
                 playerView.setFitWidth(cellSize);
@@ -44,7 +44,7 @@ public class PlayerViewStyler {
             }
             // Setting up V3 player skins
             case V3 -> {
-                Image playImg = new Image("com/edu/xmum/cst206/player/皮卡丘" + playerDir + ".gif");
+                Image playImg = new Image("com/edu/xmum/cst206/player/Pikachu" + playerDir + ".gif");
                 playerView.setImage(playImg);
                 playerView.setFitHeight(cellSize);
                 playerView.setFitWidth(cellSize);
@@ -54,7 +54,7 @@ public class PlayerViewStyler {
             // Setting up Vs player skins
             case Vs -> {
                 // Tentatively designed as a pea
-                Image playImg = new Image("com/edu/xmum/cst206/player/小黄人" + playerDir + ".gif");
+                Image playImg = new Image("com/edu/xmum/cst206/player/Minions" + playerDir + ".gif");
                 playerView.setImage(playImg);
                 playerView.setFitHeight(cellSize);
                 playerView.setFitWidth(cellSize);

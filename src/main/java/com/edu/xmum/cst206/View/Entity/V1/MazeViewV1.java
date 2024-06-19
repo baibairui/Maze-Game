@@ -42,8 +42,8 @@ public class MazeViewV1 extends Pane implements IMazeView {
      */
     @Override
     public void draw() {
-        Image pathImage = new Image("com/edu/xmum/cst206/maze/草.gif");
-        Image wallImage = new Image("com/edu/xmum/cst206/maze/墙.gif");
+        Image pathImage = new Image("com/edu/xmum/cst206/maze/path1.gif");
+        Image wallImage = new Image("com/edu/xmum/cst206/maze/wall1.gif");
 
         // Clearing previous drawings
         getChildren().clear();

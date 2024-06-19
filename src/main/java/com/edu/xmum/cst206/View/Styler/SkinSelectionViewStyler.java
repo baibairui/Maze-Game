@@ -30,7 +30,7 @@ public class SkinSelectionViewStyler {
         skinSelectionView.setStyle("-fx-border-color: #666; -fx-border-width: 2px; -fx-border-radius: 10;"); // 设置边框样式
 
         // 加载背景图像
-        Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/首页背景.gif");
+        Image backgroundImage = new Image("/com/edu/xmum/cst206/background/mazeBackgroud.gif");
 
         // 创建背景图像对象
         BackgroundImage bgImage = new BackgroundImage(

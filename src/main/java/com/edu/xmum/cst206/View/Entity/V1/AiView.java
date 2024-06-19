@@ -32,7 +32,7 @@ public class AiView extends Pane implements IPlayerView {
      */
     @Override
     public void draw() {
-        Image playImg = new Image("com/edu/xmum/cst206/player/僵尸4.gif");
+        Image playImg = new Image("com/edu/xmum/cst206/player/zombie.gif");
         ImageView playerView = new ImageView(playImg);
         playerView.setFitHeight(cellSize);
         playerView.setFitWidth(cellSize); // Set the width instead of the height again

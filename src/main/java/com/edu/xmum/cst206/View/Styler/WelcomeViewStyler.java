@@ -36,7 +36,7 @@ public class WelcomeViewStyler {
                 box.setPadding(new Insets(40));
                 box.setStyle("-fx-border-color: #0073e6; -fx-border-width: 2px; -fx-border-radius: 10;");
 
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/僵尸背景1.gif");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/zombie1.gif");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,
@@ -52,7 +52,7 @@ public class WelcomeViewStyler {
                 box.setPadding(new Insets(40));
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #32CD32; -fx-border-width: 2px; -fx-border-radius: 10;");
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/迷宫2.png");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/maze1.png");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,
@@ -68,7 +68,7 @@ public class WelcomeViewStyler {
                 box.setPadding(new Insets(40));
                 box.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
                 box.setStyle("-fx-border-color: #FF69B4; -fx-border-width: 2px; -fx-border-radius: 10;");
-                Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/皮卡丘2.gif");
+                Image backgroundImage = new Image("/com/edu/xmum/cst206/background/pikachu1.gif");
                 BackgroundImage bgImage = new BackgroundImage(
                         backgroundImage,
                         BackgroundRepeat.NO_REPEAT,

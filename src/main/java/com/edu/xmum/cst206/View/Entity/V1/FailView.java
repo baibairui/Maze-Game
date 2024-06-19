@@ -29,7 +29,7 @@ public class FailView implements IFailView {
         root = new VBox(20);
         root.setAlignment(Pos.BOTTOM_CENTER);
 
-        Image backgroundImage = new Image("/com/edu/xmum/cst206/带背景动图/zombies.png");
+        Image backgroundImage = new Image("/com/edu/xmum/cst206/background/zombie5.png");
         BackgroundImage bgImage = new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT,
