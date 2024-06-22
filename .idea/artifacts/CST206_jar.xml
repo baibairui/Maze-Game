@@ -2,7 +2,7 @@
   <artifact type="jar" name="CST206:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/CST206_jar</output-path>
     <root id="archive" name="CST206.jar">
-      <element id="module-output" name="CST206" />
+      <element id="module-output" name="CST210" />
       <element id="extracted-dir" path="D:/apache-maven-3.9.6/mvn_respon/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="D:/apache-maven-3.9.6/mvn_respon/com/gluonhq/attach/audio/4.0.17/audio-4.0.17.jar" path-in-jar="/" />
       <element id="extracted-dir" path="D:/apache-maven-3.9.6/mvn_respon/org/openjfx/javafx-graphics/17.0.6/javafx-graphics-17.0.6-win.jar" path-in-jar="/" />

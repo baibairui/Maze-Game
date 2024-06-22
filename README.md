@@ -86,9 +86,9 @@
 用于ai追踪玩家，效率比dfs高
 
 ```java
-package com.edu.xmum.cst206.AlgorithmStrategy;
+package com.edu.xmum.CST210.AlgorithmStrategy;
 
-import com.edu.xmum.cst206.Model.Interface.IMazeModel;
+import com.edu.xmum.CST210.Model.Interface.IMazeModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -260,9 +260,9 @@ public class AstarStrategy implements IFindPathStrategy {
 用于给玩家提示路径
 
 ```java
-package com.edu.xmum.cst206.AlgorithmStrategy;
+package com.edu.xmum.CST210.AlgorithmStrategy;
 
-import com.edu.xmum.cst206.Model.Interface.IMazeModel;
+import com.edu.xmum.CST210.Model.Interface.IMazeModel;
 
 import java.util.List;
 
@@ -414,8 +414,9 @@ public abstract class GameObject {
 **Player**
 
 **接口设计**
+
 ```java
-package com.edu.xmum.cst206.Model.Interface;
+package com.edu.xmum.CST210.Model.Interface;
 
 /**
  * Interface for PlayerModel.
@@ -476,8 +477,9 @@ public interface IPlayerModel {
 这里我们使用一个二维数组来表示这个迷宫并设计可以通过前端的来选择这个迷宫类的行数和列数。
 
 **接口设计**
+
 ```java
-package com.edu.xmum.cst206.Model.Interface;
+package com.edu.xmum.CST210.Model.Interface;
 
 /**
  * Interface for MazeModel.
@@ -910,8 +912,9 @@ public interface IWelcomeView {
 ![img_1.png](assets/img_1.png)
 
 **接口设计**
+
 ```java
-package com.edu.xmum.cst206.View.Interface;
+package com.edu.xmum.CST210.View.Interface;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -955,7 +958,7 @@ public interface ISelectionView {
 ### 5.4 PrepareView
 
 **PrepareView** 负责游戏准备页面的设计，使用**VBox**作为布局容器自上而下的布局。
-![img.png](img.png)
+![img.png](begin .png)
 **接口设计**
 ```java
 /**
@@ -988,15 +991,14 @@ public interface IPrepareView {
 ![img_2.png](assets/img_2.png)
 
 **接口设计**
-```java
-package com.edu.xmum.cst206.View.Interface;
 
-import javafx.animation.Timeline;
+```java
+package com.edu.xmum.CST210.View.Interface;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Interface for RunView.
@@ -1079,8 +1081,9 @@ public interface IRunView {
 ![img_3.png](assets/img_3.png)
 
 **接口设计**
+
 ```java
-package com.edu.xmum.cst206.View.Interface;
+package com.edu.xmum.CST210.View.Interface;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -1147,7 +1150,7 @@ public interface IFailView {
 **以 PrepareViewStyler 为例子，这个类就是模拟了CSS，View层的布局就是在模拟Html**
 
 ```java
-package com.edu.xmum.cst206.View.Styler;
+package com.edu.xmum.CST210.View.Styler;
 
 import Constant.Skin;
 import javafx.animation.ScaleTransition;
