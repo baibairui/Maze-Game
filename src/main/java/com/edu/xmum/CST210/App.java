@@ -78,4 +78,7 @@ public class App extends Application {
         // Dependency injection
         gameController.setGameView(gameView);
     }
+    public static void main(String[] args){
+        launch();
+    }
 }
