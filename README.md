@@ -1,4 +1,4 @@
-# Maze Game (CST206)
+# Maze Game
 
 ## 简介
 
