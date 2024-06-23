@@ -1,11 +1,9 @@
 package com.edu.xmum.CST210.Webserver;
 
-import Constant.Config;
 import com.edu.xmum.CST210.Controller.IGameController;
+import com.edu.xmum.CST210.Model.Interface.IGameModel;
 import com.edu.xmum.CST210.Service.Interface.IGameService;
 import com.edu.xmum.CST210.View.Interface.IGameView;
-import com.edu.xmum.CST210.Model.Interface.IGameModel;
-import com.edu.xmum.CST210.Factory.FactoryProducer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -25,7 +23,6 @@ public class GameClient extends Application {
     private static IGameController gameController;
     private static IGameService gameService;
     private static IGameModel gameModel;
-    private static GameState gameState;
 
     public static void setGameView(IGameView gameView) {
         GameClient.gameView = gameView;
@@ -69,7 +66,11 @@ public class GameClient extends Application {
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
-                String message;
+                String message = in.readLine();
+                if (message.startsWith("INIT__")) {
+                    handleInit(message.split("__")[1]);
+                }
+
                 while ((message = in.readLine()) != null) {
                     System.out.println("Received: " + message);
                     if (message.startsWith("INIT__")) {
@@ -93,37 +94,42 @@ public class GameClient extends Application {
     }
 
     public static void send(String message) {
-        out.println(message);
+        if (out != null) {
+            out.println(message);
+        }
     }
 
     private void handleKeyPress(KeyEvent event) {
         String key = event.getText().toUpperCase();
         if ("WASD".contains(key) || "IJKL".contains(key)) {
             send("KEYPRESS__" + key);
+        } else {
+            System.out.println("Unknown key: " + key); // 未知键值，打印日志
         }
     }
 
     private static void handleInit(String initData) {
-        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameModel.fromString(initData);
-        gameState = new GameState(gameModel);
+        // 更新视图等
+        if (gameService != null) {
+            gameService.getMazeService().initializeMaze(initData);
+            gameView.getRunView().reSetView();
+        }
     }
 
     private static void handleUpdate(String update) {
+        // 处理接收到的更新消息，并更新游戏视图
         if (gameService != null) {
             gameService.getMazeService().initializeMaze(update);
-            javafx.application.Platform.runLater(() -> {
-                gameView.getRunView().reSetView();
-            });
+            gameView.getRunView().reSetView();
         }
     }
 
     private static void handleMazeData(String mazeData) {
+        // 处理接收到的迷宫数据
         if (gameService != null) {
             gameService.getMazeService().initializeMaze(mazeData);
-            javafx.application.Platform.runLater(() -> {
-                gameView.getRunView().reSetView();
-            });
+            gameView.getRunView().reSetView();
         }
     }
 
