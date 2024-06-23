@@ -1,5 +1,6 @@
 package com.edu.xmum.CST210.Model.Entity;
 
+import Constant.Direction;
 import com.edu.xmum.CST210.Model.AbstractClass.GameObject;
 import com.edu.xmum.CST210.Model.Interface.IMazeModel;
 import com.edu.xmum.CST210.Model.Interface.IPlayerModel;
@@ -65,5 +66,20 @@ public class AiModel extends GameObject implements IPlayerModel {
     public void setPosition(int x, int y) {
         setX(x);
         setY(y);
+    }
+
+    @Override
+    public void fromString(String data) {
+        return;
+    }
+
+    @Override
+    public Direction getDirection() {
+        return null;
+    }
+
+    @Override
+    public void setDirection(Direction direction) {
+
     }
 }

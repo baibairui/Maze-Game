@@ -63,4 +63,9 @@ public class GameModel implements IGameModel {
     public IPlayerModel getSecondPlayModel() {
         return null;
     }
+
+    @Override
+    public void fromString(String data) {
+        return;
+    }
 }

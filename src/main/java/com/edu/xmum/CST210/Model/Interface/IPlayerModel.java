@@ -1,5 +1,7 @@
 package com.edu.xmum.CST210.Model.Interface;
 
+import Constant.Direction;
+
 /**
  * Interface for PlayerModel.
  * Specifies the methods that should be unique to the PlayerModel.
@@ -51,4 +53,6 @@ public interface IPlayerModel {
     int getY();
     String toString();
     void fromString(String data);
+    Direction getDirection();
+    void setDirection(Direction direction);
 }
