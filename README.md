@@ -6,7 +6,7 @@
 
 **具体API说明请见**
 
-[JavaDoc](htmlpreview.github.io/JavaDoc/index.html)
+[JavaDoc](htmlpreview.github.io/?htmlpreview.github.io/JavaDoc/index.html)
 
 
 ## 设计模式
