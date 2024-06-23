@@ -78,7 +78,7 @@ public class App extends Application {
     private void initLayer() {
         // Initialization
         gameModel = GameClient.getGameModel();
-        gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
+        gameService = GameClient.getGameService();
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView();
 

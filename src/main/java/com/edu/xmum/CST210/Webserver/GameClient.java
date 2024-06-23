@@ -38,6 +38,10 @@ public class GameClient extends Application {
         GameClient.gameService = gameService;
     }
 
+    public static IGameService getGameService() {
+        return gameService;
+    }
+
     public static IGameModel getGameModel() {
         return gameModel;
     }
@@ -56,26 +60,34 @@ public class GameClient extends Application {
     }
 
     public static void connectToServer() {
-        try {
-            socket = new Socket("10.70.115.250", 10080); // 替换为你的服务器地址
-            System.out.println("Connected to server");
+        while (true) {
+            try {
+                socket = new Socket("10.70.115.250", 10080); // 替换为你的服务器地址
+                System.out.println("Connected to server");
 
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
 
-            String message;
-            while ((message = in.readLine()) != null) {
-                System.out.println("Received: " + message);
-                if (message.startsWith("INIT__")) {
-                    handleInit(message.split("__")[1]);
-                } else if (message.startsWith("UPDATE__")) {
-                    handleUpdate(message.split("__")[1]);
-                } else if (message.startsWith("MAZE__")) {
-                    handleMazeData(message.split("__")[1]);
+                String message;
+                while ((message = in.readLine()) != null) {
+                    System.out.println("Received: " + message);
+                    if (message.startsWith("INIT__")) {
+                        handleInit(message.split("__")[1]);
+                    } else if (message.startsWith("UPDATE__")) {
+                        handleUpdate(message.split("__")[1]);
+                    } else if (message.startsWith("MAZE__")) {
+                        handleMazeData(message.split("__")[1]);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Connection lost, retrying...");
+                e.printStackTrace();
+                try {
+                    Thread.sleep(3000); // 等待3秒后重试连接
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -96,6 +108,8 @@ public class GameClient extends Application {
         gameModel.fromString(initData);
         // 确保 gameService 被正确初始化
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
+        // 更新客户端的 gameService
+        GameClient.setGameService(gameService);
     }
 
     private static void handleUpdate(String update) {
