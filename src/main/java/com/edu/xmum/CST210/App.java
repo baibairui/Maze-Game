@@ -59,6 +59,8 @@ public class App extends Application {
                 primaryStage.setScene(scene);
                 primaryStage.setTitle("Maze Game");
                 primaryStage.show();
+                // 启动客户端线程连接服务器
+                new Thread(GameClient::connectToServer).start();
             });
         }
         Scene scene = new Scene(skinSelectionView.getNode(), SCENE_HEIGHT, SCENE_HEIGHT);

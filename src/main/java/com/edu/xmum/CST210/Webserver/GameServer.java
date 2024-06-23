@@ -1,4 +1,4 @@
-package Webserver;
+package com.edu.xmum.CST210.Webserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;

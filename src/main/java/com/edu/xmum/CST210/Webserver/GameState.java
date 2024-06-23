@@ -1,5 +1,5 @@
 // GameState.java
-package Webserver;
+package com.edu.xmum.CST210.Webserver;
 
 public class GameState {
     private static int player1X, player1Y;
@@ -7,10 +7,10 @@ public class GameState {
 
     static {
         // 初始化静态属性
-        player1X = 0;
-        player1Y = 0;
-        player2X = 10;
-        player2Y = 10;
+        player1X = 1;
+        player1Y = 1;
+        player2X = 1;
+        player2Y = 1;
     }
 
     public static void update(String keyCode) {
