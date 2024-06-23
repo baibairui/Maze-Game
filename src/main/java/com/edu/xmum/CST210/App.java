@@ -55,8 +55,8 @@ public class App extends Application {
                 // 启动客户端线程连接服务器并等待初始化数据
                 new Thread(() -> {
                     GameClient.connectToServer();
-                    initLayer();
                     javafx.application.Platform.runLater(() -> {
+                        initLayer();
                         // Setting up the main scene and displaying it
                         Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
                         primaryStage.setScene(scene);

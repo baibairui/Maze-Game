@@ -94,18 +94,24 @@ public class GameClient extends Application {
         // 处理接收到的初始化数据
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameModel.fromString(initData);
+        // 确保 gameService 被正确初始化
+        gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
     }
 
     private static void handleUpdate(String update) {
         // 处理接收到的更新消息，并更新游戏视图
-        gameService.getMazeService().initializeMaze(update);
-        gameView.getRunView().reSetView();
+        if (gameService != null) {
+            gameService.getMazeService().initializeMaze(update);
+            gameView.getRunView().reSetView();
+        }
     }
 
     private static void handleMazeData(String mazeData) {
         // 处理接收到的迷宫数据
-        gameService.getMazeService().initializeMaze(mazeData);
-        gameView.getRunView().reSetView();
+        if (gameService != null) {
+            gameService.getMazeService().initializeMaze(mazeData);
+            gameView.getRunView().reSetView();
+        }
     }
 
     public static void main(String[] args) {

@@ -49,7 +49,7 @@ public class GameServer {
             this.out = new PrintWriter(socket.getOutputStream(), true);
 
             // 发送初始化的迷宫数据
-            sendMazeData();
+            sendInitData();
         }
 
         public void run() {
@@ -57,35 +57,21 @@ public class GameServer {
                 String message;
                 while ((message = in.readLine()) != null) {
                     System.out.println("Received: " + message);
-                    if (message.startsWith("KEYPRESS__")) {
-                        handleKeyPress(message.split("__")[1]);
-                    }
+                    // 处理客户端发送的消息
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                clients.remove(this);
             }
         }
 
-        private void handleKeyPress(String keyCode) {
-            // 根据键盘输入更新游戏状态
-            gameState.update(keyCode);
-            GameServer.broadcastGameState(); // 广播更新后的游戏状态
+        private void sendInitData() {
+            // 发送初始化数据到客户端
+            out.println("INIT__" + gameState.getGameModel().toString());
         }
 
         public void sendGameState() {
-            out.println("UPDATE__" + gameState.toString()); // 将游戏状态转换为字符串发送
-        }
-
-        public void sendMazeData() {
-            // 发送初始化的迷宫数据
-            out.println("MAZE__" + gameState.toString()); // 假设 gameModel 有 toString 方法用于序列化
+            // 发送当前游戏状态到客户端
+            out.println("MAZE__" + gameState.getGameModel().getMazeModel().toString());
         }
     }
 }

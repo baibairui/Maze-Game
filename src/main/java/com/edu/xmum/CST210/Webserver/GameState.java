@@ -11,7 +11,9 @@ public class GameState {
     public GameState(IGameModel gameModel) {
         this.gameModel = gameModel;
     }
-
+    public IGameModel getGameModel(){
+        return  gameModel;
+    }
     // 根据键盘输入更新游戏状态
     public void update(String keyCode) {
         Direction direction = null;
