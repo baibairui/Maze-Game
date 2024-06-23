@@ -6,7 +6,7 @@
 
 **具体API说明请见**
 
-[JavaDoc](htmlpreview.github.io/?JavaDoc/index.html)
+[JavaDoc](https://baibairui.github.io/Maze-Game/index.html)
 
 
 ## 设计模式
