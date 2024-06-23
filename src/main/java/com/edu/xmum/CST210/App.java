@@ -21,9 +21,6 @@ import java.util.ArrayList;
 
 import static Constant.Config.*;
 
-/**
- * Main application class for the Maze Game.
- */
 public class App extends Application {
     private IGameController gameController;
     private IGameView gameView;
@@ -35,11 +32,6 @@ public class App extends Application {
         showSkinSelectionView(primaryStage);
     }
 
-    /**
-     * Displays the skin selection view where the user can choose a skin for the game.
-     *
-     * @param primaryStage The primary stage of the application.
-     */
     private void showSkinSelectionView(Stage primaryStage) {
         ISkinSelectionView skinSelectionView = new SkinSelectionView();
         ArrayList<Button> buttons = skinSelectionView.getButtons();
@@ -47,18 +39,12 @@ public class App extends Application {
             int finalI = i;
             buttons.get(i).setOnAction(actionEvent -> {
                 skin = Skin.valueOf("V" + (finalI + 1));
-                //Sequence Adjustment
                 if (skin.getSkin().equals("V1")) {
                     skin = Skin.V2;
                 } else if (skin.getSkin().equals("V2")) {
                     skin = Skin.V1;
                 }
-                initLayer();
-                // Setting up the main scene and displaying it
-                Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
-                primaryStage.setScene(scene);
-                primaryStage.setTitle("Maze Game");
-                primaryStage.show();
+                initLayer(primaryStage);
             });
         }
         Scene scene = new Scene(skinSelectionView.getNode(), SCENE_HEIGHT, SCENE_HEIGHT);
@@ -67,19 +53,22 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    /**
-     * Initializes the layers of the game (model, service, controller, view) based on the selected skin.
-     */
-    private void initLayer() {
-        // Initialization
+    private void initLayer(Stage primaryStage) {
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView();
 
-        // Dependency injection
         gameController.setGameView(gameView);
-        // Start the server
+
+        new Thread(() -> {
+            try {
+                GameServer.main(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         new Thread(() -> {
             try {
                 GameClient.main(null);
@@ -87,8 +76,14 @@ public class App extends Application {
                 e.printStackTrace();
             }
         }).start();
+
+        Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Maze Game");
+        primaryStage.show();
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         launch();
     }
 }

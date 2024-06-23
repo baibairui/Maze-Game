@@ -2,44 +2,67 @@ package com.edu.xmum.CST210.Webserver;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class GameServer {
-    public static void main(String[] args) {
-        int port = 12345; // 使用你的游戏端口
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("服务器已启动，等待客户端连接...");
-            while (true) {
-                Socket clientSocket = serverSocket.accept(); // 等待客户端连接
-                System.out.println("客户端已连接");
+    private static final int PORT = 10080;
+    private static Set<PrintWriter> clientWriters = new HashSet<>();
 
-                // 启动新线程处理客户端连接
-                new Thread(new ClientHandler(clientSocket)).start();
+    public static void main(String[] args) {
+        System.out.println("服务器启动...");
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            while (true) {
+                Socket socket = serverSocket.accept();
+                new Thread(new ClientHandler(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-}
 
-class ClientHandler implements Runnable {
-    private Socket clientSocket;
+    private static class ClientHandler implements Runnable {
+        private Socket socket;
+        private PrintWriter out;
 
-    public ClientHandler(Socket socket) {
-        this.clientSocket = socket;
-    }
+        public ClientHandler(Socket socket) {
+            this.socket = socket;
+        }
 
-    @Override
-    public void run() {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+        @Override
+        public void run() {
+            try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
+                synchronized (clientWriters) {
+                    clientWriters.add(out);
+                }
 
-            String message;
-            while ((message = in.readLine()) != null) {
-                System.out.println("收到客户端消息: " + message);
-                out.println("服务器响应: " + message);
+                String message;
+                while ((message = in.readLine()) != null) {
+                    broadcast(message);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (out != null) {
+                    synchronized (clientWriters) {
+                        clientWriters.remove(out);
+                    }
+                }
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+
+        private void broadcast(String message) {
+            synchronized (clientWriters) {
+                for (PrintWriter writer : clientWriters) {
+                    writer.println(message);
+                }
+            }
         }
     }
 }
