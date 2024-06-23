@@ -103,13 +103,7 @@ public class GameClient extends Application {
     }
 
     private static void handleInit(String initData) {
-        // 处理接收到的初始化数据
-        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameModel.fromString(initData);
-        // 确保 gameService 被正确初始化
-        gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
-        // 更新客户端的 gameService
-        GameClient.setGameService(gameService);
     }
 
     private static void handleUpdate(String update) {

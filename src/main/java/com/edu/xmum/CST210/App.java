@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static Constant.Config.*;
@@ -54,7 +55,6 @@ public class App extends Application {
                 }
                 // 启动客户端线程连接服务器并等待初始化数据
                 new Thread(() -> {
-                    GameClient.connectToServer();
                     javafx.application.Platform.runLater(() -> {
                         initLayer();
                         // Setting up the main scene and displaying it
@@ -63,6 +63,7 @@ public class App extends Application {
                         primaryStage.setTitle("Maze Game");
                         primaryStage.show();
                     });
+                    GameClient.connectToServer();
                 }).start();
             });
         }
@@ -77,8 +78,8 @@ public class App extends Application {
      */
     private void initLayer() {
         // Initialization
-        gameModel = GameClient.getGameModel();
-        gameService = GameClient.getGameService();
+        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(skin);
+        gameService = FactoryProducer.getFactory("GameService").getGameService(skin,gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView();
 
