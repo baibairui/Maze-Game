@@ -1,5 +1,5 @@
 // GameClient.java
-package Webserver;
+package com.edu.xmum.CST210.Webserver;
 
 import com.edu.xmum.CST210.Controller.IGameController;
 import com.edu.xmum.CST210.Service.Interface.IGameService;

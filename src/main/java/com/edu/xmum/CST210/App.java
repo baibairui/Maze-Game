@@ -2,7 +2,6 @@ package com.edu.xmum.CST210;
 
 import Constant.Config;
 import Constant.Skin;
-import Webserver.GameClient;
 import com.edu.xmum.CST210.Controller.IGameController;
 import com.edu.xmum.CST210.Factory.FactoryProducer;
 import com.edu.xmum.CST210.Model.Interface.IGameModel;
@@ -11,6 +10,7 @@ import com.edu.xmum.CST210.View.Entity.GameView;
 import com.edu.xmum.CST210.View.Entity.SkinSelectionView;
 import com.edu.xmum.CST210.View.Interface.IGameView;
 import com.edu.xmum.CST210.View.Interface.ISkinSelectionView;
+import com.edu.xmum.CST210.Webserver.GameClient;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
