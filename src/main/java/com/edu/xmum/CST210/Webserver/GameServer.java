@@ -1,56 +1,64 @@
 package com.edu.xmum.CST210.Webserver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public class GameServer {
     private static final int PORT = 10080;
-    private static ExecutorService executorService = Executors.newCachedThreadPool();
+    private static Set<PrintWriter> clientWriters = new HashSet<>();
 
     public static void main(String[] args) {
-        System.out.println("Server started, waiting for client connections...");
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+        System.out.println("The game server is running...");
+        try (ServerSocket listener = new ServerSocket(PORT)) {
             while (true) {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Client connected: " + clientSocket.getInetAddress());
-                executorService.execute(new ClientHandler(clientSocket));
+                new ClientHandler(listener.accept()).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static class ClientHandler implements Runnable {
-        private Socket clientSocket;
+    private static class ClientHandler extends Thread {
+        private Socket socket;
+        private PrintWriter out;
+        private BufferedReader in;
 
-        public ClientHandler(Socket clientSocket) {
-            this.clientSocket = clientSocket;
+        public ClientHandler(Socket socket) {
+            this.socket = socket;
         }
 
-        @Override
         public void run() {
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+            try {
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
+                synchronized (clientWriters) {
+                    clientWriters.add(out);
+                }
 
                 String message;
                 while ((message = in.readLine()) != null) {
                     System.out.println("Received: " + message);
-                    // 处理接收到的消息
+                    broadcast(message);
                 }
             } catch (IOException e) {
-                System.out.println("Connection with client lost: " + clientSocket.getInetAddress());
-                e.printStackTrace();
+                System.out.println("Connection error: " + e.getMessage());
             } finally {
                 try {
-                    clientSocket.close();
+                    socket.close();
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+                synchronized (clientWriters) {
+                    clientWriters.remove(out);
+                }
+            }
+        }
+
+        private void broadcast(String message) {
+            synchronized (clientWriters) {
+                for (PrintWriter writer : clientWriters) {
+                    writer.println(message);
                 }
             }
         }

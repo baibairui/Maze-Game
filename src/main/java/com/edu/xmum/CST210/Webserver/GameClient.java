@@ -72,7 +72,6 @@ public class GameClient extends Application {
                 String message;
                 while ((message = in.readLine()) != null) {
                     System.out.println("Received: " + message);
-                    handleInit(message.split("__")[1]);
                     if (message.startsWith("INIT__")) {
                         handleInit(message.split("__")[1]);
                     } else if (message.startsWith("UPDATE__")) {
@@ -101,12 +100,6 @@ public class GameClient extends Application {
         String key = event.getText().toUpperCase();
         if ("WASD".contains(key) || "IJKL".contains(key)) {
             send("KEYPRESS__" + key);
-            if (gameState != null) {
-                gameState.update(key);
-                javafx.application.Platform.runLater(() -> {
-                    gameView.getRunView().reSetView();
-                });
-            }
         }
     }
 
@@ -114,8 +107,6 @@ public class GameClient extends Application {
         gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameModel.fromString(initData);
         gameState = new GameState(gameModel);
-        // 确保 gameService 被正确初始化
-        gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
     }
 
     private static void handleUpdate(String update) {
