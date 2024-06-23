@@ -72,6 +72,7 @@ public class GameClient extends Application {
                 String message;
                 while ((message = in.readLine()) != null) {
                     System.out.println("Received: " + message);
+                    handleInit(message.split("__")[1]);
                     if (message.startsWith("INIT__")) {
                         handleInit(message.split("__")[1]);
                     } else if (message.startsWith("UPDATE__")) {
