@@ -31,4 +31,6 @@ public interface IGameModel {
      * @return The second player model, or null if not applicable.
      */
     IPlayerModel getSecondPlayModel();
+    String toString();
+    void fromString(String data);
 }

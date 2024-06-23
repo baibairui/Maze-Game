@@ -1,49 +1,68 @@
-// GameState.java
 package com.edu.xmum.CST210.Webserver;
 
-public class GameState {
-    private static int player1X, player1Y;
-    private static int player2X, player2Y;
+import com.edu.xmum.CST210.Model.Interface.IGameModel;
+import com.edu.xmum.CST210.Model.Interface.IMazeModel;
+import com.edu.xmum.CST210.Model.Interface.IPlayerModel;
+import Constant.Direction;
 
-    static {
-        // 初始化静态属性
-        player1X = 1;
-        player1Y = 1;
-        player2X = 1;
-        player2Y = 1;
+public class GameState {
+    private IGameModel gameModel;
+
+    public GameState(IGameModel gameModel) {
+        this.gameModel = gameModel;
     }
 
-    public static void update(String keyCode) {
-        switch (keyCode) {
+    // 根据键盘输入更新游戏状态
+    public void update(String keyCode) {
+        Direction direction = null;
+        boolean isPlayerOne = true;
+
+        switch (keyCode.toUpperCase()) {
             case "W":
-                player1Y -= 1;
+                direction = Direction.UP;
                 break;
             case "A":
-                player1X -= 1;
+                direction = Direction.LEFT;
                 break;
             case "S":
-                player1Y += 1;
+                direction = Direction.DOWN;
                 break;
             case "D":
-                player1X += 1;
+                direction = Direction.RIGHT;
                 break;
             case "I":
-                player2Y -= 1;
+                direction = Direction.UP;
+                isPlayerOne = false;
                 break;
             case "J":
-                player2X -= 1;
+                direction = Direction.LEFT;
+                isPlayerOne = false;
                 break;
             case "K":
-                player2Y += 1;
+                direction = Direction.DOWN;
+                isPlayerOne = false;
                 break;
             case "L":
-                player2X += 1;
+                direction = Direction.RIGHT;
+                isPlayerOne = false;
                 break;
+        }
+
+        if (isPlayerOne) {
+            gameModel.getPlayModel().move(direction.getDirectionX(),direction.getDirectionY());
+        } else {
+            gameModel.getSecondPlayModel().move(direction.getDirectionX(),direction.getDirectionY());
         }
     }
 
+    // 序列化游戏状态为字符串
     @Override
     public String toString() {
-        return player1X + "," + player1Y + "," + player2X + "," + player2Y;
+        return gameModel.toString();
+    }
+
+    // 从字符串反序列化游戏状态
+    public void fromString(String data) {
+        gameModel.fromString(data);
     }
 }

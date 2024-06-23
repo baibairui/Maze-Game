@@ -28,7 +28,6 @@ public class App extends Application {
     private IGameView gameView;
     private IGameService gameService;
     private IGameModel gameModel;
-    private static GameClient gameClient;
 
     @Override
     public void start(Stage primaryStage) {
@@ -47,7 +46,7 @@ public class App extends Application {
             int finalI = i;
             buttons.get(i).setOnAction(actionEvent -> {
                 skin = Skin.valueOf("V" + (finalI + 1));
-                //Sequence Adjustment
+                // Sequence Adjustment
                 if (skin.getSkin().equals("V1")) {
                     skin = Skin.V2;
                 } else if (skin.getSkin().equals("V2")) {
@@ -86,7 +85,8 @@ public class App extends Application {
         GameClient.setGameController(gameController);
         GameClient.setGameService(gameService);
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         launch();
     }
 }

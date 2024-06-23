@@ -67,4 +67,6 @@ public interface IMazeService {
      * @return The list of coordinate pairs representing the path.
      */
     List<int[]> getPath(int x, int y);
+
+    void initializeMaze(String mazeData);
 }

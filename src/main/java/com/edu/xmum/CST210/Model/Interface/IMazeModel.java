@@ -75,4 +75,6 @@ public interface IMazeModel {
      * Generates the maze using the randomized Prime's algorithm.
      */
     void generateMaze();
+
+    void fromString(String mazeData);
 }

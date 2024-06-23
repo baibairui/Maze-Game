@@ -91,6 +91,29 @@ public class MazeModel extends GameObject implements IMazeModel {
         }
     }
 
+    // 序列化迷宫数据为字符串
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int[] row : maze) {
+            for (int cell : row) {
+                sb.append(cell).append(",");
+            }
+            sb.append(";");
+        }
+        return sb.toString();
+    }
+    @Override
+    public void fromString(String mazeData) {
+        String[] rows = mazeData.split(";");
+        for (int i = 0; i < rows.length; i++) {
+            String[] cells = rows[i].split(",");
+            for (int j = 0; j < cells.length; j++) {
+                maze[i][j] = Integer.parseInt(cells[j]);
+            }
+        }
+    }
+
     /**
      * Adds candidate edges to the list for a given position in the maze.
      *

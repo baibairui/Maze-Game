@@ -1,4 +1,3 @@
-// GameClient.java
 package com.edu.xmum.CST210.Webserver;
 
 import com.edu.xmum.CST210.Controller.IGameController;
@@ -61,6 +60,8 @@ public class GameClient extends Application {
                 System.out.println("Received: " + message);
                 if (message.startsWith("UPDATE__")) {
                     handleUpdate(message.split("__")[1]);
+                } else if (message.startsWith("MAZE__")) {
+                    handleMazeData(message.split("__")[1]);
                 }
             }
         } catch (IOException e) {
@@ -80,18 +81,14 @@ public class GameClient extends Application {
     }
 
     private static void handleUpdate(String update) {
-        // 假设更新消息格式为 "UPDATE__player1X,player1Y,player2X,player2Y"
-        String[] positions = update.split(",");
-        int player1X = Integer.parseInt(positions[0]);
-        int player1Y = Integer.parseInt(positions[1]);
-        int player2X = Integer.parseInt(positions[2]);
-        int player2Y = Integer.parseInt(positions[3]);
+        // 处理接收到的更新消息，并更新游戏视图
+        gameService.getMazeService().initializeMaze(update);
+        gameView.getRunView().reSetView();
+    }
 
-        // 更新游戏模型
-        gameService.getPlayerService().getPlayer().setPosition(player1X,player1Y);
-        gameService.getSecondPlayerService().getPlayer().setPosition(player2X,player2Y);
-
-        // 更新游戏视图
+    private static void handleMazeData(String mazeData) {
+        // 处理接收到的迷宫数据
+        gameService.getMazeService().initializeMaze(mazeData);
         gameView.getRunView().reSetView();
     }
 

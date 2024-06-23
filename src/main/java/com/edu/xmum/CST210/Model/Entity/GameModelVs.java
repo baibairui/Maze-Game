@@ -63,4 +63,37 @@ public class GameModelVs implements IGameModel {
     public IPlayerModel getSecondPlayModel() {
         return secondPlayerModel;
     }
+
+    /**
+     * Serialize the game model to a string.
+     *
+     * @return The serialized game model.
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Maze:").append(mazeModel.toString()).append(";");
+        sb.append("Player:").append(playerModel.toString()).append(";");
+        sb.append("SecondPlayer:").append(secondPlayerModel.toString());
+        return sb.toString();
+    }
+
+    /**
+     * Deserialize the game model from a string.
+     *
+     * @param data The serialized game model data.
+     */
+    @Override
+    public void fromString(String data) {
+        String[] parts = data.split(";");
+        for (String part : parts) {
+            if (part.startsWith("Maze:")) {
+                mazeModel.fromString(part.substring(5));
+            } else if (part.startsWith("Player:")) {
+                playerModel.fromString(part.substring(7));
+            } else if (part.startsWith("SecondPlayer:")) {
+                secondPlayerModel.fromString(part.substring(13));
+            }
+        }
+    }
 }

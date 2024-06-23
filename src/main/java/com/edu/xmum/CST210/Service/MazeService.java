@@ -50,6 +50,12 @@ public class MazeService implements IMazeService {
         return hintPath;
     }
 
+    @Override
+    public void initializeMaze(String mazeData) {
+        maze.fromString(mazeData);
+    }
+
+
     /**
      * Checks if the player's move to the specified direction (dx, dy) is valid within the maze.
      *

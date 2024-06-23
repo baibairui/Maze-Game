@@ -49,4 +49,6 @@ public interface IPlayerModel {
      * @return The current y-coordinate.
      */
     int getY();
+    String toString();
+    void fromString(String data);
 }
