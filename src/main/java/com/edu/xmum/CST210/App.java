@@ -2,6 +2,7 @@ package com.edu.xmum.CST210;
 
 import Constant.Config;
 import Constant.Skin;
+import Webserver.GameClient;
 import com.edu.xmum.CST210.Controller.IGameController;
 import com.edu.xmum.CST210.Factory.FactoryProducer;
 import com.edu.xmum.CST210.Model.Interface.IGameModel;
@@ -27,6 +28,7 @@ public class App extends Application {
     private IGameView gameView;
     private IGameService gameService;
     private IGameModel gameModel;
+    private static GameClient gameClient;
 
     @Override
     public void start(Stage primaryStage) {
@@ -77,6 +79,10 @@ public class App extends Application {
 
         // Dependency injection
         gameController.setGameView(gameView);
+        // 设置客户端的视图、控制器和服务
+        GameClient.setGameView(gameView);
+        GameClient.setGameController(gameController);
+        GameClient.setGameService(gameService);
     }
     public static void main(String[] args){
         launch();

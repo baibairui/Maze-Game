@@ -3,6 +3,7 @@ package com.edu.xmum.CST210.Controller;
 import Constant.Config;
 import Constant.Difficulty;
 import Constant.Direction;
+import Webserver.GameClient;
 import com.edu.xmum.CST210.Factory.FactoryProducer;
 import com.edu.xmum.CST210.Service.Interface.IGameService;
 import com.edu.xmum.CST210.View.Entity.V1.FailView;
@@ -124,7 +125,11 @@ public class GameControllerVs implements IGameController {
             default:
                 throw new IllegalArgumentException("Unknown key: " + key);
         }
-
+        if (isPlayerOne) {
+            GameClient.send("KEYPRESS__" + key); // 发送按键到服务器
+        } else {
+            GameClient.send("KEYPRESS__" + key); // 发送按键到服务器
+        }
         if (isPlayerOne) {
             boolean reachedGoal = movePlayer(direction);
             gameView.getRunView().getPlayerView().setDirection(direction);
@@ -138,6 +143,7 @@ public class GameControllerVs implements IGameController {
                 showVictoryView("Player 2 ");
             }
         }
+
     }
 
     private boolean movePlayer(Direction direction) {
