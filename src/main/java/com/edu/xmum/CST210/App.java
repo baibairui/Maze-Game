@@ -52,14 +52,18 @@ public class App extends Application {
                 } else if (skin.getSkin().equals("V2")) {
                     skin = Skin.V1;
                 }
-                initLayer();
-                // Setting up the main scene and displaying it
-                Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
-                primaryStage.setScene(scene);
-                primaryStage.setTitle("Maze Game");
-                primaryStage.show();
-                // 启动客户端线程连接服务器
-                new Thread(GameClient::connectToServer).start();
+                // 启动客户端线程连接服务器并等待初始化数据
+                new Thread(() -> {
+                    GameClient.connectToServer();
+                    initLayer();
+                    javafx.application.Platform.runLater(() -> {
+                        // Setting up the main scene and displaying it
+                        Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
+                        primaryStage.setScene(scene);
+                        primaryStage.setTitle("Maze Game");
+                        primaryStage.show();
+                    });
+                }).start();
             });
         }
         Scene scene = new Scene(skinSelectionView.getNode(), SCENE_HEIGHT, SCENE_HEIGHT);
@@ -73,7 +77,7 @@ public class App extends Application {
      */
     private void initLayer() {
         // Initialization
-        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
+        gameModel = GameClient.getGameModel();
         gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
         gameView = new GameView();

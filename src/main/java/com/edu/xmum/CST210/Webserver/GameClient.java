@@ -1,8 +1,11 @@
 package com.edu.xmum.CST210.Webserver;
 
+import Constant.Config;
 import com.edu.xmum.CST210.Controller.IGameController;
 import com.edu.xmum.CST210.Service.Interface.IGameService;
 import com.edu.xmum.CST210.View.Interface.IGameView;
+import com.edu.xmum.CST210.Model.Interface.IGameModel;
+import com.edu.xmum.CST210.Factory.FactoryProducer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +24,7 @@ public class GameClient extends Application {
     private static IGameView gameView;
     private static IGameController gameController;
     private static IGameService gameService;
+    private static IGameModel gameModel;
 
     public static void setGameView(IGameView gameView) {
         GameClient.gameView = gameView;
@@ -32,6 +36,10 @@ public class GameClient extends Application {
 
     public static void setGameService(IGameService gameService) {
         GameClient.gameService = gameService;
+    }
+
+    public static IGameModel getGameModel() {
+        return gameModel;
     }
 
     @Override
@@ -58,7 +66,9 @@ public class GameClient extends Application {
             String message;
             while ((message = in.readLine()) != null) {
                 System.out.println("Received: " + message);
-                if (message.startsWith("UPDATE__")) {
+                if (message.startsWith("INIT__")) {
+                    handleInit(message.split("__")[1]);
+                } else if (message.startsWith("UPDATE__")) {
                     handleUpdate(message.split("__")[1]);
                 } else if (message.startsWith("MAZE__")) {
                     handleMazeData(message.split("__")[1]);
@@ -78,6 +88,12 @@ public class GameClient extends Application {
         if ("WASD".contains(key) || "IJKL".contains(key)) {
             send("KEYPRESS__" + key);
         }
+    }
+
+    private static void handleInit(String initData) {
+        // 处理接收到的初始化数据
+        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
+        gameModel.fromString(initData);
     }
 
     private static void handleUpdate(String update) {
