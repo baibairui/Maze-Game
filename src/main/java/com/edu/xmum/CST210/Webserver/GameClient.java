@@ -25,6 +25,7 @@ public class GameClient extends Application {
     private static IGameController gameController;
     private static IGameService gameService;
     private static IGameModel gameModel;
+    private static GameState gameState;
 
     public static void setGameView(IGameView gameView) {
         GameClient.gameView = gameView;
@@ -99,26 +100,38 @@ public class GameClient extends Application {
         String key = event.getText().toUpperCase();
         if ("WASD".contains(key) || "IJKL".contains(key)) {
             send("KEYPRESS__" + key);
+            if (gameState != null) {
+                gameState.update(key);
+                javafx.application.Platform.runLater(() -> {
+                    gameView.getRunView().reSetView();
+                });
+            }
         }
     }
 
     private static void handleInit(String initData) {
+        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         gameModel.fromString(initData);
+        gameState = new GameState(gameModel);
+        // 确保 gameService 被正确初始化
+        gameService = FactoryProducer.getFactory("GameService").getGameService(Config.skin, gameModel);
     }
 
     private static void handleUpdate(String update) {
-        // 处理接收到的更新消息，并更新游戏视图
         if (gameService != null) {
             gameService.getMazeService().initializeMaze(update);
-            gameView.getRunView().reSetView();
+            javafx.application.Platform.runLater(() -> {
+                gameView.getRunView().reSetView();
+            });
         }
     }
 
     private static void handleMazeData(String mazeData) {
-        // 处理接收到的迷宫数据
         if (gameService != null) {
             gameService.getMazeService().initializeMaze(mazeData);
-            gameView.getRunView().reSetView();
+            javafx.application.Platform.runLater(() -> {
+                gameView.getRunView().reSetView();
+            });
         }
     }
 

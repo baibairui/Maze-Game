@@ -62,8 +62,9 @@ public class App extends Application {
                         primaryStage.setScene(scene);
                         primaryStage.setTitle("Maze Game");
                         primaryStage.show();
+                        GameClient.connectToServer();
                     });
-                    GameClient.connectToServer();
+
                 }).start();
             });
         }
