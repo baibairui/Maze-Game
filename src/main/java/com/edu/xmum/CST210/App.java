@@ -10,6 +10,7 @@ import com.edu.xmum.CST210.View.Entity.GameView;
 import com.edu.xmum.CST210.View.Entity.SkinSelectionView;
 import com.edu.xmum.CST210.View.Interface.IGameView;
 import com.edu.xmum.CST210.View.Interface.ISkinSelectionView;
+import com.edu.xmum.CST210.Webserver.GameServer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -77,6 +78,14 @@ public class App extends Application {
 
         // Dependency injection
         gameController.setGameView(gameView);
+        // Start the server
+        new Thread(() -> {
+            try {
+                GameServer.main(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
     public static void main(String[] args){
         launch();
