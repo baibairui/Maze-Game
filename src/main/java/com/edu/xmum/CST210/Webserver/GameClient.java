@@ -1,6 +1,9 @@
 package com.edu.xmum.CST210.Webserver;
 
+import Constant.Config;
+import Constant.Skin;
 import com.edu.xmum.CST210.Controller.IGameController;
+import com.edu.xmum.CST210.Factory.FactoryProducer;
 import com.edu.xmum.CST210.Model.Interface.IGameModel;
 import com.edu.xmum.CST210.Service.Interface.IGameService;
 import com.edu.xmum.CST210.View.Interface.IGameView;
@@ -20,36 +23,22 @@ public class GameClient extends Application {
     private static BufferedReader in;
     private static PrintWriter out;
     private static IGameView gameView;
-    private static IGameController gameController;
-    private static IGameService gameService;
     private static IGameModel gameModel;
 
     public static void setGameView(IGameView gameView) {
         GameClient.gameView = gameView;
     }
 
-    public static void setGameController(IGameController gameController) {
-        GameClient.gameController = gameController;
-    }
-
-    public static void setGameService(IGameService gameService) {
-        GameClient.gameService = gameService;
-    }
-
-    public static IGameService getGameService() {
-        return gameService;
-    }
 
     public static IGameModel getGameModel() {
+        gameModel= FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         return gameModel;
     }
 
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(gameView.getView(), 800, 600);
-
         scene.setOnKeyPressed(this::handleKeyPress);
-
         primaryStage.setScene(scene);
         primaryStage.setTitle("Maze Game Client");
         primaryStage.show();
@@ -110,27 +99,15 @@ public class GameClient extends Application {
 
     private static void handleInit(String initData) {
         gameModel.fromString(initData);
-        // 更新视图等
-        if (gameService != null) {
-            gameService.getMazeService().initializeMaze(initData);
-            gameView.getRunView().reSetView();
-        }
     }
 
     private static void handleUpdate(String update) {
-        // 处理接收到的更新消息，并更新游戏视图
-        if (gameService != null) {
-            gameService.getMazeService().initializeMaze(update);
-            gameView.getRunView().reSetView();
-        }
+        gameModel.fromString(update);
     }
 
     private static void handleMazeData(String mazeData) {
         // 处理接收到的迷宫数据
-        if (gameService != null) {
-            gameService.getMazeService().initializeMaze(mazeData);
-            gameView.getRunView().reSetView();
-        }
+        gameModel.fromString(mazeData);
     }
 
     public static void main(String[] args) {

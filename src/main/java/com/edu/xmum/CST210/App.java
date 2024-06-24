@@ -78,18 +78,17 @@ public class App extends Application {
      * Initializes the layers of the game (model, service, controller, view) based on the selected skin.
      */
     private void initLayer() {
+
         // Initialization
-        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(skin);
+        gameModel = GameClient.getGameModel();
         gameService = FactoryProducer.getFactory("GameService").getGameService(skin,gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
-        gameView = new GameView();
-
         // Dependency injection
         gameController.setGameView(gameView);
+
+        gameView = new GameView();
         // 设置客户端的视图、控制器和服务
         GameClient.setGameView(gameView);
-        GameClient.setGameController(gameController);
-        GameClient.setGameService(gameService);
     }
 
     public static void main(String[] args) {

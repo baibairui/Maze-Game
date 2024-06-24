@@ -19,9 +19,9 @@ import java.util.Random;
  * - startX, startY: start position coordinates
  */
 public class MazeModel extends GameObject implements IMazeModel {
-    private final int[][] maze;
-    private final int startX;
-    private final int startY;
+    private  int[][] maze;
+    private  int startX;
+    private  int startY;
     private int rows;
     private int cols;
     private int goalX;
