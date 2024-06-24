@@ -99,15 +99,18 @@ public class GameClient extends Application {
 
     private static void handleInit(String initData) {
         gameModel.fromString(initData);
+        gameView.getRunView().reSetView();
     }
 
     private static void handleUpdate(String update) {
         gameModel.fromString(update);
+        gameView.getRunView().reSetView();
     }
 
     private static void handleMazeData(String mazeData) {
         // 处理接收到的迷宫数据
         gameModel.fromString(mazeData);
+        gameView.getRunView().reSetView();
     }
 
     public static void main(String[] args) {

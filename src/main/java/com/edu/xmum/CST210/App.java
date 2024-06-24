@@ -53,11 +53,15 @@ public class App extends Application {
                 } else if (skin.getSkin().equals("V2")) {
                     skin = Skin.V1;
                 }
+                initLayer();
                 // 启动客户端线程连接服务器并等待初始化数据
                 new Thread(() -> {
                     javafx.application.Platform.runLater(() -> {
-                        initLayer();
                         // Setting up the main scene and displaying it
+                        // Dependency injection
+                        gameView = new GameView();
+                        gameController.setGameView(gameView);
+
                         Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
                         primaryStage.setScene(scene);
                         primaryStage.setTitle("Maze Game");
@@ -83,10 +87,7 @@ public class App extends Application {
         gameModel = GameClient.getGameModel();
         gameService = FactoryProducer.getFactory("GameService").getGameService(skin,gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
-        // Dependency injection
-        gameController.setGameView(gameView);
 
-        gameView = new GameView();
         // 设置客户端的视图、控制器和服务
         GameClient.setGameView(gameView);
     }
