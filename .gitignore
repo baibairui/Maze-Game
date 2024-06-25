@@ -41,3 +41,4 @@ build/
 bin
 mvnw.cmd
 mvnw
+.gitignore
