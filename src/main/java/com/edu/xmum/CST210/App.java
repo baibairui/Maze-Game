@@ -59,7 +59,7 @@ public class App extends Application {
                     javafx.application.Platform.runLater(() -> {
                         // Setting up the main scene and displaying it
                         // Dependency injection
-                        gameView = new GameView();
+                        //
                         gameController.setGameView(gameView);
 
                         Scene scene = new Scene(gameView.getView(), SCENE_HEIGHT, SCENE_WIDTH);
@@ -82,14 +82,17 @@ public class App extends Application {
      * Initializes the layers of the game (model, service, controller, view) based on the selected skin.
      */
     private void initLayer() {
-
         // Initialization
-        gameModel = GameClient.getGameModel();
-        gameService = FactoryProducer.getFactory("GameService").getGameService(skin,gameModel);
+        gameModel = FactoryProducer.getFactory("GameModel").getGameModel(skin);
+        gameService = FactoryProducer.getFactory("GameService").getGameService(skin, gameModel);
         gameController = FactoryProducer.getFactory("GameController").getGameController(Config.skin, gameService);
+        gameView = new GameView();
 
-        // 设置客户端的视图、控制器和服务
+        // Dependency injection
+        gameController.setGameView(gameView);
         GameClient.setGameView(gameView);
+        GameClient.setGameController(gameController);
+        GameClient.setGameService(gameService,gameModel);
     }
 
     public static void main(String[] args) {

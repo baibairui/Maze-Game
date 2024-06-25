@@ -1,12 +1,11 @@
 package com.edu.xmum.CST210.Webserver;
 
 import Constant.Config;
-import Constant.Skin;
 import com.edu.xmum.CST210.Controller.IGameController;
-import com.edu.xmum.CST210.Factory.FactoryProducer;
-import com.edu.xmum.CST210.Model.Interface.IGameModel;
 import com.edu.xmum.CST210.Service.Interface.IGameService;
 import com.edu.xmum.CST210.View.Interface.IGameView;
+import com.edu.xmum.CST210.Model.Interface.IGameModel;
+import com.edu.xmum.CST210.Factory.FactoryProducer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -23,22 +22,37 @@ public class GameClient extends Application {
     private static BufferedReader in;
     private static PrintWriter out;
     private static IGameView gameView;
+    private static IGameController gameController;
+    private static IGameService gameService;
     private static IGameModel gameModel;
 
     public static void setGameView(IGameView gameView) {
         GameClient.gameView = gameView;
     }
 
+    public static void setGameController(IGameController gameController) {
+        GameClient.gameController = gameController;
+    }
+
+    public static void setGameService(IGameService gameService,IGameModel gameModel) {
+        GameClient.gameService = gameService;
+        GameClient.gameModel=gameModel;
+    }
+
+    public static IGameService getGameService() {
+        return gameService;
+    }
 
     public static IGameModel getGameModel() {
-        gameModel= FactoryProducer.getFactory("GameModel").getGameModel(Config.skin);
         return gameModel;
     }
 
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(gameView.getView(), 800, 600);
+
         scene.setOnKeyPressed(this::handleKeyPress);
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("Maze Game Client");
         primaryStage.show();
@@ -56,9 +70,7 @@ public class GameClient extends Application {
                 out = new PrintWriter(socket.getOutputStream(), true);
 
                 String message = in.readLine();
-                if (message.startsWith("INIT__")) {
-                    handleInit(message.split("__")[1]);
-                }
+                handleInit(message.split("__")[1]);
 
                 while ((message = in.readLine()) != null) {
                     System.out.println("Received: " + message);
@@ -83,17 +95,13 @@ public class GameClient extends Application {
     }
 
     public static void send(String message) {
-        if (out != null) {
-            out.println(message);
-        }
+        out.println(message);
     }
 
     private void handleKeyPress(KeyEvent event) {
         String key = event.getText().toUpperCase();
         if ("WASD".contains(key) || "IJKL".contains(key)) {
             send("KEYPRESS__" + key);
-        } else {
-            System.out.println("Unknown key: " + key); // 未知键值，打印日志
         }
     }
 
@@ -108,7 +116,6 @@ public class GameClient extends Application {
     }
 
     private static void handleMazeData(String mazeData) {
-        // 处理接收到的迷宫数据
         gameModel.fromString(mazeData);
         gameView.getRunView().reSetView();
     }
@@ -117,3 +124,4 @@ public class GameClient extends Application {
         launch(args);
     }
 }
+
